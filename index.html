@@ -1793,8 +1793,13 @@ async function gh(path, opts = {}) {
   if (!r.ok) { const e = new Error('GitHub ' + r.status); e.status = r.status; throw e; }
   return r.status === 204 ? null : r.json();
 }
+// "Example only" = nothing of yours in it yet: every vector, burn and debrief is an example and there are no drops.
+// A device that only holds examples never uploads them, and your real data always beats examples,
+// whichever device connects first and whatever the clocks say.
+const isExample = s => !!s && !(s.vectors || []).some(v => !v.sample) && !(s.sessions || []).some(x => !x.sample)
+  && !Object.values(s.debriefs || {}).some(d => !d.sample) && !(s.drops || []).length && !(s.orbits || []).some(o => !o.sample);
 async function gistPush() {
-  const c = syncCfg(); if (!c || !c.gist) return;
+  const c = syncCfg(); if (!c || !c.gist || isExample(state)) return;
   await gh('/gists/' + c.gist, { method: 'PATCH', body: JSON.stringify({ files: { [GIST_FILE]: { content: JSON.stringify(state) } } }) });
   c.last = Date.now(); setSyncCfg(c);
 }
@@ -1802,10 +1807,11 @@ async function gistPull() {
   const c = syncCfg(); if (!c || !c.gist) return;
   const g = await gh('/gists/' + c.gist), f = g.files && g.files[GIST_FILE]; if (!f) return;
   const txt = f.truncated ? await (await fetch(f.raw_url, { cache: 'no-store' })).text() : f.content;
-  const remote = normalize(JSON.parse(txt));
-  if (state.origin === 'seed' || (+remote.updatedAt || 0) > (+state.updatedAt || 0)) {
-    state = remote; state.origin = 'cloud'; saveLocal(); renderAll({ remote: true });
-  } else if ((+remote.updatedAt || 0) < (+state.updatedAt || 0)) await gistPush();
+  let remote = null; try { remote = normalize(JSON.parse(txt)); } catch (e) {}
+  const localEx = isExample(state), remoteEx = !remote || isExample(remote);
+  const takeRemote = !remoteEx && (localEx || (+remote.updatedAt || 0) > (+state.updatedAt || 0));
+  if (takeRemote) { state = remote; state.origin = 'cloud'; saveLocal(); renderAll({ remote: true }); }
+  else if (!localEx && (remoteEx || (+remote.updatedAt || 0) < (+state.updatedAt || 0))) await gistPush();
   c.last = Date.now(); setSyncCfg(c);
 }
 // find the KAIROS file in your gists, or make it (secret) the first time
