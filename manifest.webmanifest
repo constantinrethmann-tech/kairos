@@ -1,0 +1,22 @@
+{
+  "name": "KAIROS",
+  "short_name": "KAIROS",
+  "description": "Plan, burn and land what matters.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#06070A",
+  "theme_color": "#06070A",
+  "categories": ["productivity"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "New vector", "short_name": "New", "url": "./#new", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Drop a thought", "short_name": "Drop", "url": "./#drop", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
