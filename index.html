@@ -1310,9 +1310,32 @@ button.cd-row:hover{background:var(--hull-2)}
 @media (max-width:620px){.hstats.two > div:first-child{grid-column:auto}}
 .hz-below{margin-top:40px}
 
+/* Board, larger: bigger tiles and letters, more room for the board next to its panel */
+@media (min-width:561px){
+  .b-head,.b-row{grid-template-columns:86px minmax(0,1fr) 66px 112px;gap:14px;padding:12px 18px}
+  .b-head{font-size:9.5px}
+  .flaps{gap:2px}
+  .flaps i{width:14px;height:23px;font-size:13px;border-radius:3px}
+  .b-burn{font-size:12px}
+  .b-st{font-size:11px}
+  .b-sep{padding:8px 18px;font-size:9.5px}
+  .b-free{padding:12px 18px;font-size:10.5px}
+  .board .flaps.time.any::before{width:16px;height:14px}
+  .board .flaps.time.any::after{width:11px;height:10px}
+}
+@media (max-width:560px){.flaps i{width:11px;height:19px;font-size:11px}.b-head,.b-row{grid-template-columns:70px minmax(0,1fr) 92px}}
+/* the vector you are burning */
+.b-row{position:relative}
+.b-row.live{background:linear-gradient(90deg,rgba(143,179,255,.15),rgba(143,179,255,.04) 70%);box-shadow:inset 3px 0 0 var(--ion)}
+.b-row.live .flaps i{color:#D6E4FF;background:linear-gradient(180deg,#1C2640 0 50%,#151D30 50% 100%);box-shadow:inset 0 -1px 0 #000,0 0 8px rgba(143,179,255,.2)}
+.b-row.live .b-burn{color:var(--ion);font-weight:500}
+.b-prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(143,179,255,.12)}
+.b-prog i{display:block;height:100%;width:0;background:var(--ion);box-shadow:0 0 8px var(--ion);transition:width 1s linear}
+.b-st.hd{color:var(--dust)}
+
 /* Board format: the board, and beside it the same panel as the Comb */
 .bz{display:grid;gap:30px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:960px){.bz{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);column-gap:48px;align-items:start}.bz-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 82px)}}
+@media (min-width:960px){.bz{grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);column-gap:36px;align-items:start}.bz-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 82px)}}
 .bz .board{margin-top:0}
 .b-row.on{background:rgba(143,179,255,.07);box-shadow:inset 2px 0 0 var(--ion)}
 /* ---------- phone pass (iPhone 13 is 390 px wide) ---------- */
@@ -2087,7 +2110,7 @@ function renderComb() {
     </div>
     <div id="readout">${readoutHTML()}</div>
   </div>
-  <div class="hz-below">${daySections(t, G, bm, true)}</div>`;
+  <div class="hz-below">${daySections(t, G, bm, true, '', false)}</div>`;
   ui.hive.roId = ui.hive.sel;
   ui.hive.anim = false;
   return html;
@@ -2558,13 +2581,14 @@ function dayStats(t, G, bm, M, keys) {
   };
   return `<div class="hstats${keys.length === 2 ? ' two' : ''}">${keys.map(k => cells[k]).join('')}</div>`;
 }
-// Next up, Today and Anytime, shared by Day, Comb and Board (extraSide goes above Anytime)
-function daySections(t, G, bm, withNext = true, extraSide = '') {
+// Next up, Today and Anytime, shared by Day, Comb and Board (extraSide goes above Anytime;
+// the Comb leaves Today out, its panel beside the comb already lists today)
+function daySections(t, G, bm, withNext = true, extraSide = '', withToday = true) {
   const nx = withNext && nextUp(), anyN = G.windows.length + G.floating.length;
   return `<div class="hz2">
     <div class="hz2-main">
       ${nx ? nextCard(nx, bm) : ''}
-      <section class="sec"><div class="sec-h"><h2>Today</h2><span class="count">${G.today.length + classesOn(t).length}</span><span class="sec-extra"><button class="btn-ghost sm" data-action="add-today">${I.plus} Add to today</button></span></div><div class="tline">${todayTimeline(t, bm)}</div></section>
+      ${withToday ? `<section class="sec"><div class="sec-h"><h2>Today</h2><span class="count">${G.today.length + classesOn(t).length}</span><span class="sec-extra"><button class="btn-ghost sm" data-action="add-today">${I.plus} Add to today</button></span></div><div class="tline">${todayTimeline(t, bm)}</div></section>` : ''}
     </div>
     <div class="hz2-side">
       ${extraSide}
@@ -3459,11 +3483,13 @@ function departures(more = false) {
     const was = boardSeen[key] || '', str = s.toUpperCase().padEnd(n).slice(0, n); boardSeen[key] = str;
     return str.split('').map((c, i) => `<i${c !== was[i] ? ` class="flip" style="--d:${i * 22}ms"` : ''}>${c === ' ' ? '&nbsp;' : esc(c)}</i>`).join('');
   };
+  // the vector you are burning: lit row, blue letters, a live countdown instead of the minutes and a bar that fills
   const row = v => {
     let [lab, cls] = BOARD_ST[stOf(v)];
     if (!v.anchor && !v.landedAt && v.id !== live && v.window) { const w = windowInfo(v); lab = w.cls === 'late' ? 'CLOSING' : 'BY ' + DOW[k2d(v.window.until).getDay()]; cls = w.cls === 'late' ? 'dl' : 'sc'; }
+    const isLive = v.id === live; if (isLive && state.active.paused) { lab = 'HOLDING'; cls = 'hd'; }
     const moved = boardSeen[v.id + 's'] !== lab, tm = timeOf(v); boardSeen[v.id + 's'] = lab;
-    return `<button class="b-row${v.landedAt ? ' done' : ''}${ui.boardSel === v.id ? ' on' : ''}" data-bsel="${v.id}"><span class="flaps time${tm ? '' : ' any'}"${tm ? '' : ' title="Any time"'}>${flap(tm, 5, v.id + 't')}</span><span class="flaps nm">${flap(v.title, 30, v.id + 'n')}</span><span class="b-burn">${v.burnMin}M</span><span class="b-st ${cls}${moved ? ' flip' : ''}">${lab}</span></button>`;
+    return `<button class="b-row${v.landedAt ? ' done' : ''}${isLive ? ' live' : ''}${ui.boardSel === v.id ? ' on' : ''}" data-bsel="${v.id}"><span class="flaps time${tm ? '' : ' any'}"${tm ? '' : ' title="Any time"'}>${flap(tm, 5, v.id + 't')}</span><span class="flaps nm">${flap(v.title, 30, v.id + 'n')}</span><span class="b-burn"${isLive ? ' data-bclock' : ''}>${v.burnMin}M</span><span class="b-st ${cls}${moved ? ' flip' : ''}">${lab}</span>${isLive ? '<span class="b-prog" aria-hidden="true"><i data-bprog></i></span>' : ''}</button>`;
   };
   // classes ride along as their own rows: hatched tiles, CLASS / IN CLASS / ENDED
   const nh = nowHours();
@@ -4557,6 +4583,8 @@ function tick() {
   const p = $('#pclock');
   if (p) { p.textContent = (a.paused ? 'PAUSED · ' : '') + clock; pillEl.classList.toggle('paused', !!a.paused); }
   $$('[data-olive]').forEach(o => { o.textContent = a.paused ? 'PAUSED ' + clock : over ? clock : clock + ' left'; });
+  $$('[data-bclock]').forEach(o => { o.textContent = clock; });
+  $$('[data-bprog]').forEach(o => { o.style.width = Math.min(100, el / target * 100).toFixed(1) + '%'; });
 }
 setInterval(tick, 250);
 
