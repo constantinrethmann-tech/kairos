@@ -1299,6 +1299,17 @@ button.cd-row:hover{background:var(--hull-2)}
 .b-st.if{color:var(--ion);animation:blinkSt 1.4s ease-in-out infinite}
 @keyframes blinkSt{50%{opacity:.4}}
 @media (max-width:560px){.b-head,.b-row{grid-template-columns:64px minmax(0,1fr) 84px;gap:8px;padding-inline:10px}.b-burn,.b-head .bb{display:none}.flaps i{width:10px;height:17px;font-size:10px}}
+/* Board: class rows, free days, and the day numbers above Board and Comb */
+.b-row.cls .flaps i{background:repeating-linear-gradient(135deg,#1A1F28 0 2px,#11151C 2px 5px)}
+.b-row.cls .flaps.nm i{color:var(--mist)}
+.b-st.cl{color:var(--mist)}
+.b-st.ic{color:var(--frost);animation:blinkSt 1.8s ease-in-out infinite}
+.b-free{padding:10px 14px;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.2em;color:var(--dust);border-bottom:1px solid #10141B}
+.hz-stats .hstats{margin:0 0 30px;padding-bottom:24px;border-bottom:1px solid var(--seam)}
+.hstats.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:620px){.hstats.two > div:first-child{grid-column:auto}}
+.hz-below{margin-top:40px}
+
 /* Board format: the board, and beside it the same panel as the Comb */
 .bz{display:grid;gap:30px;grid-template-columns:minmax(0,1fr)}
 @media (min-width:960px){.bz{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);column-gap:48px;align-items:start}.bz-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 82px)}}
@@ -2062,9 +2073,12 @@ function crumbsHTML() {
 function renderComb() {
   const now = new Date();
   ui.hive.focus = null;
+  const t = todayKey(), bm = burnMap(), G = groups();
+  // the comb's middle cell already shows today's burn, so only free time and classes up here
   const html = `
   <div class="vhead"><div><div class="eyebrow">Horizon</div><h1>${DOW_LONG[now.getDay()]} ${now.getDate()} ${MON_LONG[now.getMonth()]}</h1></div>${viewSwitch()}</div>
   ${horizonBanners()}
+  <div class="hz-stats">${dayStats(t, G, bm, dayModel(t), ['free', 'classes'])}</div>
   ${sampleBanner()}
   <div class="hz">
     <div class="hive-col">
@@ -2072,7 +2086,8 @@ function renderComb() {
       <div id="hive-slot">${hiveHTML()}</div>
     </div>
     <div id="readout">${readoutHTML()}</div>
-  </div>`;
+  </div>
+  <div class="hz-below">${daySections(t, G, bm, true)}</div>`;
   ui.hive.roId = ui.hive.sel;
   ui.hive.anim = false;
   return html;
@@ -2485,22 +2500,27 @@ function viewSwitch() {
   return `<div class="hview"><div class="hmodes" role="group" aria-label="Horizon format">${[['day', 'Day'], ['stock', 'Stock'], ['comb', 'Comb'], ['board', 'Board']].map(([k, l]) => `<button class="${mode === k ? 'sel' : ''}" data-hmode="${k}" aria-pressed="${mode === k}">${l}</button>`).join('')}</div></div>`;
 }
 
-// Board: every vector as a flight. Today and tomorrow first; More opens the rest of the week and anything without a day.
-// Beside it the same panel as the Comb: Today by default, a vector while you point at its row.
+// Board: every vector and class as a flight. The day numbers on top; below the board, Today and Anytime.
+// Beside it a panel: Next up by default, a vector while you point at its row.
 // Click a row to keep it in the panel, click it again to open it.
 function renderBoard() {
-  const now = new Date(), more = !!ui.boardMore;
+  const now = new Date(), t = todayKey(), bm = burnMap(), G = groups(), more = !!ui.boardMore;
   if (ui.boardSel && !vec(ui.boardSel)) ui.boardSel = null;
   return `
   <div class="vhead"><div><div class="eyebrow">Horizon</div><h1>${DOW_LONG[now.getDay()]} ${now.getDate()} ${MON_LONG[now.getMonth()]}</h1></div>${viewSwitch()}</div>
   ${horizonBanners()}
+  <div class="hz-stats">${dayStats(t, G, bm, dayModel(t), ['burned', 'free', 'classes'])}</div>
   ${sampleBanner()}
   <div class="bz">
-    <div class="bz-main">${departures(more ? 7 : 1, more)}<button class="b-more" data-action="board-more" aria-expanded="${more}">${more ? 'Less' : 'More'} ${I.down}</button></div>
+    <div class="bz-main">${departures(more)}<button class="b-more" data-action="board-more" aria-expanded="${more}">${more ? 'Less' : 'More'} ${I.down}</button></div>
     <div class="bz-side" id="bro" data-k="${ui.boardSel || ''}">${boardSide(ui.boardSel)}</div>
-  </div>`;
+  </div>
+  ${daySections(t, G, bm, false)}`;
 }
-const boardSide = id => { const v = id && vec(id), bm = burnMap(); return v ? vectorReadout(v, bm) : groupReadout('today', bm, false, 'Board · Today'); };
+const boardSide = id => {
+  const v = id && vec(id), bm = burnMap(); if (v) return vectorReadout(v, bm);
+  const nx = nextUp(); return nx ? nextCard(nx, bm, true) : groupReadout('today', bm, false, 'Board · Today');
+};
 function boardShow(id) {
   const el = $('#bro'); if (!el) return;
   id = id || '';
@@ -2514,10 +2534,7 @@ function renderDay() {
   const now = new Date(), t = todayKey(), bm = burnMap(), G = groups();
   const style = (state.prefs && state.prefs.dayStyle) || 'arc';
   const M = dayModel(t), W = mapWidth(), nx = nextUp();
-  const burned = minutesOn(t), planned = burned + remaining(G.today, bm);
   const map = style === 'strata' ? mapStrata(M, W) : style === 'ring' ? mapRing(M, W, nx) : mapArc(M, W);
-  const anyN = G.windows.length + G.floating.length;
-  const clsToday = classesOn(t);
   return `
   <div class="vhead"><div><div class="eyebrow">Horizon</div><h1>${DOW_LONG[now.getDay()]} ${now.getDate()} ${MON_LONG[now.getMonth()]}</h1></div>
     ${viewSwitch()}</div>
@@ -2525,20 +2542,32 @@ function renderDay() {
   <section class="dayhero">
     <div class="map-wrap${style === 'ring' ? ' center' : ''}">${map}</div>
     <div class="map-foot"><div class="map-leg"><span><i class="c"></i>Classes</span><span><i class="t"></i>Travel</span><span><i class="p"></i>Planned</span><span><i class="g"></i>Fits here</span><span><i class="d"></i>Burned</span></div><div class="dstyle" role="group" aria-label="Day style">${DAY_STYLES.map(([k, l]) => `<button class="${style === k ? 'sel' : ''}" data-dstyle="${k}" aria-pressed="${style === k}">${l}</button>`).join('')}</div></div>
-    <div class="hstats">
-      <div><span class="eyebrow">Burned today</span><b>${burned}<small>/ ${planned} MIN</small></b><span class="bar"><i style="width:${planned ? clamp(burned / planned, 0, 1) * 100 : 0}%"></i></span></div>
-      <div><span class="eyebrow">Free ${M.isToday ? 'left' : ''}</span><b>${fmtFree(M.freeMin)}</b><span class="hs-sub">after classes, travel and plans</span></div>
-      <div><span class="eyebrow">Classes</span><b>${clsToday.length || '—'}${clsToday.length ? `<small>${fmtMin(classMin(t)).toUpperCase()}</small>` : ''}</b><span class="hs-sub">${clsToday.length ? `${clsToday[0].s}–${clsToday[clsToday.length - 1].e}` : 'No classes today'}</span></div>
-    </div>
+    ${dayStats(t, G, bm, M, ['burned', 'free', 'classes'])}
   </section>
   ${sampleBanner()}
-  <div class="hz2">
+  ${daySections(t, G, bm, true, `<section class="sec"><div class="sec-h"><h2>Efficiency</h2><span class="sec-extra"><button class="btn-text" data-hmode="stock" style="height:auto;padding:0;font-size:12px">Stock view ${I.right}</button></span></div>${moMini(moModel())}</section>`)}`;
+}
+
+// The Day numbers (burned today, free left, classes), shared by Day, Comb and Board
+function dayStats(t, G, bm, M, keys) {
+  const burned = minutesOn(t), planned = burned + remaining(G.today, bm), cl = classesOn(t);
+  const cells = {
+    burned: `<div><span class="eyebrow">Burned today</span><b>${burned}<small>/ ${planned} MIN</small></b><span class="bar"><i style="width:${planned ? clamp(burned / planned, 0, 1) * 100 : 0}%"></i></span></div>`,
+    free: `<div><span class="eyebrow">Free ${M.isToday ? 'left' : ''}</span><b>${fmtFree(M.freeMin)}</b><span class="hs-sub">after classes, travel and plans</span></div>`,
+    classes: `<div><span class="eyebrow">Classes</span><b>${cl.length || '—'}${cl.length ? `<small>${fmtMin(classMin(t)).toUpperCase()}</small>` : ''}</b><span class="hs-sub">${cl.length ? `${cl[0].s}–${cl[cl.length - 1].e}` : 'No classes today'}</span></div>`
+  };
+  return `<div class="hstats${keys.length === 2 ? ' two' : ''}">${keys.map(k => cells[k]).join('')}</div>`;
+}
+// Next up, Today and Anytime, shared by Day, Comb and Board (extraSide goes above Anytime)
+function daySections(t, G, bm, withNext = true, extraSide = '') {
+  const nx = withNext && nextUp(), anyN = G.windows.length + G.floating.length;
+  return `<div class="hz2">
     <div class="hz2-main">
       ${nx ? nextCard(nx, bm) : ''}
-      <section class="sec"><div class="sec-h"><h2>Today</h2><span class="count">${G.today.length + clsToday.length}</span><span class="sec-extra"><button class="btn-ghost sm" data-action="add-today">${I.plus} Add to today</button></span></div><div class="tline">${todayTimeline(t, bm)}</div></section>
+      <section class="sec"><div class="sec-h"><h2>Today</h2><span class="count">${G.today.length + classesOn(t).length}</span><span class="sec-extra"><button class="btn-ghost sm" data-action="add-today">${I.plus} Add to today</button></span></div><div class="tline">${todayTimeline(t, bm)}</div></section>
     </div>
     <div class="hz2-side">
-      <section class="sec"><div class="sec-h"><h2>Efficiency</h2><span class="sec-extra"><button class="btn-text" data-hmode="stock" style="height:auto;padding:0;font-size:12px">Stock view ${I.right}</button></span></div>${moMini(moModel())}</section>
+      ${extraSide}
       <section class="sec"><div class="sec-h"><h2>Anytime</h2><span class="count">${anyN}</span></div>${anyN ? vlist(G.windows.concat(G.floating), bm) : `<div class="empty">Nothing waiting. Everything has a day.</div>`}</section>
     </div>
   </div>`;
@@ -3421,7 +3450,7 @@ function renderOrbits() {
 // No time set: the time tiles show a small lit hexagon instead (any time today).
 const BOARD_ST = { landed: ['LANDED', 'up'], flight: ['IN FLIGHT', 'if'], delayed: ['DELAYED', 'dl'], boarding: ['BOARDING', 'bd'], scheduled: ['SCHEDULED', 'sc'], standby: ['STANDBY', 'sc'] };
 const boardSeen = {};
-function departures(nDays = 1, anytime = false) {
+function departures(more = false) {
   const t = todayKey(), live = state.active && state.active.vectorId;
   const stOf = v => v.landedAt ? 'landed' : v.id === live ? 'flight' : v.anchor ? (v.anchor.date < t ? 'delayed' : v.anchor.date === t ? 'boarding' : 'scheduled') : 'standby';
   const timeOf = v => (v.anchor && v.anchor.time) || (v.landedAt ? hhmm(v.landedAt) : '');
@@ -3436,16 +3465,30 @@ function departures(nDays = 1, anytime = false) {
     const moved = boardSeen[v.id + 's'] !== lab, tm = timeOf(v); boardSeen[v.id + 's'] = lab;
     return `<button class="b-row${v.landedAt ? ' done' : ''}${ui.boardSel === v.id ? ' on' : ''}" data-bsel="${v.id}"><span class="flaps time${tm ? '' : ' any'}"${tm ? '' : ' title="Any time"'}>${flap(tm, 5, v.id + 't')}</span><span class="flaps nm">${flap(v.title, 30, v.id + 'n')}</span><span class="b-burn">${v.burnMin}M</span><span class="b-st ${cls}${moved ? ' flip' : ''}">${lab}</span></button>`;
   };
+  // classes ride along as their own rows: hatched tiles, CLASS / IN CLASS / ENDED
+  const nh = nowHours();
+  const clsRow = (c, d) => {
+    const st = d !== t ? 'CLASS' : hm(c.e) <= nh ? 'ENDED' : hm(c.s) <= nh ? 'IN CLASS' : 'CLASS', key = 'c' + c.id + d;
+    return `<button class="b-row cls${st === 'ENDED' ? ' done' : ''}" data-mod="timetable"><span class="flaps time">${flap(c.s, 5, key + 't')}</span><span class="flaps nm">${flap(c.short || c.t, 30, key + 'n')}</span><span class="b-burn">${Math.round((hm(c.e) - hm(c.s)) * 60)}M</span><span class="b-st ${st === 'IN CLASS' ? 'ic' : st === 'ENDED' ? 'sc' : 'cl'}">${st}</span></button>`;
+  };
+  const kOf = v => { const tm = timeOf(v); return tm ? hm(tm) : 30; };
+  const dayRows = (d, vs) => [...classesOn(d).map(c => ({ k: hm(c.s), html: clsRow(c, d) })), ...vs.map(v => ({ k: kOf(v), html: row(v) }))].sort((a, b) => a.k - b.k).map(r => r.html);
   const sep = l => `<div class="b-sep">${l}</div>`;
-  const today = state.vectors.filter(v => v.landedAt ? dkey(new Date(v.landedAt)) === t : v.id === live || (v.anchor && v.anchor.date <= t)).sort(byTime);
-  let ahead = '';
-  for (let i = 1; i <= nDays; i++) {
-    const d = addDays(t, i), vs = state.vectors.filter(v => !v.landedAt && v.id !== live && v.anchor && v.anchor.date === d).sort(byTime);
-    if (vs.length) ahead += sep(i === 1 ? 'TOMORROW' : shortDay(d)) + vs.map(row).join('');
+  const today = dayRows(t, state.vectors.filter(v => v.landedAt ? dkey(new Date(v.landedAt)) === t : v.id === live || (v.anchor && v.anchor.date <= t)));
+  // the days after today: on Friday always the whole weekend; and if it is still quiet, more days until the board has
+  // about eight rows (More opens the full week and everything without a day)
+  const dow = k2d(t).getDay(), must = dow === 5 ? 2 : 1;
+  let ahead = '', n = today.length;
+  for (let i = 1; i <= 7; i++) {
+    if (!more && i > must && n >= 8) break;
+    const d = addDays(t, i), rows = dayRows(d, state.vectors.filter(v => !v.landedAt && v.id !== live && v.anchor && v.anchor.date === d));
+    const label = i === 1 ? 'TOMORROW · ' + shortDay(d) : shortDay(d);
+    if (rows.length) { ahead += sep(label) + rows.join(''); n += rows.length; }
+    else if (i <= must) ahead += sep(label) + `<div class="b-free">FREE DAY</div>`;
   }
-  if (anytime) { const G = groups(), any = G.windows.concat(G.floating).filter(v => v.id !== live); if (any.length) ahead += sep('ANY TIME') + any.map(row).join(''); }
+  if (more) { const G = groups(), any = G.windows.concat(G.floating).filter(v => v.id !== live); if (any.length) ahead += sep('ANY TIME') + any.map(row).join(''); }
   if (!today.length && !ahead) return `<div class="empty">No flights today.</div>`;
-  return `<div class="board"><div class="b-head"><span>TIME</span><span>VECTOR</span><span class="r bb">BURN</span><span class="r">STATUS</span></div>${today.map(row).join('')}${ahead}</div>`;
+  return `<div class="board"><div class="b-head"><span>TIME</span><span>VECTOR</span><span class="r bb">BURN</span><span class="r">STATUS</span></div>${today.length ? today.join('') : `<div class="b-free">NOTHING TODAY</div>`}${ahead}</div>`;
 }
 
 function renderTelemetry() {
