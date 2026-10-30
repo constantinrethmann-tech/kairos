@@ -186,12 +186,6 @@ svg{display:block}
 .minibars .col.today b{background:var(--ion)}
 .minibars .col span{font-family:var(--f-mono);font-size:8.5px;color:var(--dust);letter-spacing:.08em}
 .minibars .col.today span{color:var(--frost)}
-.olist{display:flex;flex-direction:column;border-top:1px solid var(--seam)}
-.olist button{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;align-items:center;text-align:left;padding:14px 2px;border-bottom:1px solid var(--seam)}
-.olist .on{font-size:15px;font-weight:500;overflow-wrap:anywhere}
-.olist .oc{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;color:var(--dust)}
-.olist .bar{grid-column:1/-1}
-.olist button:hover .on{color:#fff}
 
 /* trajectory */
 .tray{display:flex;flex-wrap:wrap;gap:8px;padding:14px 0 4px;border-top:1px solid var(--seam)}
@@ -235,18 +229,6 @@ svg{display:block}
 }
 
 /* orbits */
-.orbit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
-.ocard{position:relative;display:flex;flex-direction:column;gap:12px;text-align:left;padding:18px;border-radius:14px;background:var(--hull);border:1px solid var(--seam);min-height:190px;transition:border-color .15s,background .15s}
-.ocard:hover{border-color:var(--seam-2);background:var(--hull-2)}
-.ocard .ohex{position:absolute;top:16px;right:16px;width:30px;height:26px}
-.ocard .on{font-size:19px;font-weight:500;letter-spacing:-.012em;line-height:1.25;overflow-wrap:anywhere;padding-right:40px}
-.ocard .onote{font-size:13px;color:var(--mist);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.ocard .ostats{margin-top:auto;display:flex;flex-direction:column;gap:8px}
-.ocard .orow{display:flex;justify-content:space-between;gap:10px;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;color:var(--dust);text-transform:uppercase}
-.ocard .onext{font-size:12.5px;color:var(--mist);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ocard.new{align-items:center;justify-content:center;border-style:dashed;color:var(--mist);gap:10px}
-.ocard.new svg{width:16px;height:16px}
-.ocard.landed{opacity:.6}
 .hexg .b{fill:none;stroke:var(--seam-2);stroke-width:1.2}
 .hexg .p{fill:none;stroke:var(--ion);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 
@@ -618,13 +600,6 @@ input[type=date].in,input[type=time].in{min-height:42px}
 .wg-leg i{display:inline-block;width:14px;height:6px;border-radius:3px;margin-right:7px;vertical-align:1px}
 .wg-leg .c{background:repeating-linear-gradient(135deg,#3A404B 0 2px,#161A21 2px 4px)}.wg-leg .p{box-shadow:inset 0 0 0 1px var(--ion)}.wg-leg .d{background:var(--ion)}
 @media (max-width:560px){.wg-row{grid-template-columns:48px minmax(0,1fr) 74px;gap:10px}.wg-leg{padding-left:58px}.wg-r{font-size:9.5px}}
-.osys{width:100%;height:auto;margin:-4px 0 -2px;overflow:visible}
-.osys .orb{fill:none;stroke:var(--seam-2);stroke-width:.9}
-.osys .pl{fill:var(--hull-3);stroke:var(--seam-3);stroke-width:.9}
-.osys .pl.live{stroke:var(--ion)}
-.osys .mn{stroke:var(--ion);stroke-width:1.1}
-.osys .mn.o{fill:var(--void)}.osys .mn.l{fill:var(--ion)}
-.ocard .on{padding-right:0}
 .db-top{display:flex;justify-content:space-between;align-items:center}
 .db-steps{display:flex;gap:6px}
 .db-steps i{width:8px;height:7px;background:var(--seam-3);clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
@@ -773,10 +748,6 @@ input[type=date].in,input[type=time].in{min-height:42px}
 .ignite svg{width:9px;height:9px;margin-left:1px}
 .map-foot{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;margin-top:14px}
 .map-foot .map-leg{margin-top:0;justify-content:flex-start}
-.dstyle{display:flex;gap:2px}
-.dstyle button{height:26px;padding:0 10px;border-radius:999px;font-size:12px;color:var(--dust)}
-.dstyle button:hover{color:var(--frost)}
-.dstyle button.sel{color:var(--frost);background:var(--hull-2)}
 @media (max-width:620px){.map-foot{justify-content:center}.map-foot .map-leg{justify-content:center}}
 .day-col{background:transparent;border-color:transparent}
 .day-col.is-today{background:var(--hull);border-color:var(--seam)}
@@ -816,19 +787,6 @@ input[type=date].in,input[type=time].in{min-height:42px}
 .bplus:active .k-h{stroke:var(--ion)}
 
 /* orbit map as an LED instrument: a light runs the ring, moons glow by gravity */
-.osys .orb{stroke:rgba(143,179,255,.22);stroke-width:.8;stroke-dasharray:1 3.2}
-.osys .orb2{fill:none;stroke:rgba(143,179,255,.07);stroke-width:5}
-.osys .run{fill:none;stroke:var(--ion);stroke-width:1.4;stroke-linecap:round;stroke-dasharray:3 97;filter:drop-shadow(0 0 3px rgba(143,179,255,.9));animation:orbRun 9s linear infinite}
-@keyframes orbRun{to{stroke-dashoffset:-100}}
-.osys .pl{fill:#0C111B;stroke:rgba(143,179,255,.35)}
-.osys .core{fill:var(--ion);filter:drop-shadow(0 0 4px rgba(143,179,255,.9))}
-.osys .moon{cursor:pointer}
-.osys .moon .hit{fill:transparent}
-.osys .moon .mn{stroke:var(--ion);stroke-width:1.2;transition:r .2s}
-.osys .moon .mn.o{fill:#0B0F18;filter:drop-shadow(0 0 calc(var(--g) * 1.3px) rgba(143,179,255,.85))}
-.osys .moon .mn.l{fill:var(--ion);opacity:.45}
-.osys .moon .mn.live{fill:var(--ion);animation:blink 1.4s ease-in-out infinite}
-.osys .moon:hover .mn,.osys .moon.peeked .mn{stroke:#fff;fill:var(--ion)}
 .peek{position:fixed;z-index:96;width:240px;padding:12px 14px;border-radius:14px;border:1px solid rgba(143,179,255,.35);background:rgba(12,15,22,.94);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 18px 44px rgba(0,0,0,.6),0 0 0 4px var(--ion-faint);pointer-events:none;animation:fadeIn .15s ease-out}
 .peek .pk-t{font-size:14.5px;font-weight:500;line-height:1.3;margin:4px 0 10px;overflow-wrap:anywhere}
 .peek .pk-r{display:flex;justify-content:space-between;gap:10px;font-family:var(--f-mono);font-size:10px;color:var(--mist);letter-spacing:.04em;padding:4px 0;border-top:1px solid var(--seam)}
@@ -933,38 +891,8 @@ input[type=date].in,input[type=time].in{min-height:42px}
 }
 
 /* orbits: fewer words, more air */
-.orbit-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
-.ocard{gap:0;padding:26px 26px 24px;border-radius:20px;min-height:0;background:linear-gradient(180deg,var(--hull),rgba(11,13,17,.35));border-color:var(--seam)}
-.ocard:hover{background:linear-gradient(180deg,var(--hull-2),var(--hull));border-color:var(--seam-2)}
-.ocard .osys{margin:0 0 26px;opacity:.85;transition:opacity .2s}
-.ocard:hover .osys{opacity:1}
-.ocard .on{font-size:20px;letter-spacing:-.015em;line-height:1.25;padding-right:0}
-.ocard .ometa{margin-top:8px;font-size:12.5px;color:var(--dust)}
-.ocard .ometa i{font-style:normal;margin:0 8px;color:var(--seam-3)}
-.ocard .bar{flex:none;margin-top:20px;height:1px;background:var(--seam)}
-.ocard .bar i{box-shadow:0 0 8px rgba(143,179,255,.5)}
-.o-empty{display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:48px 0;border-top:1px solid var(--seam);color:var(--dust);font-size:14px;max-width:44ch}
-.o-more{margin-top:40px}
-.o-more summary,.os-more summary{display:inline-flex;align-items:center;gap:8px;cursor:pointer;list-style:none;font-size:13px;color:var(--mist)}
-.o-more summary::-webkit-details-marker,.os-more summary::-webkit-details-marker{display:none}
-.o-more summary svg,.os-more summary svg{width:10px;height:10px;transition:transform .2s}
 .o-more[open] summary svg,.os-more[open] summary svg{transform:rotate(180deg)}
-.o-more summary:hover,.os-more summary:hover{color:var(--frost)}
-.o-more .orbit-grid{margin-top:20px}
-.osheet{gap:40px;padding-top:28px;padding-left:24px;padding-right:24px}
-.os-prog{display:flex;flex-direction:column;gap:14px}
-.os-nums{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-.os-nums b{font-family:var(--f-mono);font-weight:200;font-size:34px;letter-spacing:-.04em;line-height:1}
-.os-nums b small{margin-left:8px;font-size:11px;letter-spacing:.06em;color:var(--dust)}
-.os-nums span{font-size:12.5px;color:var(--dust)}
-.os-prog .bar{height:1px;background:var(--seam)}
 .ss-h .btn-text{height:auto;padding:0;font-size:12.5px}
-.os-foot{display:flex;flex-direction:column;gap:18px;padding-top:22px;border-top:1px solid var(--seam)}
-.os-field{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.os-field .in{width:auto;min-width:170px}
-.os-acts{display:flex;flex-wrap:wrap;align-items:center;gap:4px 18px}
-.os-acts .btn-text{height:32px;padding:0}
-.os-acts .confirm{margin-top:6px}
 /* week at a glance: any-time tasks sit in their own slot, not on the clock */
 .wg-row{grid-template-columns:64px minmax(0,1fr) 54px 110px}
 .wg-any{display:flex;align-items:center;gap:4px;min-height:10px}
@@ -1118,26 +1046,7 @@ html{scroll-behavior:smooth}
 @keyframes sheetIn{from{transform:translateX(24px);opacity:0}to{transform:none;opacity:1}}
 @keyframes sheetUp{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
 /* orbit map, second pass: hexagon moons on two tracks, a hexagon planet whose rim fills with progress */
-.osys .orbi{fill:none;stroke:rgba(143,179,255,.12);stroke-width:.6;stroke-dasharray:.6 2.4}
-.osys .moon .mn{stroke-width:1.1;stroke-linejoin:round}
-.osys .moon .mn.o{fill:#0B0F18;stroke:var(--ion)}
-.osys .moon .mn.l{fill:var(--ion);stroke:none;opacity:.4}
-.osys .moon .mn.live{fill:var(--ion);stroke:#fff;animation:none;filter:drop-shadow(0 0 5px rgba(143,179,255,1))}
-.osys .moon .mring{fill:none;stroke:var(--ion);stroke-width:.8;animation:mRing 1.6s ease-out infinite;transform-box:fill-box;transform-origin:center}
 @keyframes mRing{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(2.6)}}
-.osys .moon:hover .mn,.osys .moon.peeked .mn{stroke:#fff;fill:var(--ion);opacity:1}
-.osys .ph{fill:rgba(143,179,255,.04);stroke:rgba(143,179,255,.10);stroke-width:.6;stroke-dasharray:.8 2}
-.osys .pt{fill:#0B1019;stroke:rgba(143,179,255,.2);stroke-width:1;stroke-linejoin:round}
-.osys .pp{fill:none;stroke:var(--ion);stroke-width:1.2;stroke-linejoin:round;stroke-linecap:round;filter:drop-shadow(0 0 2px rgba(143,179,255,.8))}
-.osys .pb{fill:#0B1019;stroke:rgba(143,179,255,.35);stroke-width:.7}
-.osys .pb.live{fill:#101a30}
-.osys .pr{fill:none;stroke:var(--ion);stroke-width:.8;animation:mRing 2s ease-out infinite;transform-box:fill-box;transform-origin:center}
-.osys .core{fill:var(--ion);filter:drop-shadow(0 0 4px rgba(143,179,255,.9))}
-.osys .core.live{animation:blink 1.4s ease-in-out infinite}
-.olive{display:flex;align-items:center;gap:9px;margin-top:10px;font-size:12.5px;color:var(--mist);min-width:0}
-.olive i{width:7px;height:6px;flex:none;background:var(--ion);clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);animation:blink 1.4s ease-in-out infinite}
-.olive b{font-family:var(--f-mono);font-weight:400;font-size:12px;color:var(--ion);letter-spacing:.04em;flex:none}
-.olive span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 /* Drop: a night sky of thoughts. Each drop is a star with its words beside it */
 .dsky{position:relative;flex:none;width:100%;aspect-ratio:5/4;margin:4px 0 2px;border-radius:20px;border:1px solid var(--seam-2);overflow:hidden;background:radial-gradient(90% 60% at 25% 15%,rgba(79,116,196,.18),transparent 65%),radial-gradient(70% 55% at 85% 95%,rgba(180,156,255,.09),transparent 60%),linear-gradient(160deg,transparent 35%,rgba(143,179,255,.04) 50%,transparent 65%),#06070B}
@@ -1364,6 +1273,51 @@ button.cd-row:hover{background:var(--hull-2)}
 .sy-m{font-size:10.5px;color:var(--dust);letter-spacing:.04em}
 .info textarea.in{width:100%;min-height:74px;resize:vertical;font-family:var(--f-mono);font-size:11px;line-height:1.4}
 
+/* Trajectory: the calendar first, large, with the chosen day beside it */
+.cal{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px 44px;margin-bottom:34px}
+.hc{max-width:none;margin-top:0}
+.cal .cal-day{margin-top:0;padding-top:0;border-top:0;max-width:none;min-height:0;position:sticky;top:calc(env(safe-area-inset-top,0px) + 82px)}
+.cal-head{flex-wrap:wrap;justify-content:flex-end}
+.tj-trays{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 40px;margin-top:34px}
+@media (max-width:900px){.cal{grid-template-columns:minmax(0,1fr)}.cal .cal-day{position:static;padding-top:14px;border-top:1px solid var(--seam)}}
+.tt-paste{display:grid;gap:8px;justify-items:start;padding-top:14px;border-top:1px solid var(--seam)}
+.tt-paste textarea{width:100%;font-family:var(--f-mono);font-size:12px;line-height:1.5;resize:vertical}
+
+/* Atlas */
+.at-ideas{display:grid;gap:8px;margin:-8px 0 26px}
+.at-idea{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;padding:13px 16px;border-radius:14px;border:1px solid rgba(143,179,255,.28);background:linear-gradient(90deg,rgba(143,179,255,.09),transparent 80%);text-align:left;transition:border-color .15s}
+.at-idea:hover{border-color:var(--ion)}
+.at-idea b{font-size:15.5px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.at-idea span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;color:var(--mist)}
+.at-idea .hx,.at-tile .hx{width:10px;height:9px;background:var(--seam-3);clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+.at-idea.due .hx,.at-tile.due .hx{background:var(--flare);filter:drop-shadow(0 0 4px var(--flare))}
+.r1 > .hx{background:var(--down)}.r2 > .hx{background:var(--flare)}.r3 > .hx{background:var(--up)}
+.at-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:18px}
+.at-tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:104px;padding:15px 16px;border-radius:14px;border:1px solid var(--seam-2);background:var(--hull);text-align:left;transition:border-color .15s,background .15s}
+.at-tile:hover{border-color:rgba(143,179,255,.6);background:var(--hull-2)}
+.at-tile b{font-size:16px;font-weight:500;letter-spacing:-.01em;line-height:1.25;overflow-wrap:anywhere}
+.at-tile span{margin-top:auto;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.06em;color:var(--dust)}
+.at-tile em{position:absolute;top:13px;right:14px;font-style:normal;font-family:var(--f-mono);font-size:9.5px;color:var(--down)}
+.at-add{max-width:520px}
+.at-crumbs{margin-bottom:14px;flex-wrap:wrap}
+.at-crumbs button:hover{color:var(--ion)}
+.at-name{display:block;width:100%;font-size:30px;font-weight:500;letter-spacing:-.02em}
+.at-meta{display:flex;gap:16px;margin:8px 0 14px;font-size:10.5px;letter-spacing:.04em;color:var(--dust)}
+#view .note-in{display:block;width:100%;max-width:640px;margin-bottom:16px}
+.at-acts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.at-set{display:flex;flex-wrap:wrap;gap:18px 34px;align-items:flex-end;margin-bottom:26px;padding:16px 0;border-block:1px solid var(--seam)}
+.at-set label{display:grid;gap:8px}.at-set > div{display:grid;gap:8px}
+.at-set select{min-width:130px}
+.at-rate{display:inline-flex;gap:6px}
+.at-rate button{height:36px;padding:0 16px;border-radius:999px;border:1px solid var(--seam-2);font-size:13px;color:var(--mist);transition:all .15s}
+.at-rate button:hover{color:var(--frost)}
+.at-rate .r3.sel{color:var(--up);border-color:var(--up);background:rgba(70,217,149,.1)}
+.at-rate .r2.sel{color:var(--flare);border-color:var(--flare);background:rgba(240,180,94,.1)}
+.at-rate .r1.sel{color:var(--down);border-color:var(--down);background:rgba(240,97,109,.1)}
+.at-del{margin-top:22px;height:auto;padding:0;font-size:12.5px;color:var(--dust)}
+#view .confirm{margin-top:22px;max-width:520px}
+@media (max-width:560px){.at-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.at-tile{min-height:92px;padding:13px}.at-name{font-size:24px}}
+
 /* Ask Claude: a lit spark in a hexagon, top right */
 .ask{position:relative;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1px solid rgba(143,179,255,.28);background:radial-gradient(circle at 50% 45%,rgba(143,179,255,.14),transparent 70%);color:var(--ion);transition:border-color .2s,box-shadow .2s}
 .ask svg{width:20px;height:20px;overflow:visible}
@@ -1443,8 +1397,8 @@ button.cd-row:hover{background:var(--hull-2)}
   </div>
   <nav class="tabs" aria-label="Views">
     <button data-nav="horizon" title="Dashboard">Horizon</button>
-    <button data-nav="trajectory" title="Week plan">Trajectory</button>
-    <button data-nav="orbits" title="Projects">Orbits</button>
+    <button data-nav="atlas" title="What should I do?">Atlas</button>
+    <button data-nav="trajectory" title="Calendar">Trajectory</button>
     <button data-nav="telemetry" title="Stats and burn log">Telemetry</button>
     <i class="tab-ind" aria-hidden="true"></i>
   </nav>
@@ -1461,9 +1415,9 @@ button.cd-row:hover{background:var(--hull-2)}
 
 <nav class="bnav" aria-label="Views">
   <button data-nav="horizon"><svg viewBox="0 0 20 20" aria-hidden="true"><polygon points="6,3.1 14,3.1 18,10 14,16.9 6,16.9 2,10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><circle cx="10" cy="10" r="1.6" fill="currentColor"/></svg>Horizon</button>
-  <button data-nav="trajectory"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 16.5C8 16.5 9.5 5 16 4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="16" cy="4" r="1.7" fill="currentColor"/></svg>Trajectory</button>
+  <button data-nav="atlas"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 13.5L9 6l6.5 3.5-3 6.5z" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity=".55" stroke-linejoin="round"/><circle cx="4.5" cy="13.5" r="1.5" fill="currentColor"/><circle cx="9" cy="6" r="1.9" fill="currentColor"/><circle cx="15.5" cy="9.5" r="1.3" fill="currentColor"/><circle cx="12.5" cy="16" r="1.2" fill="currentColor"/></svg>Atlas</button>
   <button class="bplus" data-action="new" aria-label="New vector"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon class="k-h" points="7,3.3 17,3.3 22,12 17,20.7 7,20.7 2,12"/><path class="k-p" d="M12 8.6v6.8M8.6 12h6.8"/></svg>New</button>
-  <button data-nav="orbits"><svg viewBox="0 0 20 20" aria-hidden="true"><ellipse cx="10" cy="10" rx="8" ry="4.2" transform="rotate(-24 10 10)" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="10" cy="10" r="2" fill="currentColor"/></svg>Orbits</button>
+  <button data-nav="trajectory"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 16.5C8 16.5 9.5 5 16 4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="16" cy="4" r="1.7" fill="currentColor"/></svg>Trajectory</button>
   <button data-nav="telemetry"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 16.5v-4M8 16.5V7M12 16.5v-6M16 16.5V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Telemetry</button>
 </nav>
 
@@ -1526,10 +1480,9 @@ const GROUP = {
   windows: { name: 'Windows', desc: 'Any time before a deadline. Closing soonest first.', empty: 'No open windows. Give a vector a deadline and it lands here.' },
   ahead: { name: 'Ahead', desc: 'Anchored to a later day.', empty: 'Nothing anchored to a later day.' },
   landed: { name: 'Landed', desc: 'Done in the last 7 days.', empty: 'Nothing landed this week yet.' },
-  orbits: { name: 'Orbits', desc: 'Projects. Each one holds its own vectors.', empty: 'No orbits yet. An orbit groups vectors into a bigger project.' },
   floating: { name: 'Floating', desc: 'No day and no deadline. Pick one up whenever you have time.', empty: 'Nothing floating.' }
 };
-const RING_ORDER = ['today', 'windows', 'ahead', 'landed', 'orbits', 'floating']; // clockwise from the top cell
+const RING_ORDER = ['today', 'windows', 'ahead', 'landed', 'floating']; // clockwise from the top cell
 
 // ---------- burn scale: 0–60 min fills the first half, 1–4 h the second ----------
 const MAXM = 240;
@@ -1652,7 +1605,7 @@ function seed() {
     const q = dayQ[d], screen = Math.round((310 - q * 210) / 15) * 15;
     debriefs[addDays(t, -d)] = { score: Math.round(clamp(30 + q * 62 + (rnd() - .5) * 12, 18, 97)), sample: true, screen, app: 'TikTok', appMin: Math.round(screen * .35 / 5) * 5, when: ['Evening'], energy: Math.round(clamp(2 + q * 3, 1, 5)) };
   }
-  return { v: 1, seedV: SEED_V, origin: 'seed', updatedAt: 0, fields, orbits, vectors, sessions, active: null, debriefs, classes: defaultClasses(), drops: [], targets: {}, showClasses: true, prefs: { horizon: 'day', dayStyle: 'arc' } };
+  return { v: 1, seedV: SEED_V, origin: 'seed', updatedAt: 0, fields, orbits, vectors, sessions, active: null, debriefs, classes: defaultClasses(), drops: [], targets: {}, showClasses: true, prefs: { horizon: 'board' } };
 }
 
 function normalize(s) {
@@ -1670,6 +1623,8 @@ function normalize(s) {
   if (s.sessions.length > 1500) s.sessions = s.sessions.slice(-1500);
   if (!Array.isArray(s.classes)) s.classes = defaultClasses();
   if (!Array.isArray(s.drops)) s.drops = [];
+  if (!Array.isArray(s.atlas)) s.atlas = atlasStart();
+  s.atlas.forEach(n => { if (n.parent === undefined) n.parent = null; });
   if (!s.targets || typeof s.targets !== 'object' || Array.isArray(s.targets)) s.targets = {};
   if (!s.debriefs || typeof s.debriefs !== 'object' || Array.isArray(s.debriefs)) s.debriefs = {};
   if (s.showClasses == null) s.showClasses = true;
@@ -1713,7 +1668,7 @@ const ui = {
 };
 // KAIROS always starts on Horizon (a #view in the link can still pick another tab)
 const hashView = (location.hash || '').slice(1);
-if (['horizon', 'trajectory', 'orbits', 'telemetry'].includes(hashView)) ui.view = hashView;
+if (['horizon', 'atlas', 'trajectory', 'telemetry'].includes(hashView)) ui.view = hashView;
 
 // ---------- lookups ----------
 const vec = id => state.vectors.find(v => v.id === id);
@@ -1737,7 +1692,6 @@ function groups() {
     windows: open.filter(v => !v.anchor && v.window).sort((a, b) => cmp(a.window.until, b.window.until) || b.gravity - a.gravity),
     ahead: open.filter(v => v.anchor && v.anchor.date > t).sort(byAnchor),
     landed: state.vectors.filter(v => v.landedAt && v.landedAt > Date.now() - 7 * 864e5).sort((a, b) => b.landedAt - a.landedAt),
-    orbits: state.orbits.filter(o => !o.landedAt),
     floating: open.filter(v => !v.anchor && !v.window).sort(byGravity)
   };
 }
@@ -1781,10 +1735,14 @@ function whenLong(v) {
    ============================================================ */
 let cloud = null, saveTimer = null, saving = false, savePending = false;
 
-function commit(opts = {}) {
+// save without redrawing (for fields you are still on, so the next click is not lost)
+function quietSave() {
   state.updatedAt = Date.now();
   saveLocal();
   if (cloud) { clearTimeout(saveTimer); saveTimer = setTimeout(flushCloud, cloud.gist ? 1500 : 500); }
+}
+function commit(opts = {}) {
+  quietSave();
   renderAll(opts);
 }
 
@@ -1831,7 +1789,7 @@ async function gh(path, opts = {}) {
 // A device that only holds examples never uploads them, and your real data always beats examples,
 // whichever device connects first and whatever the clocks say.
 const isExample = s => !!s && !(s.vectors || []).some(v => !v.sample) && !(s.sessions || []).some(x => !x.sample)
-  && !Object.values(s.debriefs || {}).some(d => !d.sample) && !(s.drops || []).length && !(s.orbits || []).some(o => !o.sample);
+  && !Object.values(s.debriefs || {}).some(d => !d.sample) && !(s.drops || []).length && !(s.orbits || []).some(o => !o.sample) && !(s.atlas || []).some(n => !n.starter);
 async function gistPush() {
   const c = syncCfg(); if (!c || !c.gist || isExample(state)) return;
   await gh('/gists/' + c.gist, { method: 'PATCH', body: JSON.stringify({ files: { [GIST_FILE]: { content: JSON.stringify(state) } } }) });
@@ -1927,11 +1885,11 @@ function renderAll(opts = {}) {
 function renderView() {
   $$('[data-nav]').forEach(b => b.classList.toggle('active', b.dataset.nav === ui.view));
   moveTabInd();
-  const fn = { horizon: renderHorizon, trajectory: renderTrajectory, orbits: renderOrbits, telemetry: renderTelemetry }[ui.view] || renderHorizon;
+  const fn = { horizon: renderHorizon, atlas: renderAtlas, trajectory: renderTrajectory, telemetry: renderTelemetry }[ui.view] || renderHorizon;
   viewEl.innerHTML = fn();
 }
 
-const VIEWS = ['horizon', 'trajectory', 'orbits', 'telemetry'];
+const VIEWS = ['horizon', 'atlas', 'trajectory', 'telemetry'];
 function setView(v) {
   if (v === ui.view) { window.scrollTo(0, 0); return; }
   const dir = VIEWS.indexOf(v) > VIEWS.indexOf(ui.view) ? 1 : -1;
@@ -1982,7 +1940,6 @@ const sampleBanner = () => hasSamples() ? `<div class="sample-note"><span>You ar
 function vRow(v, bm, opts = {}) {
   const burned = bm[v.id] || 0;
   const pct = clamp(burned / v.burnMin, 0, 1) * 100;
-  const o = v.orbitId ? orb(v.orbitId) : null;
   const done = v.stages.filter(s => s.done).length;
   const live = state.active && state.active.vectorId === v.id;
   const t = todayKey();
@@ -1994,7 +1951,6 @@ function vRow(v, bm, opts = {}) {
   const w = !v.landedAt && windowInfo(v);
   const meta = [
     `<span class="fld">${esc(fieldName(v.fieldId))}</span>`,
-    o && !opts.hideOrbit ? `<span>◦ ${esc(o.name)}</span>` : '',
     `<span>${burned}/${v.burnMin} min</span>`,
 
     when,
@@ -2013,14 +1969,6 @@ function vRow(v, bm, opts = {}) {
 const section = (title, count, body, extra = '') => `<section class="sec"><div class="sec-h"><h2>${title}</h2><span class="count">${count}</span>${extra ? `<span class="sec-extra">${extra}</span>` : ''}</div>${body}</section>`;
 const vlist = (arr, bm, opts) => `<div class="vlist">${arr.map(v => vRow(v, bm, opts)).join('')}</div>`;
 
-function orbitProgress(o, bm) {
-  const vs = state.vectors.filter(v => v.orbitId === o.id);
-  const landed = vs.filter(v => v.landedAt).length;
-  const burned = vs.reduce((a, v) => a + (bm[v.id] || 0), 0);
-  const next = vs.filter(v => !v.landedAt).sort(byGravity)[0];
-  return { vs, total: vs.length, landed, burned, next, pct: vs.length ? landed / vs.length * 100 : 0 };
-}
-const olist = (arr, bm) => `<div class="olist">${arr.map(o => { const p = orbitProgress(o, bm); return `<button data-open-orbit="${o.id}"><span class="on">${esc(o.name)}</span><span class="oc">${p.landed}/${p.total} LANDED</span><span class="bar"><i style="width:${p.pct}%"></i></span></button>`; }).join('')}</div>`;
 
 /* ============================================================
    HORIZON — the honeycomb
@@ -2043,19 +1991,10 @@ function hiveLevel() {
       center: { id: 'c', kind: 'burn', pct: planned ? burned / planned * 100 : 0, html: `<span class="k">Today's burn</span><span class="n">${burned}</span><span class="s">of ${planned} min</span>`, aria: `Today's burn: ${burned} of ${planned} minutes` },
       items: RING_ORDER.map(k => {
         const arr = G[k], n = arr.length;
-        const sub = k === 'orbits' ? (n === 1 ? 'project' : 'projects') : k === 'landed' ? '7 days' : (n ? fmtMin(remaining(arr, bm)) + ' left' : 'clear');
+        const sub = k === 'landed' ? '7 days' : (n ? fmtMin(remaining(arr, bm)) + ' left' : 'clear');
         return { id: 'g:' + k, kind: 'group', empty: !n, html: `<span class="k">${GROUP[k].name}</span><span class="n">${n}</span><span class="s">${esc(sub)}</span>`, aria: `${GROUP[k].name}: ${n}` };
-      })
+      }).concat(newCell('New vector'))
     };
-  }
-  if (p[0] === 'orbits' && p[1]) {
-    const o = orb(p[1]); if (!o) { ui.hive.path = ['orbits']; return hiveLevel(); }
-    const pr = orbitProgress(o, bm);
-    const vs = [...pr.vs.filter(v => !v.landedAt).sort(byGravity), ...pr.vs.filter(v => v.landedAt)];
-    return { key: 'orbit', orbit: o, center: upCell(o.name, `${pr.landed}/${pr.total} landed`, pr.pct), items: [...vs.map(vecCell), newCell('Add vector')] };
-  }
-  if (p[0] === 'orbits') {
-    return { key: 'orbits', center: upCell('Orbits', `${G.orbits.length} active`), items: [...G.orbits.map(o => { const pr = orbitProgress(o, bm); return { id: 'o:' + o.id, kind: 'orbit', pct: pr.pct, html: `<span class="k">Orbit</span><span class="t">${esc(o.name)}</span><span class="s">${pr.landed}/${pr.total} landed</span>`, aria: `Orbit ${o.name}` }; }), newCell('New orbit')] };
   }
   const g = p[0], arr = G[g] || [];
   const items = arr.map(vecCell);
@@ -2088,8 +2027,7 @@ function crumbsHTML() {
   const p = ui.hive.path;
   if (!p.length) return `<span class="cur">Comb</span><span class="sep">/</span><span>${groups().today.length} today</span>`;
   const parts = [`<button data-hive-to="0">${I.left} Horizon</button>`];
-  if (p[0] === 'orbits' && p[1]) { parts.push(`<span class="sep">/</span><button data-hive-to="1">Orbits</button>`, `<span class="sep">/</span><span class="cur">${esc((orb(p[1]) || {}).name || '')}</span>`); }
-  else parts.push(`<span class="sep">/</span><span class="cur">${GROUP[p[0]].name}</span>`);
+  parts.push(`<span class="sep">/</span><span class="cur">${GROUP[p[0]].name}</span>`);
   return parts.join('');
 }
 
@@ -2110,7 +2048,7 @@ function renderComb() {
     </div>
     <div id="readout">${readoutHTML()}</div>
   </div>
-  <div class="hz-below">${daySections(t, G, bm, true, '', false)}</div>`;
+  <div class="hz-below">${daySections(t, G, bm, true, false)}</div>`;
   ui.hive.roId = ui.hive.sel;
   ui.hive.anim = false;
   return html;
@@ -2143,7 +2081,6 @@ function setHiveSel(id) { ui.hive.sel = id; markHive(); renderReadout(true); }
 
 function hiveDive(id, viaKeyboard) {
   if (id.startsWith('g:')) ui.hive.path = [id.slice(2)];
-  else if (id.startsWith('o:')) ui.hive.path = ['orbits', id.slice(2)];
   ui.hive.sel = 'c'; ui.hive.focus = null;
   renderHive(true);
   if (viaKeyboard) { const c = $('#hive [data-cell="c"]'); c && c.focus(); }
@@ -2151,15 +2088,13 @@ function hiveDive(id, viaKeyboard) {
 function hiveUp(to, viaKeyboard) {
   const p = ui.hive.path; if (!p.length) return;
   const np = p.slice(0, to == null ? p.length - 1 : to);
-  ui.hive.sel = np.length === 1 && p[1] ? 'o:' + p[1] : 'g:' + p[0];
+  ui.hive.sel = 'g:' + p[0];
   ui.hive.path = np; ui.hive.focus = null;
   renderHive(true);
   if (viaKeyboard) { const c = $(`#hive [data-cell="${ui.hive.sel}"]`); c && c.focus(); }
 }
 function hiveNew() {
   const p = ui.hive.path, t = todayKey();
-  if (p[0] === 'orbits' && p[1]) { const o = orb(p[1]); openFlow({ orbitId: o.id, fieldId: o.fieldId || null }); return; }
-  if (p[0] === 'orbits') { newOrbit(); return; }
   const presets = { today: { when: 'anchor', anchorDate: t }, ahead: { when: 'anchor', anchorDate: addDays(t, 1) }, windows: { when: 'window', windowUntil: endOfWeek() }, floating: { when: 'float' } };
   openFlow(presets[p[0]] || {});
 }
@@ -2168,10 +2103,10 @@ function hiveActivate(id, viaKeyboard) {
   if (id === 'c') { if (ui.hive.path.length) hiveUp(null, viaKeyboard); else setHiveSel('c'); return; }
   if (id === 'new') { hiveNew(); return; }
   if (id === 'more') { setHiveSel('c'); return; }
-  if (id.startsWith('g:') || id.startsWith('o:')) { hiveDive(id, viaKeyboard); return; }
+  if (id.startsWith('g:')) { hiveDive(id, viaKeyboard); return; }
   if (id.startsWith('v:')) { if (ui.hive.sel === id) openSheet('vector', id.slice(2)); else setHiveSel(id); }
 }
-const isDivable = id => !!id && (id.startsWith('g:') || id.startsWith('o:'));
+const isDivable = id => !!id && id.startsWith('g:');
 
 // ---------- readout (the panel beside the comb) ----------
 function readoutHTML() {
@@ -2181,11 +2116,9 @@ function readoutHTML() {
   if (id === 'c' || id === 'more') {
     const L = ui.hive.level || hiveLevel();
     if (L.key === 'root') return burnReadout(bm);
-    if (L.key === 'orbit') return orbitReadout(L.orbit, bm, true);
-    return groupReadout(L.key === 'orbits' ? 'orbits' : L.group, bm, true);
+    return groupReadout(L.group, bm, true);
   }
   if (id.startsWith('g:')) return groupReadout(id.slice(2), bm, false);
-  if (id.startsWith('o:')) { const o = orb(id.slice(2)); return o ? orbitReadout(o, bm, false) : ''; }
   if (id.startsWith('v:')) { const v = vec(id.slice(2)); return v ? vectorReadout(v, bm) : ''; }
   return '';
 }
@@ -2220,19 +2153,16 @@ function burnReadout(bm) {
 function groupReadout(g, bm, inside, eyebrow) {
   const G = groups(), arr = G[g], meta = GROUP[g];
   let stats;
-  if (g === 'orbits') {
-    const tot = arr.reduce((a, o) => a + orbitProgress(o, bm).burned, 0);
-    stats = `<div class="ro-stat"><span class="eyebrow">Active</span><b>${arr.length}</b></div><div class="ro-stat"><span class="eyebrow">Burned</span><b>${fmtMin(tot)}</b></div>`;
-  } else if (g === 'landed') {
+  if (g === 'landed') {
     stats = `<div class="ro-stat"><span class="eyebrow">Landed</span><b>${arr.length}</b></div><div class="ro-stat"><span class="eyebrow">Burned on them</span><b>${fmtMin(arr.reduce((a, v) => a + (bm[v.id] || 0), 0))}</b></div>`;
   } else {
     const next = g === 'windows' && arr[0] ? windowInfo(arr[0]) : null;
     stats = `<div class="ro-stat"><span class="eyebrow">Vectors</span><b>${arr.length}</b></div><div class="ro-stat"><span class="eyebrow">Burn left</span><b>${fmtMin(remaining(arr, bm))}</b></div>${next ? `<div class="ro-stat"><span class="eyebrow">Next closes</span><b class="${next.cls === 'late' ? 'warn' : ''}">${esc(shortDay(arr[0].window.until))}</b></div>` : ''}`;
   }
   const clsTop = g === 'today' ? classesBlock(todayKey()) : '';
-  const list = !arr.length ? `${clsTop}<div class="empty">${meta.empty}</div>` : g === 'orbits' ? olist(arr, bm) : clsTop + vlist(arr, bm, { noAnchor: g === 'landed' });
+  const list = !arr.length ? `${clsTop}<div class="empty">${meta.empty}</div>` : clsTop + vlist(arr, bm, { noAnchor: g === 'landed' });
   // clicking the cell itself opens it, so the panel needs no "Open …" button
-  const act = inside && g !== 'landed' ? `<button class="btn-ghost sm" data-action="hive-new">${I.plus} ${g === 'orbits' ? 'New orbit' : 'New vector here'}</button>` : '';
+  const act = inside && g !== 'landed' ? `<button class="btn-ghost sm" data-action="hive-new">${I.plus} New vector here</button>` : '';
   return `<div class="ro">
     <div class="eyebrow">${eyebrow || (inside ? 'Inside' : 'Cell') + ' · ' + meta.name}</div>
     <h2 class="ro-title">${meta.name}</h2>
@@ -2243,33 +2173,13 @@ function groupReadout(g, bm, inside, eyebrow) {
   </div>`;
 }
 
-function orbitReadout(o, bm, inside) {
-  const p = orbitProgress(o, bm);
-  const open = p.vs.filter(v => !v.landedAt).sort(byGravity);
-  return `<div class="ro">
-    <div class="eyebrow">Orbit · ${esc(fieldName(o.fieldId))}</div>
-    <h2 class="ro-title">${esc(o.name)}</h2>
-    ${o.note ? `<p class="ro-desc">${esc(o.note)}</p>` : ''}
-    <div class="ro-stats">
-      <div class="ro-stat"><span class="eyebrow">Landed</span><b>${p.landed}<small>/ ${p.total}</small></b></div>
-      <div class="ro-stat"><span class="eyebrow">Burned</span><b>${fmtMin(p.burned)}</b></div>
-      <div class="ro-stat"><span class="eyebrow">Burn left</span><b>${fmtMin(remaining(open, bm))}</b></div>
-    </div>
-    ${open.length ? vlist(open, bm, { hideOrbit: true }) : `<div class="empty">No open vectors in this orbit.</div>`}
-    <div class="ro-actions">
-      ${inside ? `<button class="btn-ghost sm" data-action="hive-new">${I.plus} Add vector</button>` : ''}
-      <button class="btn-text" data-open-orbit="${o.id}">Details</button>
-    </div>
-  </div>`;
-}
-
 function vectorReadout(v, bm) {
-  const burned = bm[v.id] || 0, o = v.orbitId ? orb(v.orbitId) : null;
+  const burned = bm[v.id] || 0;
   const live = state.active && state.active.vectorId === v.id;
   const w = whenLong(v);
   const wi = v.anchor && v.window ? windowInfo(v) : null;
   return `<div class="ro">
-    <div class="eyebrow">${esc(fieldName(v.fieldId))}${o ? ' · ' + esc(o.name) : ''}${v.landedAt ? ' · Landed' : ''}</div>
+    <div class="eyebrow">${esc(fieldName(v.fieldId))}${v.landedAt ? ' · Landed' : ''}</div>
     <h2 class="ro-title">${esc(v.title)}</h2>
     ${v.note ? `<p class="ro-desc">${esc(v.note)}</p>` : ''}
     <div class="ro-stats">
@@ -2292,9 +2202,8 @@ function vectorReadout(v, bm) {
 
 function newReadout() {
   const p = ui.hive.path;
-  const orbitLevel = p[0] === 'orbits' && !p[1];
-  const where = p[0] === 'orbits' && p[1] ? `into ${esc((orb(p[1]) || {}).name || 'this orbit')}` : p[0] === 'today' ? 'anchored to today' : p[0] === 'ahead' ? 'anchored to tomorrow' : p[0] === 'windows' ? 'with a window until the end of the week' : 'as a floating vector';
-  return `<div class="ro"><div class="eyebrow">New</div><h2 class="ro-title">${orbitLevel ? 'New orbit' : 'New vector'}</h2><p class="ro-desc">${orbitLevel ? 'Start a project and give it its own comb of vectors.' : `Launch a vector ${where}. You can change everything in the next steps.`}</p><div class="ro-actions"><button class="btn-primary" data-action="hive-new">${I.plus} ${orbitLevel ? 'New orbit' : 'New vector'}</button></div></div>`;
+  const where = p[0] === 'today' ? 'anchored to today' : p[0] === 'ahead' ? 'anchored to tomorrow' : p[0] === 'windows' ? 'with a window until the end of the week' : 'as a floating vector';
+  return `<div class="ro"><div class="eyebrow">New</div><h2 class="ro-title">New vector</h2><p class="ro-desc">Launch a vector ${where}. You can change everything in the next steps.</p><div class="ro-actions"><button class="btn-primary" data-action="hive-new">${I.plus} New vector</button></div></div>`;
 }
 
 // ---------- comb gestures: slide to look, hold or release to open ----------
@@ -2354,9 +2263,8 @@ document.addEventListener('pointercancel', endScrub);
 document.addEventListener('focusin', e => { const c = e.target.closest && e.target.closest('#hive [data-cell]'); if (c) setHiveFocus(c.dataset.cell); });
 
 /* ============================================================
-   HORIZON — your day as one picture, then the plan below
+   HORIZON — the day numbers, the board or the comb, then the plan below
    ============================================================ */
-const DAY_STYLES = [['arc', 'Arc'], ['strata', 'Strata'], ['ring', 'Ring']];
 const fmtH = h => { const hh = Math.floor(h), mm = Math.round((h - hh) * 60); return `${pad(hh % 24 + (mm === 60 ? 1 : 0))}:${pad(mm % 60)}`; };
 const fmtFree = m => { m = Math.round(m); const h = Math.floor(m / 60), r = m % 60; return h ? (r ? `${h}h ${pad(r)}m` : `${h}h`) : `${r}m`; };
 const clip = (s, n) => s.length > n ? s.slice(0, Math.max(1, n - 1)) + '…' : s;
@@ -2399,89 +2307,6 @@ function nextUp() {
   return up[0] || G.today.find(v => v.anchor.date < t) || G.today.filter(v => !v.anchor.time).sort(byGravity)[0] || G.windows[0] || G.floating[0] || null;
 }
 
-const segTip = s => `data-tip="${esc(s.tip)}"`;
-const MAP_DEFS = `<defs>
-  <pattern id="mhatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#161A21"/><rect width="2.2" height="6" fill="#3A404B"/></pattern>
-  <radialGradient id="sunglow"><stop offset="0" stop-color="rgba(143,179,255,.30)"/><stop offset="1" stop-color="rgba(143,179,255,0)"/></radialGradient>
-  <filter id="mglow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-</defs>`;
-
-// ---------- style 1: Arc (the day as a sun path) ----------
-function mapArc(M, W) {
-  const H = Math.round(clamp(W * .44, 230, 360)), gx = W < 520 ? 26 : 46, base = H - 34;
-  const cx = W / 2, rx = W / 2 - gx, ry = base - 40, SW = W < 520 ? 10 : 13;
-  const P = (h, dr = 0) => { const th = Math.PI * (1 - (clamp(h, M.H0, M.H1) - M.H0) / (M.H1 - M.H0)); return [cx + (rx + dr) * Math.cos(th), base - (ry + dr) * Math.sin(th)]; };
-  const path = (a, b) => { a = clamp(a, M.H0, M.H1); b = clamp(b, M.H0, M.H1); if (b - a < .02) return ''; const [x1, y1] = P(a), [x2, y2] = P(b); return `M${x1.toFixed(1)},${y1.toFixed(1)} A${rx},${ry} 0 0 1 ${x2.toFixed(1)},${y2.toFixed(1)}`; };
-  const seg = (s, cls, extra = '') => { const d = path(s.a + .03, s.b - .03); return d ? `<path class="ms ${cls}" d="${d}" stroke-width="${SW}" ${segTip(s)} ${extra}/>` : ''; };
-  const ticks = []; for (let h = M.H0; h <= M.H1; h++) { const [x1, y1] = P(h, SW / 2 + 4), [x2, y2] = P(h, SW / 2 + (h % 3 ? 8 : 12)); ticks.push(`<line class="mt" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`); }
-  const labs = [7, 9, 12, 15, 18, 21, 24].map(h => { const [x, y] = P(h, SW / 2 + 24); return `<text class="ml" x="${x.toFixed(1)}" y="${(y + 3).toFixed(1)}">${pad(h % 24)}</text>`; }).join('');
-  const frees = W < 560 ? '' : M.free.filter(([a, b]) => b - a >= .75).map(([a, b]) => { const [x, y] = P((a + b) / 2, -(SW / 2 + 16)); return `<text class="mf" x="${x.toFixed(1)}" y="${(y + 3).toFixed(1)}">${fmtFree((b - a) * 60)} free</text>`; }).join('');
-  const [sx, sy] = P(M.now);
-  const past = M.isToday ? `<path class="ms past" d="${path(M.H0, M.now)}" stroke-width="${SW + 4}"/>` : '';
-  return `<svg class="daymap arc" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Your day from 07:00 to midnight">${MAP_DEFS}
-    ${M.isToday ? `<circle cx="${sx}" cy="${sy}" r="${Math.min(160, W * .22)}" fill="url(#sunglow)" pointer-events="none"/>` : ''}
-    <line class="mh" x1="${gx - 16}" y1="${base}" x2="${W - gx + 16}" y2="${base}"/>
-    <path class="mbase" d="${path(M.H0, M.H1)}" stroke-width="${SW}"/>
-    ${M.free.map(([a, b]) => { const d = path(a + .05, b - .05); return d ? `<path class="ms free" d="${d}" stroke-width="2"/>` : ''; }).join('')}
-    ${M.cls.map(s => seg(s, 'cls')).join('')}${M.trav.map(s => seg(s, 'trav')).join('')}${M.timed.map(s => seg(s, 'plan')).join('')}${M.ghosts.map(s => seg(s, 'ghost')).join('')}
-    ${past}
-    ${M.done.map(s => seg(s, s.kind === 'live' ? 'live' : 'done', 'filter="url(#mglow)"')).join('')}
-    ${ticks.join('')}${labs}${frees}
-    ${M.isToday ? `<line class="mnow" x1="${sx}" y1="${sy}" x2="${sx}" y2="${base}"/><circle cx="${sx}" cy="${sy}" r="${SW / 2 + 3}" fill="#E9ECF1"/><text class="mnl" x="${sx}" y="${sy - SW - 10}">NOW ${fmtH(nowHours())}</text>` : ''}
-    <text class="mbig" x="${cx}" y="${base - ry * .36}">${fmtFree(M.freeMin)}</text>
-    <text class="mcap" x="${cx}" y="${base - ry * .36 + 22}">FREE ${M.isToday ? 'FOR THE REST OF TODAY' : 'THIS DAY'}</text>
-  </svg>`;
-}
-
-// ---------- style 2: Strata (the day as one glowing bar) ----------
-function mapStrata(M, W) {
-  const top = 34, bh = W < 520 ? 64 : 76, H = top + bh + 44, R = 16;
-  const X = h => (clamp(h, M.H0, M.H1) - M.H0) / (M.H1 - M.H0) * W;
-  const fits = (s, w, size) => { const n = Math.floor((w - 16) / (size * .62)); return n >= 4 ? clip(s, n) : ''; };
-  const rect = (s, cls) => { const x = X(s.a) + 1, w = Math.max(3, X(s.b) - X(s.a) - 2); const lab = fits(s.kind === 'done' || s.kind === 'live' ? '✓ ' + s.label : s.label, w, 11); return `<g ${segTip(s)}><rect class="st ${cls}" x="${x.toFixed(1)}" y="${top + 8}" width="${w.toFixed(1)}" height="${bh - 16}" rx="8"/>${lab ? `<text class="stl ${cls}" x="${(x + 9).toFixed(1)}" y="${top + bh / 2 + 4}">${esc(lab)}</text>` : ''}</g>`; };
-  const frees = M.free.filter(([a, b]) => X(b) - X(a) > 74).map(([a, b]) => `<text class="stf" x="${((X(a) + X(b)) / 2).toFixed(1)}" y="${top + bh / 2 + 4}">${fmtFree((b - a) * 60)} free</text>`).join('');
-  const ticks = []; for (let h = M.H0; h <= M.H1; h++) { const x = X(h); ticks.push(`<line class="mt" x1="${x.toFixed(1)}" y1="${top + bh + 6}" x2="${x.toFixed(1)}" y2="${top + bh + (h % 3 ? 10 : 15)}"/>`); if (h % 3 === 0 || h === 7) ticks.push(`<text class="ml" x="${clamp(x, 10, W - 10).toFixed(1)}" y="${top + bh + 30}">${pad(h % 24)}</text>`); }
-  const nx = X(M.now);
-  return `<svg class="daymap strata" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Your day as a bar from 07:00 to midnight">${MAP_DEFS}
-    <clipPath id="stclip"><rect x="0" y="${top}" width="${W}" height="${bh}" rx="${R}"/></clipPath>
-    <rect class="stbg" x=".5" y="${top + .5}" width="${W - 1}" height="${bh - 1}" rx="${R}"/>
-    <g clip-path="url(#stclip)">
-      ${M.cls.map(s => rect(s, 'cls')).join('')}${M.trav.map(s => rect(s, 'trav')).join('')}${M.timed.map(s => rect(s, 'plan')).join('')}${M.ghosts.map(s => rect(s, 'ghost')).join('')}
-      ${M.isToday ? `<rect x="0" y="${top}" width="${nx.toFixed(1)}" height="${bh}" fill="rgba(6,7,10,.45)"/>` : ''}
-      ${M.done.map(s => rect(s, s.kind)).join('')}
-      ${frees}
-    </g>
-    ${ticks.join('')}
-    ${M.isToday ? `<line class="snow" x1="${nx}" y1="${top - 8}" x2="${nx}" y2="${top + bh + 4}" filter="url(#mglow)"/><text class="mnl" x="${clamp(nx, 34, W - 34)}" y="${top - 14}">NOW ${fmtH(nowHours())}</text>` : ''}
-  </svg>`;
-}
-
-// ---------- style 3: Ring (the waking day as a dial) ----------
-function mapRing(M, W, nxt) {
-  const S = Math.min(W, 400), c = S / 2, R = S / 2 - 40, SW = 16;
-  const A = h => (-150 + (clamp(h, M.H0, M.H1) - M.H0) / (M.H1 - M.H0) * 300) * Math.PI / 180;
-  const P = (h, r = R) => [c + r * Math.sin(A(h)), c - r * Math.cos(A(h))];
-  const path = (a, b, r = R) => { a = clamp(a, M.H0, M.H1); b = clamp(b, M.H0, M.H1); if (b - a < .02) return ''; const [x1, y1] = P(a, r), [x2, y2] = P(b, r); return `M${x1.toFixed(1)},${y1.toFixed(1)} A${r},${r} 0 ${(b - a) / (M.H1 - M.H0) * 300 > 180 ? 1 : 0} 1 ${x2.toFixed(1)},${y2.toFixed(1)}`; };
-  const seg = (s, cls, extra = '') => { const d = path(s.a + .03, s.b - .03); return d ? `<path class="ms ${cls}" d="${d}" stroke-width="${SW}" ${segTip(s)} ${extra}/>` : ''; };
-  const ticks = []; for (let h = M.H0; h <= M.H1; h++) { const [x1, y1] = P(h, R + SW / 2 + 4), [x2, y2] = P(h, R + SW / 2 + (h % 3 ? 8 : 12)); ticks.push(`<line class="mt" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`); }
-  const labs = [7, 12, 15, 18, 21, 24].map(h => { const [x, y] = P(h, R + SW / 2 + 24); return `<text class="ml" x="${x.toFixed(1)}" y="${(y + 3).toFixed(1)}">${pad(h % 24)}</text>`; }).join('');
-  const [sx, sy] = P(M.now);
-  const gh = nxt && M.ghosts.find(g => g.v && g.v.id === nxt.id);
-  const nt = !nxt ? '—' : nxt.anchor && nxt.anchor.time && nxt.anchor.date === todayKey() ? nxt.anchor.time : gh ? fmtH(gh.a) : 'Anytime';
-  return `<svg class="daymap ring" viewBox="0 0 ${S} ${S}" width="${S}" height="${S}" role="img" aria-label="Your waking day as a dial">${MAP_DEFS}
-    <path class="mbase" d="${path(M.H0, M.H1)}" stroke-width="${SW}"/>
-    ${M.cls.map(s => seg(s, 'cls')).join('')}${M.trav.map(s => seg(s, 'trav')).join('')}${M.timed.map(s => seg(s, 'plan')).join('')}${M.ghosts.map(s => seg(s, 'ghost')).join('')}
-    ${M.isToday ? `<path class="ms past" d="${path(M.H0, M.now)}" stroke-width="${SW + 4}"/>` : ''}
-    ${M.done.map(s => seg(s, s.kind === 'live' ? 'live' : 'done', 'filter="url(#mglow)"')).join('')}
-    ${ticks.join('')}${labs}
-    ${M.isToday ? `<circle cx="${sx}" cy="${sy}" r="${SW / 2 + 3}" fill="#E9ECF1"/>` : ''}
-    <text class="rk" x="${c}" y="${c - 46}">NEXT UP</text>
-    <text class="rbig" x="${c}" y="${c - 6}">${esc(nt)}</text>
-    <text class="rt" x="${c}" y="${c + 20}">${esc(nxt ? clip(nxt.title, 26) : 'Nothing planned')}</text>
-    <text class="rk" x="${c}" y="${S - 22}">${fmtFree(M.freeMin).toUpperCase()} FREE</text>
-  </svg>`;
-}
-
 function mapWidth() {
   const cs = getComputedStyle(viewEl);
   const w = viewEl.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
@@ -2493,6 +2318,8 @@ function horizonBanners() {
   const done = state.debriefs[t] && !state.debriefs[t].sample;
   if (h >= 19 && !done) out.push(`<div class="banner ion"><span><b>Debrief your day.</b> 60 seconds, then you get your rank.</span><button class="btn-primary sm" data-mod="debrief">Start debrief</button></div>`);
   if (dowOf(t) === 7 && h >= 12) out.push(`<div class="banner ion"><span><b>It is Sunday.</b> Look back at the week and plan the next one.</span><button class="btn-ghost sm" data-mod="sunday">Sunday review</button></div>`);
+  const due = atDue(atStats());
+  if (due.length) out.push(`<div class="banner ion"><span><b>${esc(due[0].n.name)}</b> · ${due[0].days} days without practice${due.length > 1 ? ` · +${due.length - 1} more` : ''}</span><button class="btn-ghost sm" data-at-open="${due[0].n.id}">Open</button></div>`);
   return out.join('');
 }
 
@@ -2515,12 +2342,12 @@ function todayTimeline(t, bm, lift) {
   return rows.length ? rows.sort((a, b) => a.k - b.k).map(r => r.html).join('') : `<div class="empty">Nothing on today. Pull something in from Anytime, or launch a new vector.</div>`;
 }
 
-function renderHorizon() { const m = state.prefs && state.prefs.horizon; return m === 'comb' ? renderComb() : m === 'stock' ? renderStock() : m === 'board' ? renderBoard() : renderDay(); }
+function renderHorizon() { return state.prefs && state.prefs.horizon === 'comb' ? renderComb() : renderBoard(); }
 
-// the four Horizon formats: quiet words, a small lit hexagon under the one you are on
+// the Horizon formats: quiet words, a small lit hexagon under the one you are on
 function viewSwitch() {
-  const mode = (state.prefs && state.prefs.horizon) || 'day';
-  return `<div class="hview"><div class="hmodes" role="group" aria-label="Horizon format">${[['day', 'Day'], ['stock', 'Stock'], ['comb', 'Comb'], ['board', 'Board']].map(([k, l]) => `<button class="${mode === k ? 'sel' : ''}" data-hmode="${k}" aria-pressed="${mode === k}">${l}</button>`).join('')}</div></div>`;
+  const mode = state.prefs && state.prefs.horizon === 'comb' ? 'comb' : 'board';
+  return `<div class="hview"><div class="hmodes" role="group" aria-label="Horizon format">${[['board', 'Board'], ['comb', 'Comb']].map(([k, l]) => `<button class="${mode === k ? 'sel' : ''}" data-hmode="${k}" aria-pressed="${mode === k}">${l}</button>`).join('')}</div></div>`;
 }
 
 // Board: every vector and class as a flight. The day numbers on top; below the board, Today and Anytime.
@@ -2553,25 +2380,7 @@ function boardShow(id) {
 document.addEventListener('pointerover', e => { if (e.pointerType !== 'mouse') return; const r = e.target.closest && e.target.closest('.board [data-bsel]'); if (r) boardShow(r.dataset.bsel); });
 document.addEventListener('pointerout', e => { const b = e.target.closest && e.target.closest('.board'); if (b && !(e.relatedTarget && b.contains(e.relatedTarget))) boardShow(ui.boardSel); });
 
-function renderDay() {
-  const now = new Date(), t = todayKey(), bm = burnMap(), G = groups();
-  const style = (state.prefs && state.prefs.dayStyle) || 'arc';
-  const M = dayModel(t), W = mapWidth(), nx = nextUp();
-  const map = style === 'strata' ? mapStrata(M, W) : style === 'ring' ? mapRing(M, W, nx) : mapArc(M, W);
-  return `
-  <div class="vhead"><div><div class="eyebrow">Horizon</div><h1>${DOW_LONG[now.getDay()]} ${now.getDate()} ${MON_LONG[now.getMonth()]}</h1></div>
-    ${viewSwitch()}</div>
-  ${horizonBanners()}
-  <section class="dayhero">
-    <div class="map-wrap${style === 'ring' ? ' center' : ''}">${map}</div>
-    <div class="map-foot"><div class="map-leg"><span><i class="c"></i>Classes</span><span><i class="t"></i>Travel</span><span><i class="p"></i>Planned</span><span><i class="g"></i>Fits here</span><span><i class="d"></i>Burned</span></div><div class="dstyle" role="group" aria-label="Day style">${DAY_STYLES.map(([k, l]) => `<button class="${style === k ? 'sel' : ''}" data-dstyle="${k}" aria-pressed="${style === k}">${l}</button>`).join('')}</div></div>
-    ${dayStats(t, G, bm, M, ['burned', 'free', 'classes'])}
-  </section>
-  ${sampleBanner()}
-  ${daySections(t, G, bm, true, `<section class="sec"><div class="sec-h"><h2>Efficiency</h2><span class="sec-extra"><button class="btn-text" data-hmode="stock" style="height:auto;padding:0;font-size:12px">Stock view ${I.right}</button></span></div>${moMini(moModel())}</section>`)}`;
-}
-
-// The Day numbers (burned today, free left, classes), shared by Day, Comb and Board
+// The day numbers (burned today, free left, classes), shared by Comb and Board
 function dayStats(t, G, bm, M, keys) {
   const burned = minutesOn(t), planned = burned + remaining(G.today, bm), cl = classesOn(t);
   const cells = {
@@ -2581,9 +2390,9 @@ function dayStats(t, G, bm, M, keys) {
   };
   return `<div class="hstats${keys.length === 2 ? ' two' : ''}">${keys.map(k => cells[k]).join('')}</div>`;
 }
-// Next up, Today and Anytime, shared by Day, Comb and Board (extraSide goes above Anytime;
-// the Comb leaves Today out, its panel beside the comb already lists today)
-function daySections(t, G, bm, withNext = true, extraSide = '', withToday = true) {
+// Next up, Today and Anytime, shared by Comb and Board
+// (the Comb leaves Today out, its panel beside the comb already lists today)
+function daySections(t, G, bm, withNext = true, withToday = true) {
   const nx = withNext && nextUp(), anyN = G.windows.length + G.floating.length;
   return `<div class="hz2">
     <div class="hz2-main">
@@ -2591,7 +2400,6 @@ function daySections(t, G, bm, withNext = true, extraSide = '', withToday = true
       ${withToday ? `<section class="sec"><div class="sec-h"><h2>Today</h2><span class="count">${G.today.length + classesOn(t).length}</span><span class="sec-extra"><button class="btn-ghost sm" data-action="add-today">${I.plus} Add to today</button></span></div><div class="tline">${todayTimeline(t, bm)}</div></section>` : ''}
     </div>
     <div class="hz2-side">
-      ${extraSide}
       <section class="sec"><div class="sec-h"><h2>Anytime</h2><span class="count">${anyN}</span></div>${anyN ? vlist(G.windows.concat(G.floating), bm) : `<div class="empty">Nothing waiting. Everything has a day.</div>`}</section>
     </div>
   </div>`;
@@ -3182,43 +2990,6 @@ function moSpark(pts, base, W, H) {
   return `<svg class="mo-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><line class="mo-prev" x1="0" x2="${W}" y1="${Y(base).toFixed(1)}" y2="${Y(base).toFixed(1)}"/>${out}<circle class="mo-now" cx="${X(l[0]).toFixed(1)}" cy="${Y(l[1]).toFixed(1)}" r="2.6"/></svg>`;
 }
 
-// small ticker card (Day format, replaces "This week")
-function moMini(M) {
-  const T = M.today, chg = M.now - T.open;
-  return `<button class="mo-mini" data-hmode="stock" aria-label="Open the Stock format">
-    <span class="mm-top"><span class="mo-tk">KRS</span><span class="eyebrow">Efficiency</span><span class="mm-chg ${updn(chg)}">${fmtChg(chg)}</span></span>
-    <span class="mm-val">${fmtIx(M.now)}</span>
-    ${(() => { const P = T.pts.map(([h, v]) => ({ x: h, v, m: Math.round(h * 60), am: T.am0 + Math.round(h * 60) })); moTexture(P, moAmp(P.map(p => p.v).concat(T.open), 1.7)); return moSpark(P.map(p => [p.x, p.v]), T.open, 320, 64); })()}
-    <span class="mm-foot"><span>07:00</span><span>NOW</span></span>
-  </button>`;
-}
-
-function moversHTML(M, k) {
-  const list = moMovers(M, k).slice(0, 7);
-  if (!list.length) return `<div class="empty">Nothing has moved the line yet today.</div>`;
-  return `<div class="movers">${list.map(x => `<div class="mover${x.live ? ' live' : ''}"><span class="mv-t">${esc(x.t)}</span><span class="mv-p ${updn(x.pct)}">${fmtPts(x.pct)}</span><span class="mv-s">${esc(x.s)}</span></div>`).join('')}</div>`;
-}
-
-const moHowHTML = () => { const S = moModel().now, room = (100 - S) / 100, lvl = S / 100, f2 = x => x.toFixed(2);
-  return `<details class="mo-how"><summary>How the points work ${I.down}</summary>
-  <p class="mo-how-lead">Efficiency runs from 0 to 100%. Everything has a fixed exchange rate. Gains are multiplied by the room left to 100 (now ${Math.round(room * 100)}%), losses by where you are (now ${Math.round(lvl * 100)}%). So high up, climbing gets harder and idling costs more.</p>
-  <table class="mo-rate"><tbody>
-    <tr><td>1 hour burned, Steady</td><td class="up">+${MO.burn} × room</td><td class="up">${fmtPts(MO.burn * room)}</td></tr>
-    <tr><td>Gravity</td><td colspan="2">Drift ×${MO.gf[1]} · Light ×${MO.gf[2]} · Steady ×1 · Heavy ×${MO.gf[4]} · Critical ×${MO.gf[5]}</td></tr>
-    <tr><td>Minutes past your minimum</td><td colspan="2">count ×${MO.over}</td></tr>
-    <tr><td>Reaching the minimum</td><td class="up">+${MO.reach} × gravity</td><td class="up">${fmtPts(MO.reach * room)}</td></tr>
-    <tr><td>Landing a vector</td><td class="up">+(0.5 + its hours) × gravity</td><td class="up">${fmtPts(1.5 * room)}<small> 1 h, Steady</small></td></tr>
-    <tr><td>1 hour in class</td><td class="up">+${MO.cls} × room</td><td class="up">${fmtPts(MO.cls * room)}</td></tr>
-    <tr><td>Travel to or from uni</td><td colspan="2">no change, it is not idle time</td></tr>
-    <tr><td>1 idle hour awake</td><td class="down">−${MO.idle0} to −${MO.idleMax} × level</td><td class="down">${fmtPts(-MO.idleMax * lvl)}<small> long idle</small></td></tr>
-    <tr><td>Quitting before the minimum</td><td class="down" colspan="2">you lose the unfinished share of that burn, plus −${MO.quit} × gravity × share missed. Start, quit after 10 of 30 min: you end lower than before.</td></tr>
-    <tr><td>Postponing today's vector</td><td class="down">−${MO.move} × gravity, +50% each time</td><td class="down">${fmtPts(-MO.move * lvl)}</td></tr>
-    <tr><td>Each night it stays carried over</td><td class="down">−${MO.carry} × gravity</td><td class="down">${fmtPts(-MO.carry * lvl)}</td></tr>
-    <tr><td>Debrief</td><td colspan="2">(score − 60) ÷ 40 × ${MO.earn}</td></tr>
-  </tbody></table>
-  <p class="dim mo-how-foot">Right column: what it is worth for you right now at Steady. If you keep the same habit every day it settles at a level: 1 h a day around 38%, 1½ h around 48%, 3 h around 68%, 5 heavy hours with overruns around 87%. Nothing at all slides toward 0. Rearranging future days is free. The small red and green flips are texture, like a real ticker; they never change a day's open, close or the value right now.</p>
-</details>`; };
-
 // crosshair: slide over the chart to read any point
 function moScrubAt(svg, clientX) {
   const id = svg.dataset.mo, C = ui.moc[id]; if (!C || !C.xs.length) return;
@@ -3252,32 +3023,10 @@ document.addEventListener('pointermove', e => {
 ['pointerup', 'pointercancel'].forEach(n => document.addEventListener(n, e => { if (e.pointerType !== 'mouse' && ui.moScrub) setTimeout(moScrubEnd, 900); }));
 document.addEventListener('mouseleave', () => { if (ui.moScrub) moScrubEnd(); });
 
-// Horizon, Stock format: the index up top, then today (classes + what you add)
-function renderStock() {
-  const now = new Date(), t = todayKey(), bm = burnMap(), G = groups(), M = moModel(), W = mapWidth(), nx = nextUp();
-  const anyN = G.windows.length + G.floating.length, clsToday = classesOn(t);
-  return `
-  <div class="vhead"><div><div class="eyebrow">Horizon</div><h1>${DOW_LONG[now.getDay()]} ${now.getDate()} ${MON_LONG[now.getMonth()]}</h1></div>
-    ${viewSwitch()}</div>
-  ${horizonBanners()}
-  <section class="mo-hero">${moBlock('h', ui.moRange.h, W, M)}</section>
-  ${sampleBanner()}
-  <div class="hz2">
-    <div class="hz2-main">
-      ${nx ? nextCard(nx, bm, true) : ''}
-      <section class="sec"><div class="sec-h"><h2>Today</h2><span class="count">${G.today.length + clsToday.length}</span><span class="sec-extra"><button class="btn-ghost sm" data-action="add-today">${I.plus} Add to today</button></span></div><div class="tline">${todayTimeline(t, bm, true)}</div></section>
-    </div>
-    <div class="hz2-side">
-      <section class="sec"><div class="sec-h"><h2>Today's movers</h2></div>${moversHTML(M, t)}${moHowHTML()}</section>
-      <section class="sec"><div class="sec-h"><h2>Anytime</h2><span class="count">${anyN}</span></div>${anyN ? vlist(G.windows.concat(G.floating), bm) : `<div class="empty">Nothing waiting. Everything has a day.</div>`}</section>
-    </div>
-  </div>`;
-}
-
 function nextCard(nx, bm, lift) {
   const live = state.active && state.active.vectorId === nx.id;
   return `<section class="sec"><div class="sec-h"><h2>Next up</h2></div>
-    <div class="nextcard"><div class="nc-l"><span class="eyebrow">${esc(fieldName(nx.fieldId))}${nx.orbitId && orb(nx.orbitId) ? ' · ' + esc(orb(nx.orbitId).name) : ''}</span><button class="nc-t" data-open-vector="${nx.id}">${esc(nx.title)}</button><span class="nc-m">${esc(whenLong(nx).txt)} · ${Math.max(0, nx.burnMin - (bm[nx.id] || 0))} min left · ${GRAVITY[nx.gravity][0]}${lift && !live ? ` · <span class="lift">${fmtPts(worthOf(nx, bm))} if you finish it</span>` : ''}</span></div>
+    <div class="nextcard"><div class="nc-l"><span class="eyebrow">${esc(fieldName(nx.fieldId))}</span><button class="nc-t" data-open-vector="${nx.id}">${esc(nx.title)}</button><span class="nc-m">${esc(whenLong(nx).txt)} · ${Math.max(0, nx.burnMin - (bm[nx.id] || 0))} min left · ${GRAVITY[nx.gravity][0]}${lift && !live ? ` · <span class="lift">${fmtPts(worthOf(nx, bm))} if you finish it</span>` : ''}</span></div>
     ${live ? `<button class="btn-primary" data-action="burn-open">${I.pause} Burning</button>` : `<button class="btn-primary" data-action="ignite" data-id="${nx.id}">${I.play} Ignite · ${fmtMin(defaultSession(nx, bm))}</button>`}</div></section>`;
 }
 
@@ -3311,7 +3060,7 @@ setInterval(() => { if ((ui.view === 'horizon' || ui.view === 'telemetry') && !d
    amber dot = a window closes, the number inside a past comb = the Debrief score.
    Hover a comb and its day opens below; click to keep it open.
    ============================================================ */
-try { ui.calMode = localStorage.getItem('kairos.cal') === 'month' ? 'month' : 'week'; } catch (e) { ui.calMode = 'week'; }
+try { ui.calMode = localStorage.getItem('kairos.cal') === 'week' ? 'week' : 'month'; } catch (e) { ui.calMode = 'month'; }
 ui.monthOffset = 0; ui.calPin = null;
 const CAL_CAP = 240;
 function calDays(weekDays) {
@@ -3416,54 +3165,114 @@ function renderTrajectory() {
   const pin = cdays.includes(ui.calPin) ? ui.calPin : cdays.includes(t) ? t : cdays[0];
   ui.calPin = pin;
   const mref = k2d(cdays[0]);
-  const calHead = `<span class="cal-head">${month ? `<span class="cal-nav"><button class="icon-btn sm" data-action="cal-prev" aria-label="Previous month">${I.left}</button><span class="mono">${MON[mref.getMonth()]} ${mref.getFullYear()}</span><button class="icon-btn sm" data-action="cal-next" aria-label="Next month">${I.right}</button></span>` : ''}<span class="seg2" role="group" aria-label="Calendar range">${[['week', 'Week'], ['month', 'Month']].map(([k, l]) => `<button class="${ui.calMode === k ? 'sel' : ''}" data-action="cal-${k}" aria-pressed="${ui.calMode === k}">${l}</button>`).join('')}</span></span>`;
   const chip = (v, right, cls) => `<button class="tchip" data-open-vector="${v.id}" draggable="true" data-drag="${v.id}">${gbars(v.gravity)}<span>${esc(v.title)}</span><span class="mono ${cls || ''}">${right}</span></button>`;
+  const nav = month
+    ? `<div class="wk-nav"><button class="icon-btn" data-action="cal-prev" aria-label="Previous month">${I.left}</button><span class="mono">${MON[mref.getMonth()]} ${mref.getFullYear()}</span><button class="icon-btn" data-action="cal-next" aria-label="Next month">${I.right}</button></div>`
+    : `<div class="wk-nav"><button class="icon-btn" data-action="week-prev" aria-label="Previous week">${I.left}</button><span class="mono">${rangeTxt}</span><button class="icon-btn" data-action="week-next" aria-label="Next week">${I.right}</button>${ui.weekOffset !== 0 ? `<button class="btn-ghost sm" data-action="week-today">This week</button>` : ''}</div>`;
+  const seg = `<span class="seg2" role="group" aria-label="Calendar range">${[['week', 'Week'], ['month', 'Month']].map(([k, l]) => `<button class="${ui.calMode === k ? 'sel' : ''}" data-action="cal-${k}" aria-pressed="${ui.calMode === k}">${l}</button>`).join('')}</span>`;
   return `
   <div class="vhead">
-    <div><div class="eyebrow">Trajectory</div><h1>Your week</h1></div>
-    <div class="wk-nav">
-      <button class="icon-btn" data-action="week-prev" aria-label="Previous week">${I.left}</button>
-      <span class="mono">${rangeTxt}</span>
-      <button class="icon-btn" data-action="week-next" aria-label="Next week">${I.right}</button>
-      ${ui.weekOffset !== 0 ? `<button class="btn-ghost sm" data-action="week-today">This week</button>` : ''}
-    </div>
+    <div><div class="eyebrow">Trajectory</div><h1>Calendar</h1></div>
+    <div class="cal-head">${nav}${seg}</div>
   </div>
   <div class="cal">
-    <div class="cal-l">
-      ${section('Calendar', '', `${calComb(cdays)}<div class="cal-day" id="cal-day" data-k="${pin}">${calDay(pin)}</div>`, calHead)}
-    </div>
-    <div class="cal-r">
-      ${late.length ? section('Carried over', late.length, `<div class="tray">${late.map(v => chip(v, dayLabel(v.anchor.date).toUpperCase(), 'late')).join('')}</div>`) : ''}
-      ${G.windows.length ? section('Windows', G.windows.length, `<div class="tray">${G.windows.map(v => { const w = windowInfo(v); return chip(v, w.short.toUpperCase(), w.cls); }).join('')}</div>`) : ''}
-      ${section('Floating', G.floating.length, G.floating.length ? `<div class="tray">${G.floating.map(v => chip(v, v.burnMin + 'M')).join('')}</div>` : `<div class="empty">Nothing floating.</div>`)}
-    </div>
+    <div class="cal-l">${calComb(cdays)}</div>
+    <div class="cal-day" id="cal-day" data-k="${pin}">${calDay(pin)}</div>
   </div>
-  <div class="week">${cols}</div>`;
+  <div class="week">${cols}</div>
+  <div class="tj-trays">
+    ${late.length ? section('Carried over', late.length, `<div class="tray">${late.map(v => chip(v, dayLabel(v.anchor.date).toUpperCase(), 'late')).join('')}</div>`) : ''}
+    ${G.windows.length ? section('Windows', G.windows.length, `<div class="tray">${G.windows.map(v => { const w = windowInfo(v); return chip(v, w.short.toUpperCase(), w.cls); }).join('')}</div>`) : ''}
+    ${section('Floating', G.floating.length, G.floating.length ? `<div class="tray">${G.floating.map(v => chip(v, v.burnMin + 'M')).join('')}</div>` : `<div class="empty">Nothing floating.</div>`)}
+  </div>`;
 }
 
 /* ============================================================
-   ORBITS
+   ATLAS — for when you do not know what to do: everything you could be doing, as a tree you fill
+   yourself (Uni → Math → Unit 2 → 2.3). Every level opens the next one. On any level you can note what
+   exactly to do, rate how well you know it, burn on it, and ask to be reminded if it stays untouched.
+   Time comes from the normal burn log (vectors carry atlasId), so Telemetry counts it too.
    ============================================================ */
-function renderOrbits() {
-  const bm = burnMap();
-  const active = state.orbits.filter(o => !o.landedAt), landed = state.orbits.filter(o => o.landedAt);
-  // one card per orbit: the little orbit map, the name, one quiet line, a hairline of progress
-  const lv = state.active && vec(state.active.vectorId);
-  const card = o => {
-    const p = orbitProgress(o, bm), burning = lv && lv.orbitId === o.id ? lv : null;
-    return `<button class="ocard${o.landedAt ? ' landed' : ''}" data-open-orbit="${o.id}">
-      ${orbitSystem(o, p)}
-      <span class="on">${esc(o.name)}</span>
-      <span class="ometa">${p.landed} of ${p.total} landed<i>·</i>${fmtMin(p.burned)}</span>
-      ${burning ? `<span class="olive"><i></i><b data-olive></b><span>${esc(burning.title)}</span></span>` : ''}
-      <span class="bar"><i style="width:${p.pct}%"></i></span>
-    </button>`;
+function atlasStart() {
+  return [['a-uni', 'Uni'], ['a-intern', 'Internships'], ['a-ennova', 'Ennova'], ['a-money', 'Making money']]
+    .map(([id, name], i) => ({ id, parent: null, name, note: '', rating: 0, remind: 0, createdAt: i + 1, starter: true }));
+}
+const AT_RATE = [[3, 'Good'], [2, 'Okay'], [1, 'Bad']];
+const AT_REMIND = [0, 2, 3, 5, 7, 14];
+const atNode = id => state.atlas.find(n => n.id === id);
+const atKids = id => state.atlas.filter(n => n.parent === id).sort((a, b) => a.createdAt - b.createdAt);
+const atPath = id => { const out = []; for (let n = atNode(id); n; n = atNode(n.parent)) out.unshift(n); return out; };
+const atTitle = n => { const p = atPath(n.id); return (p.length > 2 ? [p[1], p[p.length - 1]] : p.slice(-2)).map(x => x.name).join(' · '); };
+const atAgo = ts => { if (!ts) return 'not yet'; const d = Math.floor((Date.now() - ts) / 864e5); return d <= 0 ? 'today' : d === 1 ? 'yesterday' : `${d} days ago`; };
+// last activity, minutes and "Bad" counts per node, each one rolled up into its parents
+function atStats() {
+  const own = {}, S = {};
+  state.atlas.forEach(n => { own[n.id] = { last: n.touched || 0, min: 0 }; S[n.id] = { last: 0, min: 0, bad: 0 }; });
+  const of = {}; state.vectors.forEach(v => { if (v.atlasId && own[v.atlasId]) of[v.id] = v.atlasId; });
+  state.sessions.forEach(s => { const id = of[s.vectorId]; if (id) { own[id].min += s.min; own[id].last = Math.max(own[id].last, s.start + s.min * 60000); } });
+  const a = state.active && of[state.active.vectorId]; if (a) own[a].last = Date.now();
+  state.atlas.forEach(n => {
+    const bad = n.rating === 1 && !state.atlas.some(k => k.parent === n.id) ? 1 : 0;
+    for (let p = n; p; p = atNode(p.parent)) { const q = S[p.id]; q.last = Math.max(q.last, own[n.id].last); q.min += own[n.id].min; q.bad += bad; }
+  });
+  return S;
+}
+// what you asked to be reminded about and have not touched for that many days
+function atDue(S) {
+  return state.atlas.filter(n => n.remind > 0).map(n => ({ n, days: Math.floor((Date.now() - (S[n.id].last || n.remindFrom || Date.now())) / 864e5) }))
+    .filter(d => d.days >= d.n.remind).sort((a, b) => (b.days - b.n.remind) - (a.days - a.n.remind));
+}
+// when you are stuck: reminders first, then what you rated Bad, then Okay, the longest untouched first
+function atIdeas(S) {
+  const seen = new Set(), out = [], add = (n, why, cls) => { if (!seen.has(n.id) && out.length < 3) { seen.add(n.id); out.push({ n, why, cls }); } };
+  atDue(S).forEach(d => add(d.n, `${d.days} days`, 'due'));
+  const leaves = state.atlas.filter(n => n.rating && !atKids(n.id).length).sort((a, b) => S[a.id].last - S[b.id].last);
+  leaves.filter(n => n.rating === 1).forEach(n => add(n, 'Bad', 'r1'));
+  leaves.filter(n => n.rating === 2).forEach(n => add(n, 'Okay', 'r2'));
+  return out;
+}
+// the top level is the field, so Telemetry can tell Uni from Internships
+function atField(n) {
+  const root = atPath(n.id)[0]; let f = state.fields.find(x => x.name.toLowerCase() === root.name.toLowerCase());
+  if (!f) { f = { id: uid(), name: root.name }; state.fields.push(f); }
+  return f.id;
+}
+// a burn started here is a short-lived vector: it lands by itself when the burn ends (see logActive)
+function atVector(n) {
+  let v = state.vectors.find(x => x.atlasId === n.id && !x.landedAt);
+  if (!v) { v = { id: uid(), title: atTitle(n), note: n.note || '', fieldId: atField(n), orbitId: null, atlasId: n.id, atQuick: true, stages: [], burnMin: 25, gravity: 3, anchor: { date: todayKey(), time: null }, window: null, createdAt: Date.now(), landedAt: null }; state.vectors.push(v); }
+  return v;
+}
+function renderAtlas() {
+  const S = atStats(), n = atNode(ui.atlas), id = n ? n.id : null, kids = atKids(id), due = new Set(atDue(S).map(d => d.n.id));
+  const tile = k => {
+    const s = S[k.id], c = atKids(k.id).length;
+    return `<button class="at-tile${k.rating ? ' r' + k.rating : ''}${due.has(k.id) ? ' due' : ''}" data-at="${k.id}"><i class="hx"></i><b>${esc(k.name)}</b><span>${[c ? `${c} inside` : '', atAgo(s.last)].filter(Boolean).join(' · ')}</span>${s.bad ? `<em>${s.bad} bad</em>` : ''}</button>`;
   };
-  return `
-  <div class="vhead"><div><div class="eyebrow">Orbits</div><h1>Projects in flight</h1></div><button class="btn-ghost sm" data-action="orbit-new">${I.plus} New orbit</button></div>
-  ${active.length ? `<div class="orbit-grid">${active.map(card).join('')}</div>`
-    : `<div class="o-empty"><span>No orbits yet. An orbit groups vectors into one bigger project.</span><button class="btn-ghost sm" data-action="orbit-new">${I.plus} Start an orbit</button></div>`}
-  ${landed.length ? `<details class="o-more"><summary>Landed orbits · ${landed.length} ${I.down}</summary><div class="orbit-grid">${landed.map(card).join('')}</div></details>` : ''}`;
+  const add = `<div class="add-row at-add" data-form="at-add"><input id="at-in" class="in" placeholder="${id ? 'Add inside, commas for several' : 'Add an area'}" maxlength="400" autocomplete="off" aria-label="Add"><button class="btn-ghost sm" type="button" data-submit>${I.plus} Add</button></div>`;
+  if (!n) {
+    const ideas = atIdeas(S);
+    return `<div class="vhead"><div><div class="eyebrow">Atlas</div><h1>What now?</h1></div></div>
+    ${ideas.length ? `<div class="at-ideas">${ideas.map(i => `<button class="at-idea ${i.cls}" data-at="${i.n.id}"><i class="hx"></i><b>${esc(atTitle(i.n))}</b><span>${i.why}</span></button>`).join('')}</div>` : ''}
+    <div class="at-grid">${kids.map(tile).join('')}</div>${add}`;
+  }
+  const path = atPath(id), s = S[id], live = state.active && (vec(state.active.vectorId) || {}).atlasId === id;
+  return `<div class="crumbs at-crumbs"><button data-at="">Atlas</button>${path.slice(0, -1).map(p => `<span class="sep">/</span><button data-at="${p.id}">${esc(p.name)}</button>`).join('')}<span class="sep">/</span><span class="cur" id="at-cur">${esc(n.name)}</span></div>
+    <input id="at-name" class="line-in at-name" value="${esc(n.name)}" maxlength="80" aria-label="Name">
+    <div class="at-meta mono"><span>${s.last ? `Last ${atAgo(s.last)}` : 'Not touched yet'}</span>${s.min ? `<span>${fmtFree(s.min)} burned</span>` : ''}</div>
+    <textarea id="at-note" class="note-in" rows="2" placeholder="What exactly?" aria-label="What exactly?">${esc(n.note || '')}</textarea>
+    <div class="at-acts">
+      ${live ? `<button class="btn-primary" data-action="burn-open">${I.pause} Burning</button>` : `<button class="btn-primary" data-action="at-burn" data-id="${id}">${I.play} Burn</button>`}
+      <button class="btn-ghost" data-action="at-plan" data-id="${id}">Plan it</button>
+      <button class="btn-ghost" data-action="at-did" data-id="${id}">${I.check} Did it</button>
+    </div>
+    <div class="at-set">
+      ${kids.length ? '' : `<div><span class="eyebrow">How is it</span><div class="at-rate" role="group" aria-label="How well you know it">${AT_RATE.map(([v, l]) => `<button class="r${v}${n.rating === v ? ' sel' : ''}" data-at-rate="${id}|${v}" aria-pressed="${n.rating === v}">${l}</button>`).join('')}</div></div>`}
+      <label><span class="eyebrow">Remind me after</span><select id="at-remind" class="in">${AT_REMIND.map(d => `<option value="${d}" ${(n.remind || 0) === d ? 'selected' : ''}>${d ? d + ' days' : 'Never'}</option>`).join('')}</select></label>
+    </div>
+    ${kids.length ? `<div class="at-grid">${kids.map(tile).join('')}</div>` : ''}
+    ${add}
+    ${ui.atDel === id ? `<div class="confirm"><p>Delete ${esc(n.name)} and everything inside? Your burns stay in the log.</p><button class="btn-ghost sm" data-action="at-del-no">Keep</button><button class="btn-ghost sm" data-action="at-del-yes" data-id="${id}">Delete</button></div>` : `<button class="btn-text at-del" data-action="at-del" data-id="${id}">Delete</button>`}`;
 }
 
 /* ============================================================
@@ -3697,9 +3506,8 @@ const flowEl = $('#flow');
 const STEPS = ['Field', 'Intent', 'Burn', 'Gravity', 'Anchor'];
 
 function openFlow(preset = {}) {
-  ui.draft = Object.assign({ fieldId: null, title: '', note: '', showNote: false, stages: [], stageDraft: '', orbitId: null, newOrbit: '', burnMin: 25, gravity: 3, when: 'float', anchorDate: null, anchorTime: '', windowUntil: null }, preset);
+  ui.draft = Object.assign({ fieldId: null, title: '', note: '', showNote: false, stages: [], stageDraft: '', burnMin: 25, gravity: 3, when: 'float', anchorDate: null, anchorTime: '', windowUntil: null }, preset);
   ui.step = preset.fieldId ? 1 : 0; ui.renderedStep = -1;
-  ui.flowReturn = preset.orbitId && ui.sheet ? { type: 'orbit', id: preset.orbitId } : null;
   if (ui.sheet) closeSheet();
   ui.flowOpen = true; flowEl.hidden = false; lock();
   renderFlow();
@@ -3743,7 +3551,6 @@ function stepField() {
 
 function stepIntent() {
   const d = ui.draft, f = fld(d.fieldId);
-  const orbits = state.orbits.filter(o => !o.landedAt);
   return stepHead(1, 'What exactly?', '') +
   `<button class="field-tag" data-step-go="0"><i></i>${esc(f ? f.name : 'No field')}<span class="dim">change</span></button>
   <div class="line-wrap">
@@ -3755,15 +3562,6 @@ function stepIntent() {
     <div class="stage-list">
       ${d.stages.map((s, i) => `<div class="stage-line"><span class="n">${pad(i + 1)}</span><input data-stage-idx="${i}" value="${esc(s)}" maxlength="100" aria-label="Stage ${i + 1}"><button type="button" class="icon-btn sm" data-stage-del="${i}" aria-label="Remove stage ${i + 1}">${I.x}</button></div>`).join('')}
       <div class="stage-line ghost"><span class="n">${pad(d.stages.length + 1)}</span><input id="fl-stage-new" placeholder="${d.stages.length ? 'Add another stage' : 'Add a stage, then press Enter'}" value="${esc(d.stageDraft)}" maxlength="100" autocomplete="off" aria-label="New stage"><span></span></div>
-    </div>
-  </div>
-  <div class="part">
-    <div class="part-h"><span class="lbl-sm">Orbit</span></div>
-    <div class="chips">
-      <button class="chip${!d.orbitId ? ' sel' : ''}" data-orbit-pick="">None</button>
-      ${orbits.map(o => `<button class="chip${d.orbitId === o.id ? ' sel' : ''}" data-orbit-pick="${o.id}">${esc(o.name)}</button>`).join('')}
-      <button class="chip${d.orbitId === '__new' ? ' sel' : ''}" data-orbit-pick="__new">${I.plus} New orbit</button>
-      ${d.orbitId === '__new' ? `<input id="fl-orbit-new" class="chip-in" placeholder="Name the orbit" value="${esc(d.newOrbit)}" maxlength="60" aria-label="New orbit name">` : ''}
     </div>
   </div>`;
 }
@@ -3792,7 +3590,6 @@ function dayStrip(attr, selected, rangeTo) {
 function stepAnchor() {
   const d = ui.draft, f = fld(d.fieldId);
   const MODES = [['float', 'Floating', 'No date. It waits until you pick it up.'], ['anchor', 'Anchor', 'Do it on a set day, at a time if you like.'], ['window', 'Window', 'Any time before a deadline.']];
-  const orbitName = d.orbitId === '__new' ? (d.newOrbit || 'New orbit') : d.orbitId ? (orb(d.orbitId) || {}).name : '';
   let when = 'Floating';
   if (d.when === 'anchor' && d.anchorDate) when = `${dayLabel(d.anchorDate)}${d.anchorTime ? ' · ' + d.anchorTime : ''}`;
   if (d.when === 'window' && d.windowUntil) when = `Window until ${dayLabel(d.windowUntil)}`;
@@ -3810,7 +3607,6 @@ function stepAnchor() {
   <div class="summary" aria-label="Summary">
     <span><b>${esc(f ? f.name : 'Unsorted')}</b></span>
     <span>${esc(d.title.trim() || (f ? f.name : 'Untitled vector'))}</span>
-    ${orbitName ? `<span>◦ ${esc(orbitName)}</span>` : ''}
     <span><b>${fmtMin(d.burnMin)}</b></span>
     <span>${GRAVITY[d.gravity][0]}</span>
     <span><b>${esc(when)}</b></span>
@@ -3821,14 +3617,9 @@ function stepAnchor() {
 function launch() {
   flushStageDraft();
   const d = ui.draft, f = fld(d.fieldId);
-  let orbitId = d.orbitId || null;
-  if (orbitId === '__new') {
-    const o = { id: uid(), name: d.newOrbit.trim() || d.title.trim() || 'New orbit', fieldId: d.fieldId, note: '', createdAt: Date.now(), landedAt: null };
-    state.orbits.push(o); orbitId = o.id;
-  }
   const title = d.title.trim() || (f ? f.name : 'Untitled vector');
   const v = {
-    id: uid(), title, note: d.note.trim(), fieldId: d.fieldId, orbitId,
+    id: uid(), title, note: d.note.trim(), fieldId: d.fieldId, orbitId: null, atlasId: d.atlasId || null,
     stages: d.stages.map(s => s.trim()).filter(Boolean).map(text => ({ id: uid(), text, done: false })),
     burnMin: d.burnMin, gravity: d.gravity,
     anchor: d.when === 'anchor' && d.anchorDate ? { date: d.anchorDate, time: d.anchorTime || null } : null,
@@ -3837,10 +3628,8 @@ function launch() {
   };
   state.vectors.push(v);
   if (d.fromDrop) state.drops = state.drops.filter(x => x.id !== d.fromDrop);
-  const ret = ui.flowReturn;
   closeFlow(); commit();
   toast(`Launched · ${title}`);
-  if (ret) openSheet(ret.type, ret.id);
 }
 
 /* ============================================================
@@ -3860,10 +3649,10 @@ function sheetBack() { const prev = ui.sheetStack.pop(); if (prev) { ui.sheet = 
 function renderSheet() {
   if (!ui.sheet) return;
   const tp = ui.sheet.type;
-  const item = tp === 'vector' ? vec(ui.sheet.id) : tp === 'orbit' ? orb(ui.sheet.id) : true;
+  const item = tp === 'vector' ? vec(ui.sheet.id) : true;
   if (!item) { closeSheet(); return; }
   const body = sheetEl.querySelector('.sheet-body'); const st = body ? body.scrollTop : 0;
-  sheetEl.innerHTML = tp === 'vector' ? vectorSheet(item) : tp === 'orbit' ? orbitSheet(item) : tp === 'hangar' ? hangarSheet() : modSheet(ui.sheet.id);
+  sheetEl.innerHTML = tp === 'vector' ? vectorSheet(item) : tp === 'hangar' ? hangarSheet() : modSheet(ui.sheet.id);
   const nb = sheetEl.querySelector('.sheet-body'); if (nb) nb.scrollTop = st;
 }
 
@@ -3880,7 +3669,6 @@ function vectorSheet(v) {
   const bm = burnMap(), burned = bm[v.id] || 0, t = todayKey();
   const live = state.active && state.active.vectorId === v.id;
   const sess = state.sessions.filter(s => s.vectorId === v.id).sort((a, b) => b.start - a.start).slice(0, 6);
-  const orbits = state.orbits.filter(o => !o.landedAt || o.id === v.orbitId);
   const doneN = v.stages.filter(s => s.done).length;
   const eow = endOfWeek();
   return `${sheetHead(`Vector · ${esc(fieldName(v.fieldId))}${v.landedAt ? ' · Landed' : ''}`)}
@@ -3928,9 +3716,7 @@ function vectorSheet(v) {
     </div>
     <div class="two">
       <label><span>Field</span><select id="vs-field" class="in">${!v.fieldId ? '<option value="">Unsorted</option>' : ''}${state.fields.map(f => `<option value="${f.id}" ${f.id === v.fieldId ? 'selected' : ''}>${esc(f.name)}</option>`).join('')}</select></label>
-      <label><span>Orbit</span><select id="vs-orbit" class="in"><option value="">No orbit</option>${orbits.map(o => `<option value="${o.id}" ${o.id === v.orbitId ? 'selected' : ''}>${esc(o.name)}</option>`).join('')}<option value="__new">+ New orbit from this</option></select></label>
     </div>
-    ${v.orbitId && orb(v.orbitId) ? `<button class="btn-text" style="align-self:flex-start;height:auto;padding:0;margin-top:-14px;font-size:12.5px" data-open-orbit="${v.orbitId}" data-push="1">Open orbit ${I.right}</button>` : ''}
     ${sess.length ? `<div class="ss"><div class="ss-h"><span class="eyebrow">Burn log</span><span class="mono">${fmtMin(burned).toUpperCase()}</span></div><div class="slog">${sess.map(s => `<div><span>${dayLabel(s.day).toUpperCase()} · ${hhmm(s.start)}</span><b>${s.min} MIN</b></div>`).join('')}</div></div>` : ''}
     <div class="actions">
       ${v.landedAt ? `<button class="btn-ghost" data-action="relaunch" data-id="${v.id}">Relaunch</button>` : `<button class="btn-ghost" data-action="land" data-id="${v.id}">${I.check} Land vector</button>`}
@@ -3941,41 +3727,6 @@ function vectorSheet(v) {
   </div>`;
 }
 
-function orbitSheet(o) {
-  const bm = burnMap(), p = orbitProgress(o, bm);
-  const open = p.vs.filter(v => !v.landedAt).sort(byGravity), landed = p.vs.filter(v => v.landedAt);
-  return `${sheetHead(`Orbit${o.landedAt ? ' · Landed' : ''}`)}
-  <div class="sheet-body osheet">
-    <div class="ss" style="gap:6px">
-      <input id="os-name" class="line-in" value="${esc(o.name)}" maxlength="60" aria-label="Orbit name">
-      <textarea id="os-note" class="note-in" rows="2" placeholder="What is this orbit about?" aria-label="Orbit note">${esc(o.note || '')}</textarea>
-    </div>
-    <div class="os-prog">
-      <div class="os-nums"><b>${p.landed}<small>of ${p.total} landed</small></b><span>${fmtMin(p.burned)} burned</span></div>
-      <span class="bar"><i style="width:${p.pct}%"></i></span>
-    </div>
-    <div class="ss">
-      <div class="ss-h"><span class="eyebrow">In orbit · ${open.length}</span><button class="btn-text" data-action="orbit-add-vector" data-id="${o.id}">${I.plus} Add vector</button></div>
-      ${open.length ? vlist(open, bm, { hideOrbit: true }) : '<p class="dim" style="font-size:13.5px">Nothing open here. Add the first vector.</p>'}
-      ${landed.length ? `<details class="os-more"><summary>Landed · ${landed.length} ${I.down}</summary>${vlist(landed, bm, { hideOrbit: true, noAnchor: true })}</details>` : ''}
-    </div>
-    <div class="os-foot">
-      <label class="os-field"><span class="eyebrow">Field</span><select id="os-field" class="in"><option value="">Unsorted</option>${state.fields.map(f => `<option value="${f.id}" ${f.id === o.fieldId ? 'selected' : ''}>${esc(f.name)}</option>`).join('')}</select></label>
-      <div class="os-acts">
-        ${o.landedAt ? `<button class="btn-text" data-action="orbit-reopen" data-id="${o.id}">Reopen orbit</button>` : `<button class="btn-text" data-action="orbit-land" data-id="${o.id}">${I.check} Land orbit</button>`}
-        ${ui.confirm === o.id
-          ? `<div class="confirm"><p>Delete this orbit? Its vectors stay and just leave the orbit.</p><button class="btn-ghost sm" data-action="del-no">Keep</button><button class="btn-ghost sm btn-danger" data-action="orbit-del" data-id="${o.id}">Delete</button></div>`
-          : `<button class="btn-text" data-action="del-ask" data-id="${o.id}">Delete</button>`}
-      </div>
-    </div>
-  </div>`;
-}
-
-function newOrbit() {
-  const o = { id: uid(), name: 'Untitled orbit', fieldId: null, note: '', createdAt: Date.now(), landedAt: null };
-  state.orbits.push(o); commit(); openSheet('orbit', o.id);
-  setTimeout(() => { const i = $('#os-name'); if (i) { i.focus(); i.select(); } }, 60);
-}
 
 /* ============================================================
    TIMETABLE helpers (uni classes repeat every week)
@@ -4031,42 +3782,11 @@ function weekGlance(days, bm) {
   </div>`;
 }
 
-/* ============================================================
-   ORBIT SYSTEM (mini map on each orbit card)
-   ============================================================ */
-function orbitSystem(o, p) {
-  const vs = p.vs.slice(0, 10), cx = 130, cy = 50, a = state.active;
-  const ell = (rx, ry) => `M${cx - rx},${cy} a${rx},${ry} 0 1,0 ${2 * rx},0 a${rx},${ry} 0 1,0 ${-2 * rx},0`;
-  const outer = ell(104, 26), inner = ell(66, 16);
-  const live = a && vs.some(v => v.id === a.vectorId);
-  // each moon is a small hexagon on one track around the planet. From five vectors on there is a second,
-  // inner track: landed ones settle there (or the list is split in two when all are open or all landed).
-  // Size = its minimum burn, glow = its gravity. Hover (or tap) to peek, click to open.
-  const two = vs.length >= 5, byLanded = vs.some(v => v.landedAt) && vs.some(v => !v.landedAt);
-  const open = !two ? vs : byLanded ? vs.filter(v => !v.landedAt) : vs.slice(0, Math.ceil(vs.length / 2));
-  const done = !two ? [] : byLanded ? vs.filter(v => v.landedAt) : vs.slice(Math.ceil(vs.length / 2));
-  const moon = (v, i, n, path, dur, rx, ry) => {
-    const r = 3.4 + Math.min(v.burnMin, 120) / 32, isLive = a && a.vectorId === v.id;
-    const cls = isLive ? 'live' : v.landedAt ? 'l' : 'o';
-    const body = `<circle class="hit" r="${(r + 7).toFixed(1)}"/>${isLive ? `<circle class="mring" r="${(r + 2).toFixed(1)}"/>` : ''}<polygon class="mn ${cls}" points="${hexPts(0, 0, r)}" style="--g:${v.gravity}"/>`;
-    if (REDUCED) { const t = i / Math.max(1, n) * 2 * Math.PI; return `<g class="moon" data-moon="${v.id}" transform="translate(${(cx + rx * Math.cos(t)).toFixed(1)} ${(cy + ry * Math.sin(t)).toFixed(1)})">${body}</g>`; }
-    return `<g class="moon" data-moon="${v.id}">${body}<animateMotion dur="${dur}s" repeatCount="indefinite" begin="-${(i * dur / Math.max(1, n)).toFixed(1)}s" path="${path}"/></g>`;
-  };
-  const moonsO = open.map((v, i) => moon(v, i, open.length, outer, 60, 104, 26)).join('');
-  const moonsI = done.map((v, i) => moon(v, i, done.length, inner, 42, 66, 16)).join('');
-  // the planet: a small hexagon whose thin rim fills with progress, and a lit core
-  const planet = `<polygon class="pt" points="${hexPts(cx, cy, 9.5)}"/>
-    <polygon class="pp" pathLength="100" stroke-dasharray="${p.pct.toFixed(1)} 100" points="${hexPts(cx, cy, 9.5)}"/>
-    ${live ? `<polygon class="pr" points="${hexPts(cx, cy, 9.5)}"/>` : ''}
-    <polygon class="core${live ? ' live' : ''}" points="${hexPts(cx, cy, 2.8)}"/>`;
-  return `<svg class="osys${live ? ' is-live' : ''}" viewBox="0 0 260 100" role="img" aria-label="${esc(o.name)}: ${p.landed} of ${p.total} landed"><g transform="rotate(-8 ${cx} ${cy})"><path class="orb2" d="${outer}"/><path class="orb" d="${outer}"/>${two ? `<path class="orbi" d="${inner}"/>` : ''}${REDUCED ? '' : `<path class="run" pathLength="100" d="${outer}"/>`}${moonsI}</g>${planet}<g transform="rotate(-8 ${cx} ${cy})">${moonsO}</g></svg>`;
-}
-
-// ---------- moon peek: a tiny card about one vector, so you can decide before opening it ----------
+// ---------- peek: a tiny card about one vector, so you can decide before opening it ----------
 const peekEl = $('#peek');
 let peekOf = null;
-function showPeek(moonEl) {
-  const v = vec(moonEl.dataset.moon || moonEl.dataset.openVector); if (!v) return;
+function showPeek(el) {
+  const v = vec(el.dataset.openVector); if (!v) return;
   const bm = burnMap(), burned = bm[v.id] || 0, live = state.active && state.active.vectorId === v.id;
   const left = Math.max(0, v.burnMin - burned), touch = !window.matchMedia || !window.matchMedia('(hover: hover)').matches;
   peekEl.innerHTML = `<div class="eyebrow">${esc(fieldName(v.fieldId))}${v.landedAt ? ' · Landed' : live ? ' · Burning' : ''}</div>
@@ -4078,34 +3798,16 @@ function showPeek(moonEl) {
     ${v.stages.length ? `<div class="pk-r"><span>Stages</span><b>${v.stages.filter(s => s.done).length} / ${v.stages.length}</b></div>` : ''}
     <span class="bar"><i style="width:${clamp(burned / v.burnMin, 0, 1) * 100}%"></i></span>`;
   peekEl.hidden = false;
-  const r = moonEl.getBoundingClientRect(), w = peekEl.offsetWidth, h = peekEl.offsetHeight;
+  const r = el.getBoundingClientRect(), w = peekEl.offsetWidth, h = peekEl.offsetHeight;
   const x = clamp(r.left + r.width / 2 - w / 2, 8, window.innerWidth - w - 8);
   const y = r.top - h - 12 > 8 ? r.top - h - 12 : r.bottom + 12;
   peekEl.style.left = x + 'px'; peekEl.style.top = y + 'px';
-  $$('.moon.peeked').forEach(m => m.classList.remove('peeked')); moonEl.classList.add('peeked');
-  const svg = moonEl.ownerSVGElement; if (svg && svg.pauseAnimations) svg.pauseAnimations();
   peekOf = v.id;
 }
 function hidePeek() {
   if (!peekOf) return;
   peekEl.hidden = true; peekOf = null;
-  $$('.moon.peeked').forEach(m => m.classList.remove('peeked'));
-  $$('svg.osys').forEach(s => { if (s.unpauseAnimations) s.unpauseAnimations(); });
 }
-// mouse: the orbit holds still while you are over it, so a moon is easy to catch
-document.addEventListener('pointerover', e => {
-  if (e.pointerType !== 'mouse') return;
-  const svg = e.target.closest && e.target.closest('svg.osys'); if (svg && svg.pauseAnimations) svg.pauseAnimations();
-  const m = e.target.closest && e.target.closest('[data-moon]'); if (m && peekOf !== m.dataset.moon) showPeek(m);
-});
-document.addEventListener('pointerout', e => {
-  if (e.pointerType !== 'mouse') return;
-  const to = e.relatedTarget;
-  const m = e.target.closest && e.target.closest('[data-moon]');
-  if (m && !(to && m.contains(to))) { peekEl.hidden = true; peekOf = null; m.classList.remove('peeked'); }
-  const svg = e.target.closest && e.target.closest('svg.osys');
-  if (svg && !(to && svg.contains(to)) && svg.unpauseAnimations) svg.unpauseAnimations();
-});
 window.addEventListener('scroll', () => { if (peekOf) hidePeek(); }, { passive: true });
 // the same small preview for vectors in Trajectory's week and trays (mouse only; a tap just opens them)
 const PEEK_SEL = '.week [data-open-vector], .tray [data-open-vector], .cal-day [data-open-vector]';
@@ -4291,7 +3993,8 @@ function modTimetable() {
       <label><span>Drive home after the last class</span><input type="number" class="in" data-commute="home" min="0" max="240" step="5" value="${(state.commute || {}).home || 0}" aria-label="Minutes to drive home"><em>min</em></label>
       <label><span>Drive in before the first class</span><input type="number" class="in" data-commute="to" min="0" max="240" step="5" value="${(state.commute || {}).to || 0}" aria-label="Minutes to drive in"><em>min</em></label></div>
     ${byDay.map(([d, arr]) => `<div class="tt-day"><div class="eyebrow">${DOW_NAME[d]}</div>${arr.length ? arr.map(row).join('') : '<div class="dim" style="font-size:13px;padding:6px 0">No classes</div>'}</div>`).join('')}
-    <div><button class="btn-ghost sm" data-action="tt-add">${I.plus} Add class</button></div>`;
+    <div><button class="btn-ghost sm" data-action="tt-add">${I.plus} Add class</button></div>
+    <div class="tt-paste"><span class="eyebrow">Paste classes</span><textarea id="tt-paste" class="in" rows="3" placeholder="Wed 14:45-17:15 Spanish" aria-label="Paste classes, one per line" spellcheck="false"></textarea><button class="btn-ghost sm" data-action="tt-paste">Add these</button></div>`;
 }
 
 // ---------- Debrief ----------
@@ -4522,6 +4225,7 @@ function logActive(land) {
   const ms = elapsedMs(a), min = Math.round(ms / 60000), end = a.paused && a.pausedAt ? a.pausedAt : Date.now();
   if (min >= 1 && v) state.sessions.push({ id: uid(), vectorId: v.id, fieldId: v.fieldId, title: v.title, start: end - ms, min, plan: Math.round((a.planMs || a.targetMs) / 60000), pauses: a.pauses || 0, g: v.gravity, day: dkey(new Date(end - ms)) });
   if (land && v) v.landedAt = Date.now();
+  if (v && v.atQuick && !v.landedAt) { if (min >= 1) v.landedAt = Date.now(); else state.vectors = state.vectors.filter(x => x !== v); }
   state.active = null; wakeOff();
   return min;
 }
@@ -4529,11 +4233,10 @@ function logActive(land) {
 function renderBurn() {
   const a = state.active; if (!a) { closeBurn(); return; }
   const v = vec(a.vectorId); if (!v) { state.active = null; commit(); return; }
-  const o = v.orbitId ? orb(v.orbitId) : null;
   burnEl.innerHTML = `
   <div class="burn-top">
     <button class="icon-btn" data-action="burn-min" aria-label="Minimize timer">${I.down}</button>
-    <span class="burn-ctx mono">${esc(fieldName(v.fieldId))}${o ? ' · ' + esc(o.name) : ''}</span>
+    <span class="burn-ctx mono">${esc(fieldName(v.fieldId))}</span>
     <span class="burn-state" id="bstate">BURN</span>
   </div>
   <div class="burn-core">
@@ -4647,13 +4350,6 @@ document.addEventListener('click', e => {
   const tipT = e.target.closest && e.target.closest('[data-tip]');
   if (tipT && e.pointerType && e.pointerType !== 'mouse') { const r = tipT.getBoundingClientRect(); showTip(tipT, r.left + r.width / 2, r.top + 10); clearTimeout(showTip.t); showTip.t = setTimeout(() => { tipEl.hidden = true; }, 1800); }
 
-  // a moon on an orbit map: tap once to peek (touch), click / tap again to open the vector
-  const moon = e.target.closest && e.target.closest('[data-moon]');
-  if (moon) {
-    e.stopPropagation();
-    if (e.pointerType && e.pointerType !== 'mouse' && peekOf !== moon.dataset.moon) { showPeek(moon); return; }
-    hidePeek(); openSheet('vector', moon.dataset.moon); return;
-  }
   if (peekOf) hidePeek();
 
   const t = e.target.closest && e.target.closest('button, [data-nav], [data-action]');
@@ -4661,11 +4357,13 @@ document.addEventListener('click', e => {
   const ds = t.dataset;
   if (ds.submit != null) { submitForm(t.closest('[data-form]')); return; }
 
-  if (ds.nav) { setView(ds.nav); return; }
+  if (ds.nav) { if (ds.nav === 'atlas') { ui.atlas = null; if (ui.view === 'atlas') { renderView(); window.scrollTo(0, 0); } } setView(ds.nav); return; }
   if (ds.hmode) { state.prefs.horizon = ds.hmode; if (ui.view !== 'horizon') setView('horizon'); commit(); viewIn(); window.scrollTo(0, 0); return; }
   if (ds.moLine) { ui.moLine[ds.moLine] = !ui.moLine[ds.moLine]; ui.moScrub = null; ui.moAnim = ds.moLine; renderView(); ui.moAnim = null; return; }
   if (ds.moRange) { const [mid, r] = ds.moRange.split('|'); ui.moRange[mid] = r; ui.moScrub = null; ui.moAnim = mid; renderView(); ui.moAnim = null; return; }
-  if (ds.dstyle) { state.prefs.dayStyle = ds.dstyle; commit(); return; }
+  if (ds.at != null) { ui.atlas = ds.at || null; ui.atDel = null; renderView(); window.scrollTo(0, 0); return; }
+  if (ds.atOpen) { ui.atlas = ds.atOpen; ui.atDel = null; if (ui.view === 'atlas') renderView(); else setView('atlas'); return; }
+  if (ds.atRate) { const [nid, r] = ds.atRate.split('|'), n = atNode(nid); if (n) { n.rating = n.rating === +r ? 0 : +r; n.touched = Date.now(); delete n.starter; commit(); } return; }
   if (ds.teleRange) { ui.teleRange = ds.teleRange; renderView(); return; }
   if (ds.mod) { const m = MODS.find(x => x.key === ds.mod); if (m) { if (m.key === 'debrief') initDb(); openSheet('mod', m.key, !!ui.sheet && ui.sheet.type === 'hangar'); if (m.key === 'drop' && !t.closest('.dm-card')) setTimeout(() => { const i = $('#drop-in'); i && i.focus(); }, 60); } return; }
   if (ds.dropVec) { const d = state.drops.find(x => x.id === ds.dropVec); if (d) openFlow({ title: d.text, fromDrop: d.id }); return; }
@@ -4686,11 +4384,9 @@ document.addEventListener('click', e => {
   if (ds.hiveTo != null) { hiveUp(+ds.hiveTo); return; }
   if (ds.bsel) { if (ui.boardSel === ds.bsel) openSheet('vector', ds.bsel); else { ui.boardSel = ds.bsel; boardShow(ds.bsel); } return; }
   if (ds.openVector) { openSheet('vector', ds.openVector, !!ui.sheet); return; }
-  if (ds.openOrbit) { openSheet('orbit', ds.openOrbit, !!ds.push || (!!ui.sheet && ui.sheet.type === 'vector')); return; }
   if (ds.stepGo != null) { goStep(+ds.stepGo); return; }
   if (ds.pickField) { ui.draft.fieldId = ds.pickField; renderFlow(); setTimeout(() => goStep(1), 160); return; }
   if (ds.pickGravity) { ui.draft.gravity = +ds.pickGravity; renderFlow(); setTimeout(() => goStep(4), 160); return; }
-  if (ds.orbitPick != null) { ui.draft.orbitId = ds.orbitPick || null; renderFlow(); if (ds.orbitPick === '__new') { const i = $('#fl-orbit-new'); i && i.focus(); } return; }
   if (ds.when) {
     const d = ui.draft; d.when = ds.when;
     if (d.when === 'anchor' && !d.anchorDate) d.anchorDate = todayKey();
@@ -4735,15 +4431,28 @@ document.addEventListener('click', e => {
     case 'del-ask': ui.confirm = id; renderSheet(); break;
     case 'del-no': ui.confirm = null; renderSheet(); break;
     case 'del-yes': { if (state.active && state.active.vectorId === id) logActive(false); state.vectors = state.vectors.filter(v => v.id !== id); ui.confirm = null; commit(); if (ui.sheetStack.length) sheetBack(); else closeSheet(); toast('Vector deleted'); break; }
-    case 'orbit-new': newOrbit(); break;
-    case 'orbit-add-vector': { const o = orb(id); openFlow({ orbitId: o.id, fieldId: o.fieldId || null }); break; }
-    case 'orbit-land': { orb(id).landedAt = Date.now(); commit(); toast('Orbit landed'); break; }
-    case 'orbit-reopen': { orb(id).landedAt = null; commit(); break; }
-    case 'orbit-del': { state.vectors.forEach(v => { if (v.orbitId === id) v.orbitId = null; }); state.orbits = state.orbits.filter(o => o.id !== id); ui.confirm = null; commit(); if (ui.sheetStack.length) sheetBack(); else closeSheet(); toast('Orbit deleted'); break; }
     case 'week-prev': ui.weekOffset--; renderView(); break;
     case 'week-next': ui.weekOffset++; renderView(); break;
     case 'week-today': ui.weekOffset = 0; renderView(); break;
     case 'board-more': ui.boardMore = !ui.boardMore; renderView(); break;
+    case 'at-burn': { const n = atNode(id); if (n) ignite(atVector(n).id); break; }
+    case 'at-plan': { const n = atNode(id); if (n) openFlow({ title: atTitle(n), note: n.note || '', showNote: !!n.note, atlasId: n.id, fieldId: atField(n) }); break; }
+    case 'at-did': { const n = atNode(id); if (n) { n.touched = Date.now(); delete n.starter; commit(); toast(`Logged · ${n.name}`); } break; }
+    case 'at-del': ui.atDel = id; renderView(); break;
+    case 'at-del-no': ui.atDel = null; renderView(); break;
+    case 'at-del-yes': { const gone = new Set([id]); let more = true; while (more) { more = false; state.atlas.forEach(n => { if (gone.has(n.parent) && !gone.has(n.id)) { gone.add(n.id); more = true; } }); } const p = (atNode(id) || {}).parent || null; state.atlas = state.atlas.filter(n => !gone.has(n.id)); ui.atlas = p; ui.atDel = null; commit(); break; }
+    case 'tt-paste': {
+      const ta = $('#tt-paste'), bad = []; let added = 0;
+      (ta ? ta.value : '').split('\n').map(l => l.trim()).filter(Boolean).forEach(l => {
+        const m = l.match(/^([a-z]{3})[a-z]*\.?\s+(\d{1,2})[:.](\d{2})\s*[-–]\s*(\d{1,2})[:.](\d{2})\s+(.+)$/i), dow = m ? ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].indexOf(m[1].toLowerCase()) + 1 : 0;
+        if (!dow) { bad.push(l); return; }
+        const s = pad(+m[2]) + ':' + m[3], e = pad(+m[4]) + ':' + m[5], t = m[6].trim();
+        if (!state.classes.some(c => c.dow === dow && c.s === s && c.t === t)) { state.classes.push({ id: uid(), dow, s, e, t, short: t, k: /meeting/i.test(t) ? 'Meeting' : '', room: '', who: '' }); added++; }
+      });
+      commit(); toast(bad.length ? `Added ${added}. Could not read ${bad.length} line${bad.length > 1 ? 's' : ''}.` : `Added ${added}`);
+      const t2 = $('#tt-paste'); if (t2) t2.value = bad.join('\n');
+      break;
+    }
     case 'sync-now': (async () => { setSync('connecting'); try { await gistPull(); await flushCloud(); setSync('ok'); toast('Synced'); } catch (e) { setSync('err'); toast('Could not reach GitHub.'); } renderSheet(); })(); break;
     case 'sync-off': setSyncCfg(null); cloud = null; setSync('local'); renderSheet(); toast('Sync is off on this device. Your data stays here.'); break;
     case 'data-copy': {
@@ -4795,7 +4504,6 @@ document.addEventListener('input', e => {
   if (!ui.flowOpen || !flowEl.contains(el)) return;
   if (el.id === 'fl-title') ui.draft.title = el.value;
   else if (el.id === 'fl-note') ui.draft.note = el.value;
-  else if (el.id === 'fl-orbit-new') ui.draft.newOrbit = el.value;
   else if (el.id === 'fl-stage-new') ui.draft.stageDraft = el.value;
   else if (el.dataset.stageIdx != null) ui.draft.stages[+el.dataset.stageIdx] = el.value;
 });
@@ -4825,6 +4533,14 @@ document.addEventListener('focusout', e => {
 });
 document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target && isTyped(e.target)) e.target.blur(); });
 function fieldChanged(el, sh = ui.sheet) {
+  if (el.id === 'at-name' || el.id === 'at-note' || el.id === 'at-remind') {
+    const n = atNode(ui.atlas); if (!n) return;
+    delete n.starter;
+    if (el.id === 'at-name') { n.name = el.value.trim() || n.name; const c = $('#at-cur'); if (c) c.textContent = n.name; }
+    else if (el.id === 'at-note') n.note = el.value;
+    else { n.remind = +el.value; if (n.remind) n.remindFrom = Date.now(); }
+    quietSave(); return;
+  }
   if (el.id === 'data-file' && el.files && el.files[0]) { const r = new FileReader(); r.onload = () => { ui.impText = String(r.result); ui.impArm = true; renderSheet(); }; r.readAsText(el.files[0]); return; }
   if (el.id === 'fl-adate') { if (el.value) { ui.draft.anchorDate = el.value; renderFlow(); } return; }
   if (el.id === 'fl-wdate') { if (el.value) { ui.draft.windowUntil = el.value; renderFlow(); } return; }
@@ -4841,15 +4557,6 @@ function fieldChanged(el, sh = ui.sheet) {
     else if (el.id === 'vs-time') { if (v.anchor) { v.anchor.time = el.value || null; commit(); } }
     else if (el.id === 'vs-window') { const mv = setWindow(v, el.value || null); commit(); if (mv) toast(moveMsg(v)); }
     else if (el.id === 'vs-field') { v.fieldId = el.value || null; commit(); }
-    else if (el.id === 'vs-orbit') {
-      if (el.value === '__new') { const o = { id: uid(), name: v.title, fieldId: v.fieldId, note: '', createdAt: Date.now(), landedAt: null }; state.orbits.push(o); v.orbitId = o.id; commit(); toast(`New orbit · ${o.name}`); }
-      else { v.orbitId = el.value || null; commit(); }
-    }
-  } else {
-    const o = orb(sh.id); if (!o) return;
-    if (el.id === 'os-name') { o.name = el.value.trim() || o.name; commit({ sheet: false }); }
-    else if (el.id === 'os-note') { o.note = el.value; commit({ sheet: false }); }
-    else if (el.id === 'os-field') { o.fieldId = el.value || null; commit(); }
   }
 }
 
@@ -4867,6 +4574,10 @@ function submitForm(f) {
     const inp = $('#drop-in'), text = inp.value.trim(); if (!text) return;
     const nd = { id: uid(), text, at: Date.now(), seen: true }; state.drops.push(nd); ui.dropSel = nd.id; commit(); toast(`Dropped · ${text}`);
     setTimeout(() => { const i = $('#drop-in'); i && i.focus(); }, 0);
+  } else if (f.dataset.form === 'at-add') {
+    const inp = $('#at-in'), names = inp.value.split(',').map(x => x.trim()).filter(Boolean); if (!names.length) { inp.focus(); return; }
+    const now = Date.now(); names.forEach((name, i) => state.atlas.push({ id: uid(), parent: ui.atlas || null, name, note: '', rating: 0, remind: 0, createdAt: now + i }));
+    commit(); setTimeout(() => { const i = $('#at-in'); i && i.focus(); }, 0);
   } else if (f.dataset.form === 'sync') {
     const inp = $('#sync-token'), token = inp.value.trim(); if (!token) { inp.focus(); return; }
     setSyncCfg({ token }); renderSheet(); initGist();
@@ -4893,7 +4604,7 @@ document.addEventListener('keydown', e => {
   if (cell && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); hiveActivate(cell.dataset.cell, true); return; }
   if (cell && (e.key === 'Escape' || e.key === 'Backspace') && ui.hive.path.length) { e.preventDefault(); hiveUp(null, true); return; }
   if (e.key === 'Enter' && ui.flowOpen) {
-    if (el.id === 'fl-title' || el.id === 'fl-orbit-new') { e.preventDefault(); goStep(ui.step + 1); return; }
+    if (el.id === 'fl-title') { e.preventDefault(); goStep(ui.step + 1); return; }
     if (el.id === 'fl-stage-new') {
       e.preventDefault(); const val = el.value.trim();
       if (val) { ui.draft.stages.push(val); ui.draft.stageDraft = ''; renderFlow(); const n = $('#fl-stage-new'); n && n.focus(); }
