@@ -1283,6 +1283,27 @@ button.cd-row:hover{background:var(--hull-2)}
 .tt-paste{display:grid;gap:8px;justify-items:start;padding-top:14px;border-top:1px solid var(--seam)}
 .tt-paste textarea{width:100%;font-family:var(--f-mono);font-size:12px;line-height:1.5;resize:vertical}
 
+/* events: red, on the calendar, the week, the Board and Today */
+.hc .ev{fill:rgba(240,97,109,.16);stroke:var(--down);stroke-width:2.2;pointer-events:none;filter:drop-shadow(0 0 5px rgba(240,97,109,.55))}
+.hc .day .dn{paint-order:stroke}
+.hx.k-e{background:var(--down);filter:drop-shadow(0 0 3px var(--down))}
+.cd-row.ev{grid-template-columns:92px 10px minmax(0,1fr) 22px}
+.cd-row.ev .ct{color:var(--down);font-weight:500}
+.ev-x{width:22px;height:22px;margin-left:6px;border-radius:50%;font-size:14px;line-height:1;color:var(--dust)}
+.ev-x:hover{color:var(--frost);background:var(--hull-3)}
+.ev-add{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;margin-top:6px}
+.ev-add:has(#ev-date){grid-template-columns:minmax(0,1fr) auto auto}
+.ev-add:has(#ev-date) #ev-title{grid-column:1 / -1}
+.ev-add .in{min-width:0}
+.tev{display:flex;flex-direction:column;gap:3px;padding:7px 9px;border-radius:8px;border:1px solid var(--down);background:rgba(240,97,109,.1);font-size:11.5px;font-weight:500;color:var(--down);line-height:1.25}
+.tev .mono{font-size:8.5px;letter-spacing:.04em;opacity:.8}
+.b-row.evt{background:rgba(240,97,109,.07);box-shadow:inset 3px 0 0 var(--down)}
+.b-row.evt .flaps i{color:#FFB9BF}
+.b-st.ev{color:var(--down)}
+.tl-row.evt .tt{color:var(--down)}
+.tl-row.evt .mk{background:var(--down)}
+@media (max-width:560px){.cd-row.ev{grid-template-columns:84px 10px minmax(0,1fr) 22px}.ev-add,.ev-add:has(#ev-date){grid-template-columns:minmax(0,1fr) auto}.ev-add #ev-title,.ev-add [data-submit]{grid-column:1 / -1}}
+
 /* Atlas */
 .at-ideas{display:grid;gap:8px;margin:-8px 0 26px}
 .at-idea{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;padding:13px 16px;border-radius:14px;border:1px solid rgba(143,179,255,.28);background:linear-gradient(90deg,rgba(143,179,255,.09),transparent 80%);text-align:left;transition:border-color .15s}
@@ -1304,6 +1325,7 @@ button.cd-row:hover{background:var(--hull-2)}
 .at-name{display:block;width:100%;font-size:30px;font-weight:500;letter-spacing:-.02em}
 .at-meta{display:flex;gap:16px;margin:8px 0 14px;font-size:10.5px;letter-spacing:.04em;color:var(--dust)}
 #view .note-in{display:block;width:100%;max-width:640px;margin-bottom:16px}
+.at-add + .note-in{margin-top:22px}
 .at-acts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
 .at-set{display:flex;flex-wrap:wrap;gap:18px 34px;align-items:flex-end;margin-bottom:26px;padding:16px 0;border-block:1px solid var(--seam)}
 .at-set label{display:grid;gap:8px}.at-set > div{display:grid;gap:8px}
@@ -1623,7 +1645,9 @@ function normalize(s) {
   if (s.sessions.length > 1500) s.sessions = s.sessions.slice(-1500);
   if (!Array.isArray(s.classes)) s.classes = defaultClasses();
   if (!Array.isArray(s.drops)) s.drops = [];
+  if (!Array.isArray(s.events)) s.events = [];
   if (!Array.isArray(s.atlas)) s.atlas = atlasStart();
+  if ((s.atlasV || 0) < 2) { atlasGrow(s.atlas); s.atlasV = 2; }
   s.atlas.forEach(n => { if (n.parent === undefined) n.parent = null; });
   if (!s.targets || typeof s.targets !== 'object' || Array.isArray(s.targets)) s.targets = {};
   if (!s.debriefs || typeof s.debriefs !== 'object' || Array.isArray(s.debriefs)) s.debriefs = {};
@@ -1789,7 +1813,7 @@ async function gh(path, opts = {}) {
 // A device that only holds examples never uploads them, and your real data always beats examples,
 // whichever device connects first and whatever the clocks say.
 const isExample = s => !!s && !(s.vectors || []).some(v => !v.sample) && !(s.sessions || []).some(x => !x.sample)
-  && !Object.values(s.debriefs || {}).some(d => !d.sample) && !(s.drops || []).length && !(s.orbits || []).some(o => !o.sample) && !(s.atlas || []).some(n => !n.starter);
+  && !Object.values(s.debriefs || {}).some(d => !d.sample) && !(s.drops || []).length && !(s.orbits || []).some(o => !o.sample) && !(s.atlas || []).some(n => !n.starter) && !(s.events || []).length;
 async function gistPush() {
   const c = syncCfg(); if (!c || !c.gist || isExample(state)) return;
   await gh('/gists/' + c.gist, { method: 'PATCH', body: JSON.stringify({ files: { [GIST_FILE]: { content: JSON.stringify(state) } } }) });
@@ -2335,6 +2359,7 @@ function tlVec(v, bm, when, late, landed, lift) {
 
 function todayTimeline(t, bm, lift) {
   const G = groups(), nh = nowHours(), rows = [];
+  evOn(t).forEach(e => rows.push({ k: e.time ? hm(e.time) : -2, html: `<div class="tl-row evt"><span class="tm">${e.time || 'All day'}</span><span class="mk"></span><div class="bd"><span class="tt">${esc(e.title)}</span><span class="mt"><span>Event</span></span></div><span></span></div>` }));
   classesOn(t).forEach(c => rows.push({ k: hm(c.s), html: `<div class="tl-row cls${hm(c.e) <= nh ? ' past' : ''}"><span class="tm">${c.s}<br>${c.e}</span><span class="mk"></span><button class="bd" data-mod="timetable"><span class="tt">${esc(c.t)}</span><span class="mt"><span>Class${c.room ? ' · ' + esc(c.room) : ''}</span></span></button><span></span></div>` }));
   travelOn(t).forEach(s => rows.push({ k: s.a, html: `<div class="tl-row trav${s.b <= nh ? ' past' : ''}"><span class="tm">${fmtH(s.a)}<br>${fmtH(s.b)}</span><span class="mk"></span><button class="bd" data-mod="timetable"><span class="tt">${s.label}</span><span class="mt"><span>Travel · not free time</span></span></button><span></span></div>` }));
   G.today.forEach(v => { const late = v.anchor.date < t; rows.push({ k: late ? -1 : v.anchor.time ? hm(v.anchor.time) : 30, html: tlVec(v, bm, late ? 'Carried' : v.anchor.time || 'Any time', late, false, lift) }); });
@@ -3080,10 +3105,11 @@ function calComb(days) {
     const past = d < t, done = minutesOn(d), left = past ? 0 : remaining(open.filter(v => v.anchor && v.anchor.date === d), bm);
     const f = h * clamp((done + left) / CAL_CAP, 0, 1), deb = state.debriefs[d], id = 'calc' + i;
     const sub = past ? (deb && typeof deb.score === 'number' ? deb.score : '') : !month && left ? fmtFree(left) : '';
-    const closes = open.some(v => !v.anchor && v.window && v.window.until === d);
+    const closes = open.some(v => !v.anchor && v.window && v.window.until === d), hasEv = evOn(d).length > 0;
     html += `<g class="day${past ? ' past' : ''}${d === t ? ' today' : ''}" data-cal="${d}" data-drop-day="${d}" tabindex="0" role="button" aria-label="${esc(dayLabel(d))}">
       <clipPath id="${id}"><rect x="${(cx - R).toFixed(1)}" y="${(cy + h / 2 - f).toFixed(1)}" width="${2 * R}" height="${f.toFixed(1)}"/></clipPath>
       <polygon class="hex" points="${hexPts(cx, cy, R - 3)}"${classesOn(d).length ? ' style="fill:url(#calh)"' : ''}/>
+      ${hasEv ? `<polygon class="ev" points="${hexPts(cx, cy, R - 1)}"/>` : ''}
       ${f > .5 ? `<polygon class="fill" points="${hexPts(cx, cy, R - 3)}" clip-path="url(#${id})"/>` : ''}
       <text class="dn" x="${cx.toFixed(1)}" y="${(cy + 4).toFixed(1)}">${k2d(d).getDate()}</text>
       ${sub !== '' ? `<text class="sc" x="${cx.toFixed(1)}" y="${(cy + 17).toFixed(1)}">${sub}</text>` : ''}
@@ -3101,6 +3127,7 @@ function calDay(k) {
   const landedIds = new Set(state.vectors.filter(v => v.landedAt && dkey(new Date(v.landedAt)) === k).map(v => v.id));
   const sess = state.sessions.filter(s => s.day === k);
   const rows = [
+    ...evOn(k).map(e => ({ a: e.time ? hm(e.time) : -1, tm: e.time || 'ALL DAY', k: 'e', t: e.title, ev: e.id })),
     ...M.cls.map(s => ({ a: s.a, tm: `${fmtH(s.a)}–${fmtH(s.b)}`, k: 'c', t: s.label })),
     ...M.trav.map(s => ({ a: s.a, tm: `${fmtH(s.a)}–${fmtH(s.b)}`, k: 't', t: s.label })),
     ...sess.map(s => { const d = new Date(s.start), a = d.getHours() + d.getMinutes() / 60; return { a, tm: `${fmtH(a)}–${fmtH(a + s.min / 60)}`, k: landedIds.has(s.vectorId) ? 'l' : 'd', t: (vec(s.vectorId) || s).title, id: vec(s.vectorId) ? s.vectorId : null }; }),
@@ -3110,21 +3137,35 @@ function calDay(k) {
   ].sort((x, y) => x.a - y.a);
   const deb = state.debriefs[k], done = minutesOn(k);
   const right = past ? (deb && typeof deb.score === 'number' ? `<span class="up">SCORE ${deb.score} · ${rankOf(deb.score).toUpperCase()}</span>` : done ? `${fmtFree(done)} BURNED` : '') : `${fmtFree(M.freeMin)} FREE`;
-  const row = r => { const inner = `<span class="mono">${r.tm}</span><i class="hx k-${r.k}"></i><span class="ct">${esc(r.t)}</span>`; return r.id ? `<button class="cd-row" data-open-vector="${r.id}">${inner}</button>` : `<div class="cd-row">${inner}</div>`; };
-  return `<div class="cd-h"><b>${esc(dayLabel(k))}</b><span class="mono">${right}</span></div>
+  const row = r => { const inner = `<span class="mono">${r.tm}</span><i class="hx k-${r.k}"></i><span class="ct">${esc(r.t)}</span>`; if (r.ev) return `<div class="cd-row ev">${inner}<button class="ev-x" data-ev-del="${r.ev}" aria-label="Remove ${esc(r.t)}">×</button></div>`; return r.id ? `<button class="cd-row" data-open-vector="${r.id}">${inner}</button>` : `<div class="cd-row">${inner}</div>`; };
+  return `<div class="cd-h"><b>${esc(dayLabel(k))}</b><span class="mono">${right}${ui.calPin === k ? `<button class="ev-x" data-action="cal-unpin" aria-label="Close this day">×</button>` : ''}</span></div>
     <span class="wg-bar cd-bar">${M.cls.map(s => seg(s, 'c')).join('')}${M.trav.map(s => seg(s, 't')).join('')}${M.timed.map(s => seg(s, 'p')).join('')}${M.done.map(s => seg(s, 'd')).join('')}${M.isToday ? `<b class="wg-now" style="left:${P(nowHours())}%"></b>` : ''}</span>
     <div class="cd-ax mono"><span>07</span><span>12</span><span>18</span><span>24</span></div>
-    ${rows.length ? `<div class="cd-list">${rows.map(row).join('')}</div>` : ''}`;
+    ${rows.length ? `<div class="cd-list">${rows.map(row).join('')}</div>` : ''}
+    ${evForm(k)}`;
 }
-function calShow(k) {
-  const el = $('#cal-day'); if (!el || !k) return;
-  if (el.dataset.k !== k) { el.dataset.k = k; el.innerHTML = calDay(k); }
+// events: fixed things you have to be ready for (a test, a quiz, a case study). They are not vectors,
+// so they need no burn. They show in red on the calendar, the week, the Board and Today.
+const evOn = k => (state.events || []).filter(e => e.date === k).sort((a, b) => cmp(a.time || '', b.time || ''));
+const evForm = k => `<div class="ev-add" data-form="ev-add"${k ? ` data-day="${k}"` : ''}><input id="ev-title" class="in" placeholder="Test, quiz, deadline" maxlength="80" autocomplete="off" aria-label="Event">${k ? '' : `<input id="ev-date" class="in" type="date" value="${todayKey()}" aria-label="Day">`}<input id="ev-time" class="in" type="time" aria-label="Time, optional"><button class="btn-ghost sm" type="button" data-submit>${I.plus} Add</button></div>`;
+function calNext() {
+  const t = todayKey(), list = state.events.filter(e => e.date >= t).sort((a, b) => cmp(a.date + (a.time || ''), b.date + (b.time || ''))).slice(0, 10);
+  const when = d => d === t ? 'TODAY' : d === addDays(t, 1) ? 'TOMORROW' : shortDay(d);
+  return `<div class="cd-h"><b>Coming up</b></div>
+    ${list.length ? `<div class="cd-list">${list.map(e => `<div class="cd-row ev"><span class="mono">${when(e.date)}${e.time ? ' ' + e.time : ''}</span><i class="hx k-e"></i><span class="ct">${esc(e.title)}</span><button class="ev-x" data-ev-del="${e.id}" aria-label="Remove ${esc(e.title)}">×</button></div>`).join('')}</div>` : ''}
+    ${evForm('')}`;
+}
+const calPanel = k => k ? calDay(k) : calNext();
+function calShow(k, force) {
+  const el = $('#cal-day'); if (!el) return;
+  k = k || '';
+  if (!force && el.contains(document.activeElement) && document.activeElement.value) return; // hovering must not wipe what you are typing
+  if (el.dataset.k !== k) { el.dataset.k = k; el.innerHTML = calPanel(k); }
   $$('.hc [data-cal]').forEach(g => g.classList.toggle('sel', g.dataset.cal === k));
 }
 document.addEventListener('pointerover', e => { if (e.pointerType !== 'mouse') return; const g = e.target.closest && e.target.closest('.hc [data-cal]'); if (g) calShow(g.dataset.cal); });
 document.addEventListener('pointerout', e => { const hc = e.target.closest && e.target.closest('.hc'); if (hc && !(e.relatedTarget && hc.contains(e.relatedTarget))) calShow(ui.calPin); });
-document.addEventListener('click', e => { const g = e.target.closest && e.target.closest('.hc [data-cal]'); if (g) { ui.calPin = g.dataset.cal; calShow(ui.calPin); } });
-document.addEventListener('focusin', e => { const g = e.target.closest && e.target.closest('.hc [data-cal]'); if (g) { ui.calPin = g.dataset.cal; calShow(ui.calPin); } });
+document.addEventListener('click', e => { const g = e.target.closest && e.target.closest('.hc [data-cal]'); if (g) { ui.calPin = ui.calPin === g.dataset.cal ? null : g.dataset.cal; calShow(ui.calPin, true); } });
 function setCalMode(m) { ui.calMode = m; try { localStorage.setItem('kairos.cal', m); } catch (e) {} renderView(); }
 
 /* ============================================================
@@ -3154,6 +3195,7 @@ function renderTrajectory() {
     return `<div class="day-col${d === t ? ' is-today' : ''}" data-drop-day="${d}">
       <div class="dc-h"><span class="dc-dow">${d === t ? 'TODAY' : DOW[dd.getDay()]}</span><span class="dc-num">${dd.getDate()}</span></div>
       <div class="dc-body">
+        ${evOn(d).map(e => `<div class="tev"><span class="mono">${e.time || 'ALL DAY'}</span><span>${esc(e.title)}</span></div>`).join('')}
         ${cls.map(c => `<button class="tcls" data-mod="timetable" title="${esc(c.t)}${c.room ? ' · ' + esc(c.room) : ''}"><span class="mono">${c.s}–${c.e}</span><span>${esc(c.short || c.t)}</span></button>`).join('')}
         ${items.map(block).join('')}
         ${closing.map(v => `<button class="tclose${d <= t ? ' late' : ''}" data-open-vector="${v.id}" draggable="true" data-drag="${v.id}"><span class="mono">WINDOW CLOSES</span><span>${esc(v.title)}</span></button>`).join('')}
@@ -3162,7 +3204,7 @@ function renderTrajectory() {
   }).join('');
 
   const cdays = calDays(days), month = ui.calMode === 'month';
-  const pin = cdays.includes(ui.calPin) ? ui.calPin : cdays.includes(t) ? t : cdays[0];
+  const pin = cdays.includes(ui.calPin) ? ui.calPin : null;
   ui.calPin = pin;
   const mref = k2d(cdays[0]);
   const chip = (v, right, cls) => `<button class="tchip" data-open-vector="${v.id}" draggable="true" data-drag="${v.id}">${gbars(v.gravity)}<span>${esc(v.title)}</span><span class="mono ${cls || ''}">${right}</span></button>`;
@@ -3177,7 +3219,7 @@ function renderTrajectory() {
   </div>
   <div class="cal">
     <div class="cal-l">${calComb(cdays)}</div>
-    <div class="cal-day" id="cal-day" data-k="${pin}">${calDay(pin)}</div>
+    <div class="cal-day" id="cal-day" data-k="${pin || ''}">${calPanel(pin)}</div>
   </div>
   <div class="week">${cols}</div>
   <div class="tj-trays">
@@ -3196,6 +3238,26 @@ function renderTrajectory() {
 function atlasStart() {
   return [['a-uni', 'Uni'], ['a-intern', 'Internships'], ['a-ennova', 'Ennova'], ['a-money', 'Making money']]
     .map(([id, name], i) => ({ id, parent: null, name, note: '', rating: 0, remind: 0, createdAt: i + 1, starter: true }));
+}
+// fills the top areas once; anything you already added under the same name is kept, nothing is duplicated
+function atlasGrow(list) {
+  const TREE = {
+    'a-uni': [
+      ['Math', [['Unit 1'], ['Unit 2', [['2.1'], ['2.2'], ['2.3'], ['2.4']]], ['Unit 3']]],
+      ['Programming'],
+      ['Microeconomics', ['Foundations and PPC', 'Elasticity', 'Market equilibrium', 'Behavioural economics', 'Market failure and externalities', 'Government intervention', 'Asymmetric information', 'Surplus and subsidies', 'Public goods', 'Market structures', 'Perfect competition', 'Monopoly', 'Monopolistic competition and oligopoly', 'Firm objectives', 'Costs and revenues', 'Diagram areas and welfare', 'Comparative advantage', 'Monopsony and labour markets'].map(x => [x])],
+      ['Organisational Behaviour'], ['Business Law'], ['Spanish']
+    ],
+    'a-intern': [['Make the CV'], ['Find internships'], ['Find people to message'], ['Message them'], ['Send the CV'], ['Keep the tracker in order'], ['Follow up'], ['Prepare interviews']],
+    'a-money': [['Keystone', [['Teacher outreach'], ['Improve the demo']]], ['RECALL'], ['KAIROS', [['Videos'], ['Waitlist']]]]
+  };
+  let order = 10;
+  const grow = (parent, items) => items.forEach(([name, kids]) => {
+    let n = list.find(x => x.parent === parent && x.name.toLowerCase() === name.toLowerCase());
+    if (!n) { n = { id: parent + '-' + name.toLowerCase().replace(/[^a-z0-9]+/g, ''), parent, name, note: '', rating: 0, remind: 0, createdAt: order++, starter: true }; list.push(n); }
+    if (kids) grow(n.id, kids);
+  });
+  Object.keys(TREE).forEach(id => { if (list.some(n => n.id === id)) grow(id, TREE[id]); });
 }
 const AT_RATE = [[3, 'Good'], [2, 'Okay'], [1, 'Bad']];
 const AT_REMIND = [0, 2, 3, 5, 7, 14];
@@ -3260,6 +3322,7 @@ function renderAtlas() {
   return `<div class="crumbs at-crumbs"><button data-at="">Atlas</button>${path.slice(0, -1).map(p => `<span class="sep">/</span><button data-at="${p.id}">${esc(p.name)}</button>`).join('')}<span class="sep">/</span><span class="cur" id="at-cur">${esc(n.name)}</span></div>
     <input id="at-name" class="line-in at-name" value="${esc(n.name)}" maxlength="80" aria-label="Name">
     <div class="at-meta mono"><span>${s.last ? `Last ${atAgo(s.last)}` : 'Not touched yet'}</span>${s.min ? `<span>${fmtFree(s.min)} burned</span>` : ''}</div>
+    ${kids.length ? `<div class="at-grid">${kids.map(tile).join('')}</div>${add}` : ''}
     <textarea id="at-note" class="note-in" rows="2" placeholder="What exactly?" aria-label="What exactly?">${esc(n.note || '')}</textarea>
     <div class="at-acts">
       ${live ? `<button class="btn-primary" data-action="burn-open">${I.pause} Burning</button>` : `<button class="btn-primary" data-action="at-burn" data-id="${id}">${I.play} Burn</button>`}
@@ -3270,8 +3333,7 @@ function renderAtlas() {
       ${kids.length ? '' : `<div><span class="eyebrow">How is it</span><div class="at-rate" role="group" aria-label="How well you know it">${AT_RATE.map(([v, l]) => `<button class="r${v}${n.rating === v ? ' sel' : ''}" data-at-rate="${id}|${v}" aria-pressed="${n.rating === v}">${l}</button>`).join('')}</div></div>`}
       <label><span class="eyebrow">Remind me after</span><select id="at-remind" class="in">${AT_REMIND.map(d => `<option value="${d}" ${(n.remind || 0) === d ? 'selected' : ''}>${d ? d + ' days' : 'Never'}</option>`).join('')}</select></label>
     </div>
-    ${kids.length ? `<div class="at-grid">${kids.map(tile).join('')}</div>` : ''}
-    ${add}
+    ${kids.length ? '' : add}
     ${ui.atDel === id ? `<div class="confirm"><p>Delete ${esc(n.name)} and everything inside? Your burns stay in the log.</p><button class="btn-ghost sm" data-action="at-del-no">Keep</button><button class="btn-ghost sm" data-action="at-del-yes" data-id="${id}">Delete</button></div>` : `<button class="btn-text at-del" data-action="at-del" data-id="${id}">Delete</button>`}`;
 }
 
@@ -3307,7 +3369,8 @@ function departures(more = false) {
     return `<button class="b-row cls${st === 'ENDED' ? ' done' : ''}" data-mod="timetable"><span class="flaps time">${flap(c.s, 5, key + 't')}</span><span class="flaps nm">${flap(c.short || c.t, 30, key + 'n')}</span><span class="b-burn">${Math.round((hm(c.e) - hm(c.s)) * 60)}M</span><span class="b-st ${st === 'IN CLASS' ? 'ic' : st === 'ENDED' ? 'sc' : 'cl'}">${st}</span></button>`;
   };
   const kOf = v => { const tm = timeOf(v); return tm ? hm(tm) : 30; };
-  const dayRows = (d, vs) => [...classesOn(d).map(c => ({ k: hm(c.s), html: clsRow(c, d) })), ...vs.map(v => ({ k: kOf(v), html: row(v) }))].sort((a, b) => a.k - b.k).map(r => r.html);
+  const evRow = (e, d) => `<div class="b-row evt"><span class="flaps time${e.time ? '' : ' any'}">${flap(e.time || '', 5, 'e' + e.id + 't')}</span><span class="flaps nm">${flap(e.title, 30, 'e' + e.id + 'n')}</span><span class="b-burn"></span><span class="b-st ev">EVENT</span></div>`;
+  const dayRows = (d, vs) => [...evOn(d).map(e => ({ k: e.time ? hm(e.time) : -1, html: evRow(e, d) })), ...classesOn(d).map(c => ({ k: hm(c.s), html: clsRow(c, d) })), ...vs.map(v => ({ k: kOf(v), html: row(v) }))].sort((a, b) => a.k - b.k).map(r => r.html);
   const sep = l => `<div class="b-sep">${l}</div>`;
   const today = dayRows(t, state.vectors.filter(v => v.landedAt ? dkey(new Date(v.landedAt)) === t : v.id === live || (v.anchor && v.anchor.date <= t)));
   // the days after today: on Friday always the whole weekend; and if it is still quiet, more days until the board has
@@ -3315,7 +3378,7 @@ function departures(more = false) {
   const dow = k2d(t).getDay(), must = dow === 5 ? 2 : 1;
   let ahead = '', n = today.length;
   for (let i = 1; i <= 7; i++) {
-    if (!more && i > must && n >= 8) break;
+    if (!more && i > must && n >= 8 && !evOn(addDays(t, i)).length) continue; // an event always shows
     const d = addDays(t, i), rows = dayRows(d, state.vectors.filter(v => !v.landedAt && v.id !== live && v.anchor && v.anchor.date === d));
     const label = i === 1 ? 'TOMORROW · ' + shortDay(d) : shortDay(d);
     if (rows.length) { ahead += sep(label) + rows.join(''); n += rows.length; }
@@ -4361,6 +4424,7 @@ document.addEventListener('click', e => {
   if (ds.hmode) { state.prefs.horizon = ds.hmode; if (ui.view !== 'horizon') setView('horizon'); commit(); viewIn(); window.scrollTo(0, 0); return; }
   if (ds.moLine) { ui.moLine[ds.moLine] = !ui.moLine[ds.moLine]; ui.moScrub = null; ui.moAnim = ds.moLine; renderView(); ui.moAnim = null; return; }
   if (ds.moRange) { const [mid, r] = ds.moRange.split('|'); ui.moRange[mid] = r; ui.moScrub = null; ui.moAnim = mid; renderView(); ui.moAnim = null; return; }
+  if (ds.evDel) { state.events = state.events.filter(e => e.id !== ds.evDel); commit(); return; }
   if (ds.at != null) { ui.atlas = ds.at || null; ui.atDel = null; renderView(); window.scrollTo(0, 0); return; }
   if (ds.atOpen) { ui.atlas = ds.atOpen; ui.atDel = null; if (ui.view === 'atlas') renderView(); else setView('atlas'); return; }
   if (ds.atRate) { const [nid, r] = ds.atRate.split('|'), n = atNode(nid); if (n) { n.rating = n.rating === +r ? 0 : +r; n.touched = Date.now(); delete n.starter; commit(); } return; }
@@ -4470,6 +4534,7 @@ document.addEventListener('click', e => {
     case 'data-import': { const txt = ($('#data-in') || {}).value || ''; if (!txt.trim()) { toast('Paste KAIROS data first.'); break; } if (!ui.impArm) { ui.impText = txt; ui.impArm = true; renderSheet(); } else { ui.impText = ''; importData(txt); } break; }
     case 'data-cancel': ui.impArm = false; ui.impText = ''; renderSheet(); break;
     case 'alerts-on': try { Notification.requestPermission().then(() => renderSheet()); } catch (e) {} break;
+    case 'cal-unpin': ui.calPin = null; calShow(null, true); break;
     case 'cal-week': setCalMode('week'); break;
     case 'cal-month': setCalMode('month'); break;
     case 'cal-prev': ui.monthOffset--; renderView(); break;
@@ -4574,6 +4639,10 @@ function submitForm(f) {
     const inp = $('#drop-in'), text = inp.value.trim(); if (!text) return;
     const nd = { id: uid(), text, at: Date.now(), seen: true }; state.drops.push(nd); ui.dropSel = nd.id; commit(); toast(`Dropped · ${text}`);
     setTimeout(() => { const i = $('#drop-in'); i && i.focus(); }, 0);
+  } else if (f.dataset.form === 'ev-add') {
+    const inp = $('#ev-title'), title = inp.value.trim(), date = f.dataset.day || ($('#ev-date') || {}).value; if (!title || !date) { inp.focus(); return; }
+    state.events.push({ id: uid(), date, time: ($('#ev-time') || {}).value || null, title });
+    commit(); toast(`Added · ${title} · ${dayLabel(date)}`); setTimeout(() => { const i = $('#ev-title'); i && i.focus(); }, 0);
   } else if (f.dataset.form === 'at-add') {
     const inp = $('#at-in'), names = inp.value.split(',').map(x => x.trim()).filter(Boolean); if (!names.length) { inp.focus(); return; }
     const now = Date.now(); names.forEach((name, i) => state.atlas.push({ id: uid(), parent: ui.atlas || null, name, note: '', rating: 0, remind: 0, createdAt: now + i }));
