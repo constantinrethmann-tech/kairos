@@ -1651,6 +1651,7 @@ function normalize(s) {
   if (s.atlasV < 3) { atlasLaw(s.atlas); s.atlasV = 3; }
   if (s.atlasV < 4) { atlasMath(s.atlas); s.atlasV = 4; }
   if (s.atlasV < 5) { atlasMore(s.atlas); s.atlasV = 5; }
+  if (s.atlasV < 6) { atlasMicro(s); s.atlasV = 6; }
   s.atlas.forEach(n => { if (n.parent === undefined) n.parent = null; });
   if (!s.targets || typeof s.targets !== 'object' || Array.isArray(s.targets)) s.targets = {};
   if (!s.debriefs || typeof s.debriefs !== 'object' || Array.isArray(s.debriefs)) s.debriefs = {};
@@ -3296,11 +3297,26 @@ function atlasMore(list) {
   add('programming', ['1 · Variables, input and output', '2 · Strings and slicing', '3 · Conditionals', '4 · Loops', '5 · Tuples and lists', '6 · Functions', '7 · Dictionaries', 'Mini projects']);
   add('microeconomics', ['Seminars', 'Past midterms']);
 }
+// Microeconomics the way the teacher structures it. The earlier topics go, unless you rated, noted or burned on one.
+function atlasMicro(s) {
+  const list = s.atlas, micro = list.find(n => n.parent === 'a-uni' && n.name.toLowerCase() === 'microeconomics'); if (!micro) return;
+  const used = new Set(s.vectors.map(v => v.atlasId));
+  s.atlas = list.filter(n => !(n.parent === micro.id && n.starter && !n.rating && !n.note && !n.touched && !used.has(n.id) && n.name !== 'Seminars' && n.name !== 'Past midterms' && !list.some(k => k.parent === n.id)));
+  const node = (parent, id, name, createdAt) => { let n = s.atlas.find(x => x.parent === parent && x.name.toLowerCase() === name.toLowerCase()); if (!n) { n = { id: parent + '-' + id, parent, name, note: '', rating: 0, remind: 0, createdAt, starter: true }; s.atlas.push(n); } return n; };
+  [['Topic 1 · Introduction to Economics', ['The concept of economics', 'Micro and macroeconomics', 'Opportunity cost and comparative advantage', 'Normative and positive economics', 'Market structure and concentration', 'Perfect competition']],
+   ['Topic 2 · Market analysis', ['Demand and supply', 'Demand and its drivers', 'Supply and its drivers', 'Elasticities', 'Welfare analysis']],
+   ['Topic 3 · Government intervention I', ['Maximum and minimum price', 'Production quotas', 'Indirect taxes and subsidies', 'Tariffs and import quotas']],
+   ['Topic 4 · Market failures', ['Externalities', 'Asymmetric information', 'Public goods']]
+  ].forEach(([name, kids], t) => { const top = node(micro.id, 't' + (t + 1), name, 500 + t); kids.forEach((k, i) => node(top.id, 'k' + i, k, 600 + i)); });
+  const sem = node(micro.id, 'sem', 'Seminars', 510), past = node(micro.id, 'past', 'Past midterms', 511);
+  sem.createdAt = 510; past.createdAt = 511;
+  [1, 2, 3, 4].forEach(i => node(sem.id, 's' + i, 'Seminar ' + i, 600 + i));
+}
 const AT_RATE = [[3, 'Good'], [2, 'Okay'], [1, 'Bad']];
 const AT_REMIND = [0, 2, 3, 5, 7, 14];
 const atNode = id => state.atlas.find(n => n.id === id);
 // numbered items (2.1, Unit 3, 4 · Corporate bodies) sort by number, the rest in the order you added them
-const atNum = /^(units*)?d/i;
+const atNum = /^((unit|topic|seminar)s*)?d/i;
 const atKids = id => state.atlas.filter(n => n.parent === id).sort((a, b) => atNum.test(a.name) && atNum.test(b.name) ? a.name.localeCompare(b.name, undefined, { numeric: true }) : a.createdAt - b.createdAt);
 const atPath = id => { const out = []; for (let n = atNode(id); n; n = atNode(n.parent)) out.unshift(n); return out; };
 const atTitle = n => { const p = atPath(n.id); return (p.length > 2 ? [p[1], p[p.length - 1]] : p.slice(-2)).map(x => x.name).join(' · '); };
