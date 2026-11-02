@@ -1287,22 +1287,25 @@ button.cd-row:hover{background:var(--hull-2)}
 .hc .ev{fill:rgba(240,97,109,.16);stroke:var(--down);stroke-width:2.2;pointer-events:none;filter:drop-shadow(0 0 5px rgba(240,97,109,.55))}
 .hc .day .dn{paint-order:stroke}
 .hx.k-e{background:var(--down);filter:drop-shadow(0 0 3px var(--down))}
-.cd-row.ev{grid-template-columns:92px 10px minmax(0,1fr) 22px}
+.cd-row.ev{grid-template-columns:minmax(0,1fr) 22px;gap:0}
 .cd-row.ev .ct{color:var(--down);font-weight:500}
+.ev-go{display:grid;grid-template-columns:92px 10px minmax(0,1fr) auto;gap:10px;align-items:center;min-width:0;width:100%;text-align:left;border-radius:7px}
+button.ev-go:hover{background:var(--hull-2)}
+.ev-min{white-space:nowrap}
 .ev-x{width:22px;height:22px;margin-left:6px;border-radius:50%;font-size:14px;line-height:1;color:var(--dust)}
 .ev-x:hover{color:var(--frost);background:var(--hull-3)}
 .ev-add{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;margin-top:6px}
 .ev-add:has(#ev-date){grid-template-columns:minmax(0,1fr) auto auto}
 .ev-add:has(#ev-date) #ev-title{grid-column:1 / -1}
 .ev-add .in{min-width:0}
-.tev{display:flex;flex-direction:column;gap:3px;padding:7px 9px;border-radius:8px;border:1px solid var(--down);background:rgba(240,97,109,.1);font-size:11.5px;font-weight:500;color:var(--down);line-height:1.25}
+.tev{display:flex;flex-direction:column;gap:3px;width:100%;text-align:left;padding:7px 9px;border-radius:8px;border:1px solid var(--down);background:rgba(240,97,109,.1);font-size:11.5px;font-weight:500;color:var(--down);line-height:1.25}
 .tev .mono{font-size:8.5px;letter-spacing:.04em;opacity:.8}
 .b-row.evt{background:rgba(240,97,109,.07);box-shadow:inset 3px 0 0 var(--down)}
 .b-row.evt .flaps i{color:#FFB9BF}
 .b-st.ev{color:var(--down)}
 .tl-row.evt .tt{color:var(--down)}
 .tl-row.evt .mk{background:var(--down)}
-@media (max-width:560px){.cd-row.ev{grid-template-columns:84px 10px minmax(0,1fr) 22px}.ev-add,.ev-add:has(#ev-date){grid-template-columns:minmax(0,1fr) auto}.ev-add #ev-title,.ev-add [data-submit]{grid-column:1 / -1}}
+@media (max-width:560px){.ev-go{grid-template-columns:84px 10px minmax(0,1fr) auto}.ev-add,.ev-add:has(#ev-date){grid-template-columns:minmax(0,1fr) auto}.ev-add #ev-title,.ev-add [data-submit]{grid-column:1 / -1}}
 
 /* Atlas */
 .at-ideas{display:grid;gap:8px;margin:-8px 0 26px}
@@ -3131,7 +3134,7 @@ function calDay(k) {
   const landedIds = new Set(state.vectors.filter(v => v.landedAt && dkey(new Date(v.landedAt)) === k).map(v => v.id));
   const sess = state.sessions.filter(s => s.day === k);
   const rows = [
-    ...evOn(k).map(e => ({ a: e.time ? hm(e.time) : -1, tm: e.time || 'ALL DAY', k: 'e', t: e.title, ev: e.id })),
+    ...evOn(k).map(e => ({ a: e.time ? hm(e.time) : -1, tm: e.time || 'ALL DAY', k: 'e', t: e.title, ev: e })),
     ...M.cls.map(s => ({ a: s.a, tm: `${fmtH(s.a)}–${fmtH(s.b)}`, k: 'c', t: s.label })),
     ...M.trav.map(s => ({ a: s.a, tm: `${fmtH(s.a)}–${fmtH(s.b)}`, k: 't', t: s.label })),
     ...sess.map(s => { const d = new Date(s.start), a = d.getHours() + d.getMinutes() / 60; return { a, tm: `${fmtH(a)}–${fmtH(a + s.min / 60)}`, k: landedIds.has(s.vectorId) ? 'l' : 'd', t: (vec(s.vectorId) || s).title, id: vec(s.vectorId) ? s.vectorId : null }; }),
@@ -3141,7 +3144,7 @@ function calDay(k) {
   ].sort((x, y) => x.a - y.a);
   const deb = state.debriefs[k], done = minutesOn(k);
   const right = past ? (deb && typeof deb.score === 'number' ? `<span class="up">SCORE ${deb.score} · ${rankOf(deb.score).toUpperCase()}</span>` : done ? `${fmtFree(done)} BURNED` : '') : `${fmtFree(M.freeMin)} FREE`;
-  const row = r => { const inner = `<span class="mono">${r.tm}</span><i class="hx k-${r.k}"></i><span class="ct">${esc(r.t)}</span>`; if (r.ev) return `<div class="cd-row ev">${inner}<button class="ev-x" data-ev-del="${r.ev}" aria-label="Remove ${esc(r.t)}">×</button></div>`; return r.id ? `<button class="cd-row" data-open-vector="${r.id}">${inner}</button>` : `<div class="cd-row">${inner}</div>`; };
+  const row = r => { const inner = `<span class="mono">${r.tm}</span><i class="hx k-${r.k}"></i><span class="ct">${esc(r.t)}</span>`; if (r.ev) return evLine(r.ev, r.tm); return r.id ? `<button class="cd-row" data-open-vector="${r.id}">${inner}</button>` : `<div class="cd-row">${inner}</div>`; };
   return `<div class="cd-h"><b>${esc(dayLabel(k))}</b><span class="mono">${right}${ui.calPin === k ? `<button class="ev-x" data-action="cal-unpin" aria-label="Close this day">×</button>` : ''}</span></div>
     <span class="wg-bar cd-bar">${M.cls.map(s => seg(s, 'c')).join('')}${M.trav.map(s => seg(s, 't')).join('')}${M.timed.map(s => seg(s, 'p')).join('')}${M.done.map(s => seg(s, 'd')).join('')}${M.isToday ? `<b class="wg-now" style="left:${P(nowHours())}%"></b>` : ''}</span>
     <div class="cd-ax mono"><span>07</span><span>12</span><span>18</span><span>24</span></div>
@@ -3149,14 +3152,34 @@ function calDay(k) {
     ${evForm(k)}`;
 }
 // events: fixed things you have to be ready for (a test, a quiz, a case study). They are not vectors,
-// so they need no burn. They show in red on the calendar, the week, the Board and Today.
+// but pressing one starts a burn for it. They show in red on the calendar, the week, the Board and Today.
 const evOn = k => (state.events || []).filter(e => e.date === k).sort((a, b) => cmp(a.time || '', b.time || ''));
+const evMin = id => state.sessions.filter(s => s.eventId === id).reduce((a, s) => a + s.min, 0);
+// "Business Law case study" belongs to Business Law, "Micro test" to Microeconomics
+function evSubject(e) {
+  const t = e.title.toLowerCase(), words = t.split(/[^\p{L}]+/u).filter(w => w.length >= 4).map(w => w.replace(/s$/, ''));
+  return state.atlas.filter(n => atPath(n.id).length === 2).filter(n => { const a = n.name.toLowerCase(); return t.includes(a) || words.some(w => a.startsWith(w)); }).sort((a, b) => b.name.length - a.name.length)[0] || null;
+}
+// like an Atlas burn: a short-lived vector that lands by itself, its time adds up on the event
+function evVector(e) {
+  let v = state.vectors.find(x => x.eventId === e.id && !x.landedAt);
+  if (!v) {
+    const n = evSubject(e), root = n || state.atlas.find(x => !x.parent && x.name.toLowerCase() === 'uni');
+    v = { id: uid(), title: e.title, note: '', fieldId: root ? atField(root) : null, orbitId: null, atlasId: n ? n.id : null, eventId: e.id, atQuick: true, stages: [], burnMin: 25, gravity: 3, anchor: { date: todayKey(), time: null }, window: null, createdAt: Date.now(), landedAt: null };
+    state.vectors.push(v);
+  }
+  return v;
+}
+function evLine(e, tm) {
+  const m = evMin(e.id), inner = `<span class="mono">${tm}</span><i class="hx k-e"></i><span class="ct">${esc(e.title)}</span><span class="mono ev-min">${m ? fmtMin(m) : ''}</span>`;
+  return `<div class="cd-row ev">${e.date < todayKey() ? `<span class="ev-go">${inner}</span>` : `<button class="ev-go" data-ev-burn="${e.id}" aria-label="Burn for ${esc(e.title)}">${inner}</button>`}<button class="ev-x" data-ev-del="${e.id}" aria-label="Remove ${esc(e.title)}">×</button></div>`;
+}
 const evForm = k => `<div class="ev-add" data-form="ev-add"${k ? ` data-day="${k}"` : ''}><input id="ev-title" class="in" placeholder="Test, quiz, deadline" maxlength="80" autocomplete="off" aria-label="Event">${k ? '' : `<input id="ev-date" class="in" type="date" value="${todayKey()}" aria-label="Day">`}<input id="ev-time" class="in" type="time" aria-label="Time, optional"><button class="btn-ghost sm" type="button" data-submit>${I.plus} Add</button></div>`;
 function calNext() {
   const t = todayKey(), list = state.events.filter(e => e.date >= t).sort((a, b) => cmp(a.date + (a.time || ''), b.date + (b.time || ''))).slice(0, 10);
   const when = d => d === t ? 'TODAY' : d === addDays(t, 1) ? 'TOMORROW' : shortDay(d);
   return `<div class="cd-h"><b>Coming up</b></div>
-    ${list.length ? `<div class="cd-list">${list.map(e => `<div class="cd-row ev"><span class="mono">${when(e.date)}${e.time ? ' ' + e.time : ''}</span><i class="hx k-e"></i><span class="ct">${esc(e.title)}</span><button class="ev-x" data-ev-del="${e.id}" aria-label="Remove ${esc(e.title)}">×</button></div>`).join('')}</div>` : ''}
+    ${list.length ? `<div class="cd-list">${list.map(e => evLine(e, when(e.date) + (e.time ? ' ' + e.time : ''))).join('')}</div>` : ''}
     ${evForm('')}`;
 }
 const calPanel = k => k ? calDay(k) : calNext();
@@ -3199,7 +3222,7 @@ function renderTrajectory() {
     return `<div class="day-col${d === t ? ' is-today' : ''}" data-drop-day="${d}">
       <div class="dc-h"><span class="dc-dow">${d === t ? 'TODAY' : DOW[dd.getDay()]}</span><span class="dc-num">${dd.getDate()}</span></div>
       <div class="dc-body">
-        ${evOn(d).map(e => `<div class="tev"><span class="mono">${e.time || 'ALL DAY'}</span><span>${esc(e.title)}</span></div>`).join('')}
+        ${evOn(d).map(e => { const inner = `<span class="mono">${e.time || 'ALL DAY'}</span><span>${esc(e.title)}</span>`; return d < t ? `<div class="tev">${inner}</div>` : `<button class="tev" data-ev-burn="${e.id}">${inner}</button>`; }).join('')}
         ${cls.map(c => `<button class="tcls" data-mod="timetable" title="${esc(c.t)}${c.room ? ' · ' + esc(c.room) : ''}"><span class="mono">${c.s}–${c.e}</span><span>${esc(c.short || c.t)}</span></button>`).join('')}
         ${items.map(block).join('')}
         ${closing.map(v => `<button class="tclose${d <= t ? ' late' : ''}" data-open-vector="${v.id}" draggable="true" data-drag="${v.id}"><span class="mono">WINDOW CLOSES</span><span>${esc(v.title)}</span></button>`).join('')}
@@ -3316,7 +3339,7 @@ const AT_RATE = [[3, 'Good'], [2, 'Okay'], [1, 'Bad']];
 const AT_REMIND = [0, 2, 3, 5, 7, 14];
 const atNode = id => state.atlas.find(n => n.id === id);
 // numbered items (2.1, Unit 3, 4 · Corporate bodies) sort by number, the rest in the order you added them
-const atNum = /^((unit|topic|seminar)s*)?d/i;
+const atNum = /^((unit|topic|seminar)\s*)?\d/i;
 const atKids = id => state.atlas.filter(n => n.parent === id).sort((a, b) => atNum.test(a.name) && atNum.test(b.name) ? a.name.localeCompare(b.name, undefined, { numeric: true }) : a.createdAt - b.createdAt);
 const atPath = id => { const out = []; for (let n = atNode(id); n; n = atNode(n.parent)) out.unshift(n); return out; };
 const atTitle = n => { const p = atPath(n.id); return (p.length > 2 ? [p[1], p[p.length - 1]] : p.slice(-2)).map(x => x.name).join(' · '); };
@@ -4341,7 +4364,7 @@ function logActive(land) {
   const a = state.active; if (!a) return 0;
   const v = vec(a.vectorId);
   const ms = elapsedMs(a), min = Math.round(ms / 60000), end = a.paused && a.pausedAt ? a.pausedAt : Date.now();
-  if (min >= 1 && v) state.sessions.push({ id: uid(), vectorId: v.id, fieldId: v.fieldId, title: v.title, start: end - ms, min, plan: Math.round((a.planMs || a.targetMs) / 60000), pauses: a.pauses || 0, g: v.gravity, day: dkey(new Date(end - ms)) });
+  if (min >= 1 && v) state.sessions.push({ id: uid(), vectorId: v.id, fieldId: v.fieldId, title: v.title, start: end - ms, min, plan: Math.round((a.planMs || a.targetMs) / 60000), pauses: a.pauses || 0, g: v.gravity, day: dkey(new Date(end - ms)), ...(v.eventId ? { eventId: v.eventId } : {}) });
   if (land && v) v.landedAt = Date.now();
   if (v && v.atQuick && !v.landedAt) { if (min >= 1) v.landedAt = Date.now(); else state.vectors = state.vectors.filter(x => x !== v); }
   state.active = null; wakeOff();
@@ -4480,6 +4503,7 @@ document.addEventListener('click', e => {
   if (ds.moLine) { ui.moLine[ds.moLine] = !ui.moLine[ds.moLine]; ui.moScrub = null; ui.moAnim = ds.moLine; renderView(); ui.moAnim = null; return; }
   if (ds.moRange) { const [mid, r] = ds.moRange.split('|'); ui.moRange[mid] = r; ui.moScrub = null; ui.moAnim = mid; renderView(); ui.moAnim = null; return; }
   if (ds.evDel) { state.events = state.events.filter(e => e.id !== ds.evDel); commit(); return; }
+  if (ds.evBurn) { const e = state.events.find(x => x.id === ds.evBurn); if (e) ignite(evVector(e).id); return; }
   if (ds.at != null) { ui.atlas = ds.at || null; ui.atDel = null; renderView(); window.scrollTo(0, 0); return; }
   if (ds.atOpen) { ui.atlas = ds.atOpen; ui.atDel = null; if (ui.view === 'atlas') renderView(); else setView('atlas'); return; }
   if (ds.atRate) { const [nid, r] = ds.atRate.split('|'), n = atNode(nid); if (n) { n.rating = n.rating === +r ? 0 : +r; n.touched = Date.now(); delete n.starter; commit(); } return; }
