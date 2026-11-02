@@ -1648,6 +1648,7 @@ function normalize(s) {
   if (!Array.isArray(s.events)) s.events = [];
   if (!Array.isArray(s.atlas)) s.atlas = atlasStart();
   if ((s.atlasV || 0) < 2) { atlasGrow(s.atlas); s.atlasV = 2; }
+  if (s.atlasV < 3) { atlasLaw(s.atlas); s.atlasV = 3; }
   s.atlas.forEach(n => { if (n.parent === undefined) n.parent = null; });
   if (!s.targets || typeof s.targets !== 'object' || Array.isArray(s.targets)) s.targets = {};
   if (!s.debriefs || typeof s.debriefs !== 'object' || Array.isArray(s.debriefs)) s.debriefs = {};
@@ -3258,6 +3259,14 @@ function atlasGrow(list) {
     if (kids) grow(n.id, kids);
   });
   Object.keys(TREE).forEach(id => { if (list.some(n => n.id === id)) grow(id, TREE[id]); });
+}
+// Business Law stays a short overview: one line per unit, the detail lives in RECALL
+function atlasLaw(list) {
+  const law = list.find(n => n.parent === 'a-uni' && n.name.toLowerCase() === 'business law'); if (!law) return;
+  if (!law.note) law.note = 'Study in RECALL';
+  ['1 · Introduction to law', '2 · Legal status of the entrepreneur', '3 · Capital companies: incorporation', '4 · Corporate bodies I', '5 · Corporate bodies II', '6 · Amendments to the by-laws', '7 · Structural changes and termination', '8 · Distinctive signs and industrial creations', '9 · Competition and unfair competition', 'Case studies', 'Mock exam'].forEach((name, i) => {
+    if (!list.some(n => n.parent === law.id && n.name.toLowerCase() === name.toLowerCase())) list.push({ id: law.id + '-' + i, parent: law.id, name, note: '', rating: 0, remind: 0, createdAt: 100 + i, starter: true });
+  });
 }
 const AT_RATE = [[3, 'Good'], [2, 'Okay'], [1, 'Bad']];
 const AT_REMIND = [0, 2, 3, 5, 7, 14];
