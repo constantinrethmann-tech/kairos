@@ -1650,6 +1650,7 @@ function normalize(s) {
   if ((s.atlasV || 0) < 2) { atlasGrow(s.atlas); s.atlasV = 2; }
   if (s.atlasV < 3) { atlasLaw(s.atlas); s.atlasV = 3; }
   if (s.atlasV < 4) { atlasMath(s.atlas); s.atlasV = 4; }
+  if (s.atlasV < 5) { atlasMore(s.atlas); s.atlasV = 5; }
   s.atlas.forEach(n => { if (n.parent === undefined) n.parent = null; });
   if (!s.targets || typeof s.targets !== 'object' || Array.isArray(s.targets)) s.targets = {};
   if (!s.debriefs || typeof s.debriefs !== 'object' || Array.isArray(s.debriefs)) s.debriefs = {};
@@ -3285,6 +3286,15 @@ function atlasMath(list) {
     const unit = fit(math.id, tag, name, 200 + u);
     topics.forEach(([t, title], i) => fit(unit.id, t, t + ' ' + title, 300 + i));
   });
+}
+// Programming follows the course's Technical Notes; Microeconomics gets its seminars and past midterms
+function atlasMore(list) {
+  const add = (subject, names) => {
+    const s = list.find(n => n.parent === 'a-uni' && n.name.toLowerCase() === subject); if (!s) return;
+    names.forEach((name, i) => { if (!list.some(n => n.parent === s.id && n.name.toLowerCase() === name.toLowerCase())) list.push({ id: s.id + '-x' + i, parent: s.id, name, note: '', rating: 0, remind: 0, createdAt: 400 + i, starter: true }); });
+  };
+  add('programming', ['1 · Variables, input and output', '2 · Strings and slicing', '3 · Conditionals', '4 · Loops', '5 · Tuples and lists', '6 · Functions', '7 · Dictionaries', 'Mini projects']);
+  add('microeconomics', ['Seminars', 'Past midterms']);
 }
 const AT_RATE = [[3, 'Good'], [2, 'Okay'], [1, 'Bad']];
 const AT_REMIND = [0, 2, 3, 5, 7, 14];
