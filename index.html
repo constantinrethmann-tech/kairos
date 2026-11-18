@@ -1375,6 +1375,86 @@ button.ev-go:hover{background:var(--hull-2)}
 .hmodes button::after{content:"";position:absolute;left:50%;bottom:2px;width:7px;height:6px;margin-left:-3.5px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--ion);opacity:0;transform:scale(.4);transition:opacity .2s,transform .25s var(--ease)}
 .hmodes button.sel::after{opacity:1;transform:none;filter:drop-shadow(0 0 4px var(--ion))}
 .hview .dq-n{margin-right:6px}
+/* finals */
+.fn-sum{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:-6px 0 18px}
+.fn-sum>div:first-child{display:flex;align-items:baseline;gap:12px}
+.fn-big{font-family:var(--f-display);font-size:30px;line-height:1}
+.fn-big small,.fn-p small{font-family:var(--f-body);font-size:.58em;color:var(--dust);margin-left:2px}
+.fx{display:inline-block;flex:none;width:20px;height:17px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--seam-2)}
+.fx.g{background:var(--up)}.fx.o{background:#E8B661}.fx.b{background:var(--down)}
+.fn-leaf .fx,.fn-uh .fx{width:12px;height:11px}
+.fn-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+.fn-c{display:block;width:100%;min-width:0;text-align:left;padding:16px;border:1px solid var(--seam);background:var(--hull);border-radius:14px;transition:border-color .15s,background .15s}
+button.fn-c:hover{border-color:var(--seam-3);background:var(--hull-2)}
+.fn-c.low{border-color:rgba(240,97,109,.4)}
+.fn-c.open{grid-column:1 / -1;border-color:var(--seam-3)}
+.fn-top-btn{display:block;width:100%;text-align:left}
+.fn-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.fn-h b{font-weight:500;font-size:15px}
+.fn-p{font-family:var(--f-display);font-size:21px;line-height:1;white-space:nowrap}
+.fn-c.low .fn-p{color:var(--down)}
+.fn-m{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;color:var(--dust);margin:6px 0 14px}
+.fn-u{display:flex;flex-wrap:wrap;gap:5px}
+.fx.nb{display:inline-grid;place-items:center;width:27px;height:23px}
+.fx.nb b{font-family:var(--f-mono);font-size:9px;font-weight:500;color:rgba(6,7,10,.78)}
+.fx.nb.n b{color:var(--mist)}
+.fn-gs{display:grid;grid-template-columns:repeat(auto-fill,minmax(146px,max-content));gap:9px 18px}
+.fn-g{display:flex;align-items:center;gap:4px}
+.fn-g em{font-style:normal;font-family:var(--f-mono);font-size:10px;color:var(--dust);width:14px}
+.fn-g .fx{width:17px;height:15px}
+.fn-units{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px}
+.fn-unit{border:1px solid var(--seam);border-radius:12px;padding:12px 14px;background:var(--void)}
+.fn-uh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:26px}
+.fn-uh b{font-weight:500;font-size:14px;flex:1;min-width:0}
+.fn-up{font-family:var(--f-mono);font-size:11px;color:var(--mist)}
+.fn-tst{font-family:var(--f-mono);font-size:9px;letter-spacing:.1em;color:var(--ion);border:1px solid rgba(143,179,255,.35);border-radius:999px;padding:3px 8px}
+.fn-tl{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12px;color:var(--dust)}
+.fn-leaves{margin-top:6px}
+.fn-leaf{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:10px;align-items:center;padding:3px 0;font-size:13px;color:var(--mist)}
+.fn-leaf span:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fn-rt{display:flex;gap:1px}
+.fn-rt button{font-family:var(--f-mono);font-size:9px;letter-spacing:.06em;padding:4px 7px;border-radius:999px;color:var(--dust)}
+.fn-rt button:hover{color:var(--frost);background:var(--hull-3)}
+.fn-rt button.on.r3{color:var(--up);background:rgba(70,217,149,.12)}
+.fn-rt button.on.r2{color:#E8B661;background:rgba(232,182,97,.12)}
+.fn-rt button.on.r1{color:var(--down);background:rgba(240,97,109,.12)}
+.fn-act{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--seam)}
+.fn-act .in{height:32px;width:auto;flex:0 1 92px;min-width:0;font-size:12.5px;padding:0 10px}
+.fn-act .btn-text,.fn-act .btn-ghost,.fn-foot .btn-text,.fn-foot .btn-ghost{height:32px;font-size:12.5px}
+.fn-act .btn-text svg{width:10px}
+.fn-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
+.fn-plan-h{margin-top:34px}
+.pl3{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:12px;align-items:start}
+.pl-col{border:1px solid var(--seam);border-radius:14px;padding:14px 16px;background:var(--hull);transition:opacity .2s}
+.pl-col.c0{border-color:rgba(143,179,255,.42);box-shadow:0 0 0 4px var(--ion-faint)}
+.pl-col.c1{opacity:.82}.pl-col.c2{opacity:.62}
+.pl-col:hover,.pl-col:focus-within{opacity:1}
+.pl-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
+.pl-h b{font-weight:500;font-size:15px}
+.pl-col.c0 .pl-h b{font-size:18px}
+.pl-h .mono{font-family:var(--f-mono);font-size:10px;color:var(--dust);letter-spacing:.08em}
+.pl-col.c0 .pl-h .mono{color:var(--ion)}
+.pl-it{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--seam)}
+.pl-ck{width:18px;height:18px;border-radius:5px;border:1px solid var(--seam-3);display:grid;place-items:center;color:var(--void)}
+.pl-ck:hover{border-color:var(--up)}
+.pl-it.done .pl-ck{background:var(--up);border-color:var(--up)}
+.pl-ck svg{width:11px}
+.pl-tx{display:grid;gap:1px;font-size:13.5px;min-width:0}
+.pl-tx span{overflow-wrap:anywhere}
+.pl-it.done .pl-tx span{text-decoration:line-through;color:var(--dust)}
+.pl-tx em{font-style:normal;font-family:var(--f-mono);font-size:9.5px;color:var(--dust);letter-spacing:.06em}
+.pl-btns{display:flex;gap:1px;align-items:center}
+.pl-btns button{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;color:var(--dust)}
+.pl-btns button svg{width:11px}
+.pl-btns button:hover{color:var(--frost);background:var(--hull-3)}
+.pl-btns .pl-go{width:auto;padding:0 10px;margin-right:4px;border-radius:999px;background:var(--frost);color:var(--void);font-family:var(--f-mono);font-size:9px;letter-spacing:.14em}
+.pl-btns .pl-go:hover{background:var(--ion);color:var(--void)}
+.pl-add{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;margin-top:8px}
+.pl-add .in{height:34px;font-size:13px}
+.pl-add .btn-ghost{height:34px;width:34px;padding:0}
+.pl-add svg{width:11px}
+@media (max-width:900px){.fn-grid{grid-template-columns:1fr 1fr}.pl3{grid-template-columns:1fr}.pl-col.c1,.pl-col.c2{opacity:1}}
+@media (max-width:560px){.fn-grid{grid-template-columns:1fr}.fn-units{grid-template-columns:1fr}}
 @media (max-width:560px){.hmodes button{padding:0 8px;font-size:9px;letter-spacing:.12em}}
 
 /* the dock: tabs and New live at the bottom on every screen, not only the phone */
@@ -1649,12 +1729,14 @@ function normalize(s) {
   if (!Array.isArray(s.classes)) s.classes = defaultClasses();
   if (!Array.isArray(s.drops)) s.drops = [];
   if (!Array.isArray(s.events)) s.events = [];
+  if (!Array.isArray(s.plan)) s.plan = [];
   if (!Array.isArray(s.atlas)) s.atlas = atlasStart();
   if ((s.atlasV || 0) < 2) { atlasGrow(s.atlas); s.atlasV = 2; }
   if (s.atlasV < 3) { atlasLaw(s.atlas); s.atlasV = 3; }
   if (s.atlasV < 4) { atlasMath(s.atlas); s.atlasV = 4; }
   if (s.atlasV < 5) { atlasMore(s.atlas); s.atlasV = 5; }
   if (s.atlasV < 6) { atlasMicro(s); s.atlasV = 6; }
+  if (s.atlasV < 7) { atlasFinals(s.atlas); s.atlasV = 7; }
   s.atlas.forEach(n => { if (n.parent === undefined) n.parent = null; });
   if (!s.targets || typeof s.targets !== 'object' || Array.isArray(s.targets)) s.targets = {};
   if (!s.debriefs || typeof s.debriefs !== 'object' || Array.isArray(s.debriefs)) s.debriefs = {};
@@ -1820,7 +1902,7 @@ async function gh(path, opts = {}) {
 // A device that only holds examples never uploads them, and your real data always beats examples,
 // whichever device connects first and whatever the clocks say.
 const isExample = s => !!s && !(s.vectors || []).some(v => !v.sample) && !(s.sessions || []).some(x => !x.sample)
-  && !Object.values(s.debriefs || {}).some(d => !d.sample) && !(s.drops || []).length && !(s.orbits || []).some(o => !o.sample) && !(s.atlas || []).some(n => !n.starter) && !(s.events || []).length;
+  && !Object.values(s.debriefs || {}).some(d => !d.sample) && !(s.drops || []).length && !(s.orbits || []).some(o => !o.sample) && !(s.atlas || []).some(n => !n.starter) && !(s.events || []).length && !(s.plan || []).length;
 async function gistPush() {
   const c = syncCfg(); if (!c || !c.gist || isExample(state)) return;
   await gh('/gists/' + c.gist, { method: 'PATCH', body: JSON.stringify({ files: { [GIST_FILE]: { content: JSON.stringify(state) } } }) });
@@ -2374,12 +2456,12 @@ function todayTimeline(t, bm, lift) {
   return rows.length ? rows.sort((a, b) => a.k - b.k).map(r => r.html).join('') : `<div class="empty">Nothing on today. Pull something in from Anytime, or launch a new vector.</div>`;
 }
 
-function renderHorizon() { return state.prefs && state.prefs.horizon === 'comb' ? renderComb() : renderBoard(); }
+function renderHorizon() { const m = state.prefs && state.prefs.horizon; return m === 'comb' ? renderComb() : m === 'finals' ? renderFinals() : renderBoard(); }
 
 // the Horizon formats: quiet words, a small lit hexagon under the one you are on
 function viewSwitch() {
-  const mode = state.prefs && state.prefs.horizon === 'comb' ? 'comb' : 'board';
-  return `<div class="hview"><div class="hmodes" role="group" aria-label="Horizon format">${[['board', 'Board'], ['comb', 'Comb']].map(([k, l]) => `<button class="${mode === k ? 'sel' : ''}" data-hmode="${k}" aria-pressed="${mode === k}">${l}</button>`).join('')}</div></div>`;
+  const m = state.prefs && state.prefs.horizon, mode = m === 'comb' || m === 'finals' ? m : 'board';
+  return `<div class="hview"><div class="hmodes" role="group" aria-label="Horizon format">${[['board', 'Board'], ['comb', 'Comb'], ['finals', 'Finals']].map(([k, l]) => `<button class="${mode === k ? 'sel' : ''}" data-hmode="${k}" aria-pressed="${mode === k}">${l}</button>`).join('')}</div></div>`;
 }
 
 // Board: every vector and class as a flight. The day numbers on top; below the board, Today and Anytime.
@@ -3155,10 +3237,11 @@ function calDay(k) {
 // but pressing one starts a burn for it. They show in red on the calendar, the week, the Board and Today.
 const evOn = k => (state.events || []).filter(e => e.date === k).sort((a, b) => cmp(a.time || '', b.time || ''));
 const evMin = id => state.sessions.filter(s => s.eventId === id).reduce((a, s) => a + s.min, 0);
-// "Business Law case study" belongs to Business Law, "Micro test" to Microeconomics
+// "Business Law case study" belongs to Business Law, "Micro test" to Microeconomics, "OB final" to Organisational Behaviour
+const subNorm = x => x.toLowerCase().replace(/iz/g, 'is').replace(/behavior\b/g, 'behaviour');
 function evSubject(e) {
-  const t = e.title.toLowerCase(), words = t.split(/[^\p{L}]+/u).filter(w => w.length >= 4).map(w => w.replace(/s$/, ''));
-  return state.atlas.filter(n => atPath(n.id).length === 2).filter(n => { const a = n.name.toLowerCase(); return t.includes(a) || words.some(w => a.startsWith(w)); }).sort((a, b) => b.name.length - a.name.length)[0] || null;
+  const t = subNorm(e.title).replace(/\bob\b/g, 'organisational behaviour').replace(/foreign language/g, 'spanish'), words = t.split(/[^\p{L}]+/u).filter(w => w.length >= 4).map(w => w.replace(/s$/, ''));
+  return state.atlas.filter(n => atPath(n.id).length === 2).filter(n => { const a = subNorm(n.name); return t.includes(a) || words.some(w => a.startsWith(w)); }).sort((a, b) => b.name.length - a.name.length)[0] || null;
 }
 // like an Atlas burn: a short-lived vector that lands by itself, its time adds up on the event
 function evVector(e) {
@@ -3287,6 +3370,29 @@ function atlasGrow(list) {
   Object.keys(TREE).forEach(id => { if (list.some(n => n.id === id)) grow(id, TREE[id]); });
 }
 // Business Law stays a short overview: one line per unit, the detail lives in RECALL
+// before the finals: renames keep what you already rated or burned on
+function atlasFinals(list) {
+  const sub = name => list.find(n => n.parent === 'a-uni' && n.name.toLowerCase() === name);
+  const kid = (p, pre) => list.find(x => x.parent === p.id && x.name.toLowerCase().startsWith(pre.toLowerCase()));
+  const put = (p, pre, name, order) => { const n = kid(p, pre); if (n) { if (n.starter || n.name.toLowerCase() === pre.toLowerCase()) n.name = name; return n; } const m = { id: p.id + '-f' + pre.replace(/[^a-zA-Z0-9]/g, ''), parent: p.id, name, note: '', rating: 0, remind: 0, createdAt: order, starter: true }; list.push(m); return m; };
+  const math = sub('math');
+  if (math) {
+    const u3 = put(math, 'Unit 3', 'Unit 3 · Multivariable Calculus', 202);
+    [['3.2', 'Level curves and conic sections'], ['3.3', 'Partial derivatives and the tangent plane'], ['3.4', 'The gradient and higher order partial derivatives'], ['3.5', 'Double integrals']].forEach(([t, x], i) => put(u3, t, t + ' ' + x, 301 + i));
+    const u4 = put(math, 'Unit 4', 'Unit 4 · Optimization', 203);
+    put(u4, '4.1', '4.1 Unconstrained optimization', 300);
+  }
+  const law = sub('business law');
+  if (law) {
+    [['10', 'Commercial obligations and sale contracts'], ['11', 'Collaboration and distribution contracts'], ['12', 'Banking contracts'], ['13', 'Not uploaded yet']].forEach(([t, x], i) => put(law, t + ' ·', t + ' · ' + x, 120 + i));
+  }
+  const prog = sub('programming');
+  if (prog) {
+    const old = { '1 · variables, input and output': '1 · Variables and types', '2 · strings and slicing': '2 · Slicing and string methods', '3 · conditionals': '3 · Conditionals: if, elif', '4 · loops': '4 · Loops', '5 · tuples and lists': '5 · Tuples and list methods', '6 · functions': '8 · Functions', '7 · dictionaries': '9 · Dictionaries' };
+    list.filter(x => x.parent === prog.id).forEach(x => { const to = old[x.name.toLowerCase()]; if (to) x.name = to; });
+    ['1 · Variables and types', '2 · Slicing and string methods', '3 · Conditionals: if, elif', '4 · Loops', '5 · Tuples and list methods', '6 · Patterns', '7 · List of lists', '8 · Functions', '9 · Dictionaries', '10 · Pandas'].forEach((name, i) => { if (!list.some(x => x.parent === prog.id && x.name === name)) list.push({ id: prog.id + '-p' + (i + 1), parent: prog.id, name, note: '', rating: 0, remind: 0, createdAt: 140 + i, starter: true }); });
+  }
+}
 function atlasLaw(list) {
   const law = list.find(n => n.parent === 'a-uni' && n.name.toLowerCase() === 'business law'); if (!law) return;
   if (!law.note) law.note = 'Study in RECALL';
@@ -3338,9 +3444,9 @@ function atlasMicro(s) {
 const AT_RATE = [[3, 'Good'], [2, 'Okay'], [1, 'Bad']];
 const AT_REMIND = [0, 2, 3, 5, 7, 14];
 const atNode = id => state.atlas.find(n => n.id === id);
-// numbered items (2.1, Unit 3, 4 · Corporate bodies) sort by number, the rest in the order you added them
+// numbered items (2.1, Unit 3, 4 · Corporate bodies) come first by number, the rest after them in the order you added them
 const atNum = /^((unit|topic|seminar)\s*)?\d/i;
-const atKids = id => state.atlas.filter(n => n.parent === id).sort((a, b) => atNum.test(a.name) && atNum.test(b.name) ? a.name.localeCompare(b.name, undefined, { numeric: true }) : a.createdAt - b.createdAt);
+const atKids = id => state.atlas.filter(n => n.parent === id).sort((a, b) => { const x = atNum.test(a.name), y = atNum.test(b.name); return x && y ? a.name.localeCompare(b.name, undefined, { numeric: true }) : x !== y ? (x ? -1 : 1) : a.createdAt - b.createdAt; });
 const atPath = id => { const out = []; for (let n = atNode(id); n; n = atNode(n.parent)) out.unshift(n); return out; };
 const atTitle = n => { const p = atPath(n.id); return (p.length > 2 ? [p[1], p[p.length - 1]] : p.slice(-2)).map(x => x.name).join(' · '); };
 const atAgo = ts => { if (!ts) return 'not yet'; const d = Math.floor((Date.now() - ts) / 864e5); return d <= 0 ? 'today' : d === 1 ? 'yesterday' : `${d} days ago`; };
@@ -3383,6 +3489,109 @@ function atVector(n) {
   if (!v) { v = { id: uid(), title: atTitle(n), note: n.note || '', fieldId: atField(n), orbitId: null, atlasId: n.id, atQuick: true, stages: [], burnMin: 25, gravity: 3, anchor: { date: todayKey(), time: null }, window: null, createdAt: Date.now(), landedAt: null }; state.vectors.push(v); }
   return v;
 }
+/* ============================================================
+   FINALS (Horizon): how ready you are for each exam, from your Atlas ratings and tests,
+   and a small plan for today, tomorrow and the day after
+   ============================================================ */
+const FIN_SKIP = /seminar|midterm|mock|case stud|mini project/i;
+const finUnits = n => atKids(n.id).filter(k => !FIN_SKIP.test(k.name));
+// what counts for readiness: everything at the bottom of a subject, practice folders left out
+function finLeaves(id) {
+  const out = [], walk = pid => atKids(pid).forEach(k => { if (FIN_SKIP.test(k.name)) return; if (atKids(k.id).length) walk(k.id); else out.push(k); });
+  walk(id); return out;
+}
+const finOf = n => { const L = finLeaves(n.id); return L.length ? L : [n]; };
+// Good counts fully, Okay half, Bad and not rated nothing
+const finScore = list => list.length ? Math.round(list.reduce((a, n) => a + (n.rating === 3 ? 1 : n.rating === 2 ? .5 : 0), 0) / list.length * 100) : 0;
+const finRate = r => r === 3 ? 'g' : r === 2 ? 'o' : r === 1 ? 'b' : 'n';
+const daysTo = k => Math.round((k2d(k) - k2d(todayKey())) / 864e5);
+// one card per subject with an exam coming, the nearest first
+function finExams() {
+  const t = todayKey(), seen = new Set(), out = [];
+  state.events.filter(e => e.date >= t).sort((a, b) => cmp(a.date + (a.time || ''), b.date + (b.time || ''))).forEach(e => { const n = evSubject(e); if (n && !seen.has(n.id)) { seen.add(n.id); out.push({ e, n }); } });
+  return out;
+}
+// a test sets the rating of that unit and of everything inside it: 80 % and up Good, 50 % and up Okay
+function finTest(n, score, src) {
+  const r = score >= 80 ? 3 : score >= 50 ? 2 : 1, now = Date.now();
+  (n.tests = n.tests || []).push({ id: uid(), at: now, score, src });
+  [n, ...finLeaves(n.id)].forEach(x => { x.rating = r; x.touched = now; delete x.starter; });
+  commit(); toast(`Test logged · ${n.name} · ${score}%`);
+}
+const claudeQuiz = (n, k, lv) => 'https://claude.ai/new?q=' + encodeURIComponent(`Quiz me on ${n.name}${k !== n ? ', ' + k.name : ''}${lv.length > 1 ? ' (' + lv.map(x => x.name).join(', ') + ')' : ''}. Ask me 10 exam-style questions one at a time, check each answer, and at the end give me a score in percent.`);
+const finRateBtns = x => `<span class="fn-rt">${[[3, 'Good'], [2, 'Okay'], [1, 'Bad']].map(([r, l]) => `<button class="${x.rating === r ? 'on r' + r : ''}" data-at-rate="${x.id}|${r}">${l}</button>`).join('')}</span>`;
+function finUnit(n, k) {
+  const leaf = !atKids(k.id).length, lv = leaf ? [k] : finLeaves(k.id), last = (k.tests || []).slice(-1)[0];
+  return `<div class="fn-unit">
+    <div class="fn-uh">${leaf ? `<i class="fx ${finRate(k.rating)}"></i>` : ''}<b>${esc(k === n ? 'Whole subject' : k.name)}</b>${leaf ? finRateBtns(k) : `<span class="fn-up">${finScore(lv)}%</span>`}</div>
+    ${last ? `<div class="fn-tl"><span class="fn-tst">TEST ${last.score}%</span>${esc(last.src || '')} · ${atAgo(last.at)}${k.tests.length > 1 ? ` · ${k.tests.length} tests` : ''}</div>` : ''}
+    ${leaf ? '' : `<div class="fn-leaves">${lv.map(x => `<div class="fn-leaf"><i class="fx ${finRate(x.rating)}"></i><span>${esc(x.name)}</span>${finRateBtns(x)}</div>`).join('')}</div>`}
+    <div class="fn-act" data-form="fin-test" data-node="${k.id}"><input class="in" type="number" min="0" max="100" inputmode="numeric" placeholder="Test %" aria-label="Test score in percent"><select class="in" aria-label="Who set the test"><option>Teacher</option><option>Claude</option><option>Own</option></select><button class="btn-ghost sm" type="button" data-submit>Log test</button><a class="btn-text sm" href="${claudeQuiz(n, k, lv)}" target="_blank" rel="noopener">Test me with Claude</a><button class="btn-text sm" data-fin-plan="${k.id}">${I.plus} Today</button></div>
+  </div>`;
+}
+// a unit's number for its label: "Unit 2 · …" is 2, "9.1 · …" is 9.1, otherwise its place in the list
+const finNo = (k, i) => { const m = k.name.match(/^(?:unit|topic|chapter)?\s*(\d+(?:\.\d+)?)/i); return m ? m[1] : i + 1; };
+// units with topics inside show as numbered groups of dots, units without as numbered hexagons
+function finDots(n) {
+  const units = finUnits(n);
+  if (!units.length) return `<div class="fn-u"><i class="fx ${finRate(n.rating)}"></i></div>`;
+  if (!units.some(k => atKids(k.id).length)) return `<div class="fn-u">${units.map((k, i) => `<i class="fx nb ${finRate(k.rating)}"><b>${finNo(k, i)}</b></i>`).join('')}</div>`;
+  return `<div class="fn-gs">${units.map((k, i) => `<span class="fn-g"><em>${finNo(k, i)}</em>${(atKids(k.id).length ? finLeaves(k.id) : [k]).map(x => `<i class="fx ${finRate(x.rating)}"></i>`).join('')}</span>`).join('')}</div>`;
+}
+function finCard({ e, n }) {
+  const list = finOf(n), p = finScore(list), d = daysTo(e.date);
+  const head = `<div class="fn-h"><b>${esc(n.name)}</b><span class="fn-p">${p}<small>%</small></span></div>
+    <div class="fn-m">${d === 0 ? 'TODAY' : d === 1 ? 'TOMORROW' : d + ' DAYS'}</div>`;
+  if (ui.finOpen !== n.id) return `<button class="fn-c${p < 50 ? ' low' : ''}" data-fin="${n.id}" aria-expanded="false">${head}${finDots(n)}</button>`;
+  const units = finUnits(n);
+  return `<div class="fn-c open${p < 50 ? ' low' : ''}"><button class="fn-top-btn" data-fin="${n.id}" aria-expanded="true">${head}</button>
+    <div class="fn-units">${(units.length ? units : [n]).map(k => finUnit(n, k)).join('')}</div>
+    <div class="fn-foot"><button class="btn-text sm" data-at-open="${n.id}">Open in Atlas</button><button class="btn-ghost sm" data-fin="${n.id}">Close</button></div></div>`;
+}
+
+// the plan: a few lines per day. Anything not ticked off moves along to today by itself.
+function planVector(p) {
+  let v = state.vectors.find(x => x.planId === p.id && !x.landedAt);
+  if (!v) {
+    const n = atNode(p.atlasId), root = n || state.atlas.find(x => !x.parent && x.name.toLowerCase() === 'uni');
+    v = { id: uid(), title: p.text, note: '', fieldId: root ? atField(root) : null, orbitId: null, atlasId: n ? n.id : null, planId: p.id, atQuick: true, stages: [], burnMin: clamp(p.min || 25, 5, MAXM), gravity: 3, anchor: { date: todayKey(), time: null }, window: null, createdAt: Date.now(), landedAt: null };
+    state.vectors.push(v);
+  }
+  return v;
+}
+function planRow(p, first, t) {
+  const n = atNode(p.atlasId), meta = [n ? n.name : '', p.min ? fmtMin(p.min) : '', p.date < t ? 'from ' + shortDay(p.date) : ''].filter(Boolean).join(' · ');
+  return `<div class="pl-it${p.done ? ' done' : ''}"><button class="pl-ck" data-plan-done="${p.id}" aria-label="${p.done ? 'Not done' : 'Done'}" aria-pressed="${!!p.done}">${p.done ? I.check : ''}</button>
+    <div class="pl-tx"><span>${esc(p.text)}</span>${meta ? `<em>${esc(meta)}</em>` : ''}</div>
+    <span class="pl-btns">${first && !p.done ? `<button class="pl-go" data-plan-burn="${p.id}">IGNITE</button>` : ''}${p.done ? '' : `<button data-plan-next="${p.id}" aria-label="Move to the next day">${I.right}</button>`}<button data-plan-del="${p.id}" aria-label="Remove">${I.x}</button></span></div>`;
+}
+function finPlan() {
+  const t = todayKey();
+  const items = d => state.plan.filter(p => d === t ? p.date === t || (p.date < t && !p.done) : p.date === d).sort((a, b) => (a.done - b.done) || a.createdAt - b.createdAt);
+  return `<div class="pl3">${[0, 1, 2].map(i => {
+    const d = addDays(t, i), L = items(d), min = L.filter(p => !p.done).reduce((a, p) => a + (p.min || 0), 0);
+    return `<div class="pl-col c${i}"><div class="pl-h"><b>${i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : DOW_LONG[k2d(d).getDay()]}</b><span class="mono">${shortDay(d)}${min ? ' · ' + fmtMin(min) : ''}</span></div>
+      ${L.map(p => planRow(p, i === 0, t)).join('')}
+      <div class="pl-add" data-form="plan-add" data-day="${d}"><input class="in" placeholder="${i === 0 ? 'Math 2.3 practice 45m' : 'Add'}" maxlength="80" autocomplete="off" aria-label="Add to ${i === 0 ? 'today' : shortDay(d)}"><button class="btn-ghost sm" type="button" data-submit aria-label="Add">${I.plus}</button></div></div>`;
+  }).join('')}</div>`;
+}
+function planAdd(text, date) {
+  let min = null; const m = text.match(/(?:^|\s)(\d+(?:[.,]\d+)?)\s*(h|hr|hrs|m|min|mins)\s*$/i);
+  if (m) { min = Math.round(parseFloat(m[1].replace(',', '.')) * (/^h/i.test(m[2]) ? 60 : 1)); text = text.slice(0, m.index).replace(/[,·\s]+$/, ''); }
+  if (!text) return false;
+  const n = evSubject({ title: text });
+  state.plan.push({ id: uid(), date, text, atlasId: n ? n.id : null, min, done: false, createdAt: Date.now() });
+  return true;
+}
+function renderFinals() {
+  const X = finExams(), all = X.flatMap(x => finOf(x.n));
+  return `<div class="vhead"><div><div class="eyebrow">Horizon</div><h1>Finals</h1></div>${viewSwitch()}</div>
+  ${X.length ? `<div class="fn-sum"><div><span class="fn-big">${finScore(all)}<small>%</small></span><span class="eyebrow">ready across ${X.length} exam${X.length === 1 ? '' : 's'}</span></div></div>` : ''}
+  <div class="fn-grid">${X.map(finCard).join('')}</div>
+  <div class="sec-h fn-plan-h"><h2>Plan</h2><span class="count">${fmtMin(state.plan.filter(p => !p.done && p.date <= addDays(todayKey(), 2)).reduce((a, p) => a + (p.min || 0), 0))} planned</span></div>
+  ${finPlan()}`;
+}
+
 function renderAtlas() {
   const S = atStats(), n = atNode(ui.atlas), id = n ? n.id : null, kids = atKids(id), due = new Set(atDue(S).map(d => d.n.id));
   const tile = k => {
@@ -4366,6 +4575,7 @@ function logActive(land) {
   const ms = elapsedMs(a), min = Math.round(ms / 60000), end = a.paused && a.pausedAt ? a.pausedAt : Date.now();
   if (min >= 1 && v) state.sessions.push({ id: uid(), vectorId: v.id, fieldId: v.fieldId, title: v.title, start: end - ms, min, plan: Math.round((a.planMs || a.targetMs) / 60000), pauses: a.pauses || 0, g: v.gravity, day: dkey(new Date(end - ms)), ...(v.eventId ? { eventId: v.eventId } : {}) });
   if (land && v) v.landedAt = Date.now();
+  if (v && v.planId && min >= 1) { const p = state.plan.find(x => x.id === v.planId); if (p && (!p.min || min >= p.min * .8)) p.done = true; }
   if (v && v.atQuick && !v.landedAt) { if (min >= 1) v.landedAt = Date.now(); else state.vectors = state.vectors.filter(x => x !== v); }
   state.active = null; wakeOff();
   return min;
@@ -4503,6 +4713,12 @@ document.addEventListener('click', e => {
   if (ds.moLine) { ui.moLine[ds.moLine] = !ui.moLine[ds.moLine]; ui.moScrub = null; ui.moAnim = ds.moLine; renderView(); ui.moAnim = null; return; }
   if (ds.moRange) { const [mid, r] = ds.moRange.split('|'); ui.moRange[mid] = r; ui.moScrub = null; ui.moAnim = mid; renderView(); ui.moAnim = null; return; }
   if (ds.evDel) { state.events = state.events.filter(e => e.id !== ds.evDel); commit(); return; }
+  if (ds.fin != null) { ui.finOpen = !ds.fin || ui.finOpen === ds.fin ? null : ds.fin; renderView(); return; }
+  if (ds.finPlan) { const k = atNode(ds.finPlan); if (k) { const sub = atPath(k.id)[1] || k; state.plan.push({ id: uid(), date: todayKey(), text: k === sub ? sub.name : atTitle(k), atlasId: sub.id, min: null, done: false, createdAt: Date.now() }); commit(); toast(`Planned today · ${atTitle(k)}`); } return; }
+  if (ds.planDone) { const p = state.plan.find(x => x.id === ds.planDone); if (p) { p.done = !p.done; if (p.done && p.date < todayKey()) p.date = todayKey(); commit(); } return; }
+  if (ds.planNext) { const p = state.plan.find(x => x.id === ds.planNext); if (p) { p.date = addDays(p.date < todayKey() ? todayKey() : p.date, 1); commit(); } return; }
+  if (ds.planDel) { state.plan = state.plan.filter(x => x.id !== ds.planDel); commit(); return; }
+  if (ds.planBurn) { const p = state.plan.find(x => x.id === ds.planBurn); if (p) ignite(planVector(p).id); return; }
   if (ds.evBurn) { const e = state.events.find(x => x.id === ds.evBurn); if (e) ignite(evVector(e).id); return; }
   if (ds.at != null) { ui.atlas = ds.at || null; ui.atDel = null; renderView(); window.scrollTo(0, 0); return; }
   if (ds.atOpen) { ui.atlas = ds.atOpen; ui.atDel = null; if (ui.view === 'atlas') renderView(); else setView('atlas'); return; }
@@ -4722,6 +4938,13 @@ function submitForm(f) {
     const inp = $('#ev-title'), title = inp.value.trim(), date = f.dataset.day || ($('#ev-date') || {}).value; if (!title || !date) { inp.focus(); return; }
     state.events.push({ id: uid(), date, time: ($('#ev-time') || {}).value || null, title });
     commit(); toast(`Added · ${title} · ${dayLabel(date)}`); setTimeout(() => { const i = $('#ev-title'); i && i.focus(); }, 0);
+  } else if (f.dataset.form === 'fin-test') {
+    const inp = f.querySelector('input'), v = parseFloat(inp.value), n = atNode(f.dataset.node);
+    if (!n || !(v >= 0 && v <= 100)) { inp.focus(); toast('Enter a score from 0 to 100'); return; }
+    finTest(n, Math.round(v), f.querySelector('select').value);
+  } else if (f.dataset.form === 'plan-add') {
+    const inp = f.querySelector('input'), day = f.dataset.day; if (!planAdd(inp.value.trim(), day)) { inp.focus(); return; }
+    commit(); setTimeout(() => { const i = document.querySelector(`[data-form="plan-add"][data-day="${day}"] input`); i && i.focus(); }, 0);
   } else if (f.dataset.form === 'at-add') {
     const inp = $('#at-in'), names = inp.value.split(',').map(x => x.trim()).filter(Boolean); if (!names.length) { inp.focus(); return; }
     const now = Date.now(); names.forEach((name, i) => state.atlas.push({ id: uid(), parent: ui.atlas || null, name, note: '', rating: 0, remind: 0, createdAt: now + i }));
