@@ -1730,6 +1730,7 @@ function normalize(s) {
   if (!Array.isArray(s.drops)) s.drops = [];
   if (!Array.isArray(s.events)) s.events = [];
   if (!Array.isArray(s.plan)) s.plan = [];
+  if (!s.finalsSeed) { finalsSeed(s.events); s.finalsSeed = 1; }
   if (!Array.isArray(s.atlas)) s.atlas = atlasStart();
   if ((s.atlasV || 0) < 2) { atlasGrow(s.atlas); s.atlasV = 2; }
   if (s.atlasV < 3) { atlasLaw(s.atlas); s.atlasV = 3; }
@@ -1743,6 +1744,7 @@ function normalize(s) {
   if (s.showClasses == null) s.showClasses = true;
   if (!s.commute || typeof s.commute !== 'object') s.commute = { home: 50, to: 0 };
   if (!s.prefs || typeof s.prefs !== 'object') s.prefs = { horizon: 'day', dayStyle: 'arc' };
+  if (s.finalsSeed === 1) { s.prefs.horizon = 'finals'; s.finalsSeed = 2; } // open on Finals the first time it has exams
   if (!s.active || !s.active.vectorId) s.active = null;
   s.updatedAt = +s.updatedAt || 0;
   return s;
@@ -1902,7 +1904,7 @@ async function gh(path, opts = {}) {
 // A device that only holds examples never uploads them, and your real data always beats examples,
 // whichever device connects first and whatever the clocks say.
 const isExample = s => !!s && !(s.vectors || []).some(v => !v.sample) && !(s.sessions || []).some(x => !x.sample)
-  && !Object.values(s.debriefs || {}).some(d => !d.sample) && !(s.drops || []).length && !(s.orbits || []).some(o => !o.sample) && !(s.atlas || []).some(n => !n.starter) && !(s.events || []).length && !(s.plan || []).length;
+  && !Object.values(s.debriefs || {}).some(d => !d.sample) && !(s.drops || []).length && !(s.orbits || []).some(o => !o.sample) && !(s.atlas || []).some(n => !n.starter) && !(s.events || []).some(e => !e.seed) && !(s.plan || []).length;
 async function gistPush() {
   const c = syncCfg(); if (!c || !c.gist || isExample(state)) return;
   await gh('/gists/' + c.gist, { method: 'PATCH', body: JSON.stringify({ files: { [GIST_FILE]: { content: JSON.stringify(state) } } }) });
@@ -3392,6 +3394,12 @@ function atlasFinals(list) {
     list.filter(x => x.parent === prog.id).forEach(x => { const to = old[x.name.toLowerCase()]; if (to) x.name = to; });
     ['1 · Variables and types', '2 · Slicing and string methods', '3 · Conditionals: if, elif', '4 · Loops', '5 · Tuples and list methods', '6 · Patterns', '7 · List of lists', '8 · Functions', '9 · Dictionaries', '10 · Pandas'].forEach((name, i) => { if (!list.some(x => x.parent === prog.id && x.name === name)) list.push({ id: prog.id + '-p' + (i + 1), parent: prog.id, name, note: '', rating: 0, remind: 0, createdAt: 140 + i, starter: true }); });
   }
+}
+// the December finals, put in once so the Finals tab starts filled. An exam already there on that day is not added twice.
+function finalsSeed(events) {
+  [['2026-12-07', 'Micro final', 'micro'], ['2026-12-09', 'Applied Math final', 'math'], ['2026-12-11', 'OB final', 'ob'], ['2026-12-12', 'Spanish final', 'spanish'], ['2026-12-15', 'Business Law final', 'law'], ['2026-12-17', 'Programming final', 'programming']].forEach(([date, title, key]) => {
+    if (!events.some(e => e.date === date && e.title.toLowerCase().includes(key))) events.push({ id: 'final-' + date, date, time: '09:00', title, seed: true });
+  });
 }
 function atlasLaw(list) {
   const law = list.find(n => n.parent === 'a-uni' && n.name.toLowerCase() === 'business law'); if (!law) return;
