@@ -1383,7 +1383,8 @@ button.ev-go:hover{background:var(--hull-2)}
 .fx{display:inline-block;flex:none;width:20px;height:17px;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:var(--seam-2)}
 .fx.g{background:var(--up)}.fx.o{background:#E8B661}.fx.b{background:var(--down)}
 .fn-leaf .fx,.fn-uh .fx{width:12px;height:11px}
-.fn-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start}
+.fn-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}
+button.fn-c{min-height:184px}
 .fn-c{display:block;width:100%;min-width:0;text-align:left;padding:16px;border:1px solid var(--seam);background:var(--hull);border-radius:14px;transition:border-color .15s,background .15s}
 button.fn-c:hover{border-color:var(--seam-3);background:var(--hull-2)}
 .fn-c.low{border-color:rgba(240,97,109,.4)}
@@ -1408,7 +1409,12 @@ button.fn-c:hover{border-color:var(--seam-3);background:var(--hull-2)}
 .fn-uh b{font-weight:500;font-size:14px;flex:1;min-width:0}
 .fn-up{font-family:var(--f-mono);font-size:11px;color:var(--mist)}
 .fn-tst{font-family:var(--f-mono);font-size:9px;letter-spacing:.1em;color:var(--ion);border:1px solid rgba(143,179,255,.35);border-radius:999px;padding:3px 8px}
-.fn-tl{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12px;color:var(--dust)}
+.fn-tl{display:flex;align-items:center;gap:8px;margin-top:4px;font-size:12px;color:var(--dust);border-radius:999px}
+.fn-tl:hover{color:var(--frost)}
+.fn-tests{display:grid;gap:4px;margin-top:8px;padding:8px 10px;border-radius:10px;background:var(--hull-2)}
+.fn-te{display:grid;grid-template-columns:52px 64px auto 1fr auto;gap:6px;align-items:center;font-size:12.5px;color:var(--mist)}
+.fn-te .in{height:30px;font-size:12.5px;padding:0 8px}
+.fn-te .btn-text{justify-self:start;height:30px}
 .fn-leaves{margin-top:6px}
 .fn-leaf{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:10px;align-items:center;padding:3px 0;font-size:13px;color:var(--mist)}
 .fn-leaf span:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -1418,7 +1424,9 @@ button.fn-c:hover{border-color:var(--seam-3);background:var(--hull-2)}
 .fn-rt button.on.r3{color:var(--up);background:rgba(70,217,149,.12)}
 .fn-rt button.on.r2{color:#E8B661;background:rgba(232,182,97,.12)}
 .fn-rt button.on.r1{color:var(--down);background:rgba(240,97,109,.12)}
-.fn-act{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--seam)}
+.fn-act{display:flex;flex-wrap:wrap;gap:2px 6px;align-items:center;margin-top:10px;padding-top:8px;border-top:1px solid var(--seam)}
+.fn-act .btn-text{padding:0 8px;color:var(--dust)}
+.fn-act .btn-text:hover{color:var(--frost)}
 .fn-act .in{height:32px;width:auto;flex:0 1 92px;min-width:0;font-size:12.5px;padding:0 10px}
 .fn-act .btn-text,.fn-act .btn-ghost,.fn-foot .btn-text,.fn-foot .btn-ghost{height:32px;font-size:12.5px}
 .fn-act .btn-text svg{width:10px}
@@ -3520,21 +3528,34 @@ function finExams() {
   return out;
 }
 // a test sets the rating of that unit and of everything inside it: 80 % and up Good, 50 % and up Okay
-function finTest(n, score, src) {
-  const r = score >= 80 ? 3 : score >= 50 ? 2 : 1, now = Date.now();
-  (n.tests = n.tests || []).push({ id: uid(), at: now, score, src });
+function finApply(n) {
+  const last = (n.tests || []).slice().sort((a, b) => a.at - b.at).pop(); if (!last) return;
+  const r = last.score >= 80 ? 3 : last.score >= 50 ? 2 : 1, now = Date.now();
   [n, ...finLeaves(n.id)].forEach(x => { x.rating = r; x.touched = now; delete x.starter; });
-  commit(); toast(`Test logged · ${n.name} · ${score}%`);
 }
-const claudeQuiz = (n, k, lv) => 'https://claude.ai/new?q=' + encodeURIComponent(`Quiz me on ${n.name}${k !== n ? ', ' + k.name : ''}${lv.length > 1 ? ' (' + lv.map(x => x.name).join(', ') + ')' : ''}. Ask me 10 exam-style questions one at a time, check each answer, and at the end give me a score in percent.`);
+function finTest(n, score) {
+  (n.tests = n.tests || []).push({ id: uid(), at: Date.now(), score });
+  finApply(n); ui.finLog = null; commit(); toast(`Test logged · ${n.name} · ${score}%`);
+}
+const claudeQuiz = (n, k, lv) => (`Quiz me on ${n.name}${k !== n ? ', ' + k.name : ''}${lv.length > 1 ? ' (' + lv.map(x => x.name).join(', ') + ')' : ''}. Ask me 10 exam-style questions one at a time, check each answer, and at the end give me a score in percent.`);
+function openClaude(q) {
+  try { navigator.clipboard.writeText(q).catch(() => {}); } catch (e) {}
+  const phone = matchMedia('(pointer: coarse)').matches, a = document.createElement('a');
+  a.href = (phone ? 'https://claude.ai/new?q=' : 'claude://claude.ai/new?q=') + encodeURIComponent(q);
+  if (phone) { a.target = '_blank'; a.rel = 'noopener'; }
+  document.body.appendChild(a); a.click(); a.remove();
+  toast('Opening Claude · the question is copied too');
+}
 const finRateBtns = x => `<span class="fn-rt">${[[3, 'Good'], [2, 'Okay'], [1, 'Bad']].map(([r, l]) => `<button class="${x.rating === r ? 'on r' + r : ''}" data-at-rate="${x.id}|${r}">${l}</button>`).join('')}</span>`;
 function finUnit(n, k) {
   const leaf = !atKids(k.id).length, lv = leaf ? [k] : finLeaves(k.id), last = (k.tests || []).slice(-1)[0];
   return `<div class="fn-unit">
     <div class="fn-uh">${leaf ? `<i class="fx ${finRate(k.rating)}"></i>` : ''}<b>${esc(k === n ? 'Whole subject' : k.name)}</b>${leaf ? finRateBtns(k) : `<span class="fn-up">${finScore(lv)}%</span>`}</div>
-    ${last ? `<div class="fn-tl"><span class="fn-tst">TEST ${last.score}%</span>${esc(last.src || '')} · ${atAgo(last.at)}${k.tests.length > 1 ? ` · ${k.tests.length} tests` : ''}</div>` : ''}
+    ${last ? `<button class="fn-tl" data-fin-tests="${k.id}" aria-expanded="${ui.finTests === k.id}"><span class="fn-tst">TEST ${last.score}%</span>${atAgo(last.at)}${k.tests.length > 1 ? ` · ${k.tests.length} tests` : ''}</button>` : ''}
+    ${ui.finTests === k.id ? `<div class="fn-tests">${k.tests.slice().sort((a, b) => b.at - a.at).map(x => `<div class="fn-te" data-form="fin-tedit" data-node="${k.id}" data-test="${x.id}"><span>${new Date(x.at).getDate()} ${MON_LONG[new Date(x.at).getMonth()].slice(0, 3)}</span><input class="in" type="number" min="0" max="100" inputmode="numeric" value="${x.score}" aria-label="Score in percent"><span>%</span><button class="btn-text sm" type="button" data-submit>Save</button><button class="ev-x" data-fin-tdel="${k.id}|${x.id}" aria-label="Delete this test">×</button></div>`).join('')}</div>` : ''}
     ${leaf ? '' : `<div class="fn-leaves">${lv.map(x => `<div class="fn-leaf"><i class="fx ${finRate(x.rating)}"></i><span>${esc(x.name)}</span>${finRateBtns(x)}</div>`).join('')}</div>`}
-    <div class="fn-act" data-form="fin-test" data-node="${k.id}"><input class="in" type="number" min="0" max="100" inputmode="numeric" placeholder="Test %" aria-label="Test score in percent"><select class="in" aria-label="Who set the test"><option>Teacher</option><option>Claude</option><option>Own</option></select><button class="btn-ghost sm" type="button" data-submit>Log test</button><a class="btn-text sm" href="${claudeQuiz(n, k, lv)}" target="_blank" rel="noopener">Test me with Claude</a><button class="btn-text sm" data-fin-plan="${k.id}">${I.plus} Today</button></div>
+    ${ui.finLog === k.id ? `<div class="fn-act" data-form="fin-test" data-node="${k.id}"><input class="in" type="number" min="0" max="100" inputmode="numeric" placeholder="Score %" aria-label="Test score in percent"><button class="btn-ghost sm" type="button" data-submit>Save</button><button class="btn-text sm" data-fin-log="">Cancel</button></div>`
+      : `<div class="fn-act"><button class="btn-text sm" data-fin-log="${k.id}">Log test</button><button class="btn-text sm" data-fin-claude="${k.id}">Test me with Claude</button><button class="btn-text sm" data-fin-plan="${k.id}">${I.plus} Today</button></div>`}
   </div>`;
 }
 // a unit's number for its label: "Unit 2 · …" is 2, "9.1 · …" is 9.1, otherwise its place in the list
@@ -4722,6 +4743,10 @@ document.addEventListener('click', e => {
   if (ds.moRange) { const [mid, r] = ds.moRange.split('|'); ui.moRange[mid] = r; ui.moScrub = null; ui.moAnim = mid; renderView(); ui.moAnim = null; return; }
   if (ds.evDel) { state.events = state.events.filter(e => e.id !== ds.evDel); commit(); return; }
   if (ds.fin != null) { ui.finOpen = !ds.fin || ui.finOpen === ds.fin ? null : ds.fin; renderView(); return; }
+  if (ds.finLog != null) { ui.finLog = ds.finLog || null; ui.finTests = null; renderView(); if (ui.finLog) setTimeout(() => { const i = document.querySelector('[data-form="fin-test"] input'); i && i.focus(); }, 0); return; }
+  if (ds.finTests) { ui.finTests = ui.finTests === ds.finTests ? null : ds.finTests; renderView(); return; }
+  if (ds.finTdel) { const [nid, tid] = ds.finTdel.split('|'), n = atNode(nid); if (n) { n.tests = (n.tests || []).filter(x => x.id !== tid); finApply(n); if (!n.tests.length) ui.finTests = null; commit(); toast('Test deleted'); } return; }
+  if (ds.finClaude) { const k = atNode(ds.finClaude); if (k) { const sub = atPath(k.id)[1] || k; openClaude(claudeQuiz(sub, k, atKids(k.id).length ? finLeaves(k.id) : [k])); } return; }
   if (ds.finPlan) { const k = atNode(ds.finPlan); if (k) { const sub = atPath(k.id)[1] || k; state.plan.push({ id: uid(), date: todayKey(), text: k === sub ? sub.name : atTitle(k), atlasId: sub.id, min: null, done: false, createdAt: Date.now() }); commit(); toast(`Planned today · ${atTitle(k)}`); } return; }
   if (ds.planDone) { const p = state.plan.find(x => x.id === ds.planDone); if (p) { p.done = !p.done; if (p.done && p.date < todayKey()) p.date = todayKey(); commit(); } return; }
   if (ds.planNext) { const p = state.plan.find(x => x.id === ds.planNext); if (p) { p.date = addDays(p.date < todayKey() ? todayKey() : p.date, 1); commit(); } return; }
@@ -4949,7 +4974,11 @@ function submitForm(f) {
   } else if (f.dataset.form === 'fin-test') {
     const inp = f.querySelector('input'), v = parseFloat(inp.value), n = atNode(f.dataset.node);
     if (!n || !(v >= 0 && v <= 100)) { inp.focus(); toast('Enter a score from 0 to 100'); return; }
-    finTest(n, Math.round(v), f.querySelector('select').value);
+    finTest(n, Math.round(v));
+  } else if (f.dataset.form === 'fin-tedit') {
+    const inp = f.querySelector('input'), v = parseFloat(inp.value), n = atNode(f.dataset.node), x = n && (n.tests || []).find(t => t.id === f.dataset.test);
+    if (!x || !(v >= 0 && v <= 100)) { inp.focus(); toast('Enter a score from 0 to 100'); return; }
+    x.score = Math.round(v); finApply(n); commit(); toast(`Test changed · ${x.score}%`);
   } else if (f.dataset.form === 'plan-add') {
     const inp = f.querySelector('input'), day = f.dataset.day; if (!planAdd(inp.value.trim(), day)) { inp.focus(); return; }
     commit(); setTimeout(() => { const i = document.querySelector(`[data-form="plan-add"][data-day="${day}"] input`); i && i.focus(); }, 0);
